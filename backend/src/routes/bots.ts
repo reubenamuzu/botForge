@@ -2,7 +2,20 @@ import { Router, Request, Response, NextFunction } from 'express'
 import { getAuth, clerkClient } from '@clerk/express'
 import { clerkAuth } from '../middlewares/auth'
 import { db } from '../lib/db'
+import { generateEmbedding } from '../lib/embeddings'
 import { z } from 'zod'
+import axios from 'axios'
+import { load } from 'cheerio'
+
+async function scrapeUrl(url: string): Promise<string> {
+  const { data } = await axios.get<string>(url, {
+    timeout: 8000,
+    headers: { 'User-Agent': 'BotForge/1.0' },
+  })
+  const $ = load(data)
+  $('script, style, nav, footer, header, noscript').remove()
+  return $('body').text().replace(/\s+/g, ' ').trim().slice(0, 10000)
+}
 
 export const botsRouter = Router()
 
@@ -140,7 +153,42 @@ botsRouter.post(
         return
       }
       const body = createKnowledgeSchema.parse(req.body)
-      const item = await db.knowledgeItem.create({ data: { ...body, botId: bot.id } })
+
+      let rawText: string | null = null
+      if (body.type === 'FAQ' && body.question && body.answer) {
+        rawText = `Q: ${body.question}\nA: ${body.answer}`
+      } else if (body.type === 'URL' && body.sourceUrl) {
+        try {
+          rawText = await scrapeUrl(body.sourceUrl)
+        } catch {
+          rawText = null
+        }
+      }
+
+      const item = await db.knowledgeItem.create({
+        data: {
+          botId: bot.id,
+          type: body.type,
+          question: body.question,
+          answer: body.answer,
+          sourceUrl: body.sourceUrl,
+          rawText,
+        },
+      })
+
+      if (rawText) {
+        try {
+          const embedding = await generateEmbedding(rawText)
+          await db.$executeRawUnsafe(
+            `UPDATE "KnowledgeItem" SET embedding = $1::vector WHERE "id" = $2`,
+            `[${embedding.join(',')}]`,
+            item.id
+          )
+        } catch {
+          // Non-fatal — item is saved without embedding
+        }
+      }
+
       res.status(201).json(item)
     } catch (err) {
       next(err)
