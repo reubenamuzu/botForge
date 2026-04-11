@@ -159,6 +159,15 @@
       buildChat(storedLead || {});
     }
 
+    // ── Powered-by footer ─────────────────────────────────────────────────────
+    if (!bot.whiteLabel) {
+      var poweredBy = document.createElement('div');
+      poweredBy.style.cssText = 'padding:6px 16px;font-size:11px;color:#9ca3af;text-align:center;' +
+        'border-top:1px solid #e5e7eb;flex-shrink:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;';
+      poweredBy.textContent = 'Powered by BotForge';
+      panel.appendChild(poweredBy);
+    }
+
     // ── Lead form ─────────────────────────────────────────────────────────────
     function buildLeadForm() {
       var form = document.createElement('div');
@@ -216,7 +225,7 @@
       function showTyping() {
         var el = document.createElement('div');
         el.className = 'bf-typing';
-        el.innerHTML = '<span></span><span></span><span></span>';
+        el.innerHTML = '<span></span><span></span><span></span>'; // static only — never inject dynamic data here
         msgsDiv.appendChild(el);
         msgsDiv.scrollTop = msgsDiv.scrollHeight;
         return el;

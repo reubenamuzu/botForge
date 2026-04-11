@@ -75,10 +75,33 @@ export function KnowledgeBaseTab({ botId, items, onItemsChanged }: Props) {
   async function handleUploadPdf(e: React.FormEvent) {
     e.preventDefault()
     if (!pdfFile) return
-    await addItem({ type: 'PDF', sourceUrl: pdfFile.name, rawText: pdfFile.name }, 'PDF')
-    setPdfFile(null)
-    const input = document.getElementById('pdf-input') as HTMLInputElement | null
-    if (input) input.value = ''
+    setSubmitting('PDF')
+    try {
+      const token = await getToken()
+      const formData = new FormData()
+      formData.append('type', 'PDF')
+      formData.append('sourceUrl', pdfFile.name)
+      formData.append('file', pdfFile)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bots/${botId}/knowledge`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error((err as { error?: string }).error ?? 'Upload failed')
+      }
+      const item: KnowledgeItem = await res.json()
+      onItemsChanged([item, ...items])
+      toast.success('PDF added')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to upload PDF')
+    } finally {
+      setSubmitting(null)
+      setPdfFile(null)
+      const input = document.getElementById('pdf-input') as HTMLInputElement | null
+      if (input) input.value = ''
+    }
   }
 
   return (
