@@ -7,6 +7,11 @@ import { checkBotLimit, checkSourceAllowed } from '../lib/limits'
 import { z } from 'zod'
 import axios from 'axios'
 import { load } from 'cheerio'
+import multer from 'multer'
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const pdfParse = require('pdf-parse') as (buf: Buffer) => Promise<{ text: string }>
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } })
 
 async function scrapeUrl(url: string): Promise<string> {
   const { data } = await axios.get<string>(url, {
@@ -146,6 +151,7 @@ botsRouter.delete('/:botId', async (req: Request, res: Response, next: NextFunct
 
 botsRouter.post(
   '/:botId/knowledge',
+  upload.single('file'),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userId } = getAuth(req)
@@ -168,6 +174,19 @@ botsRouter.post(
           rawText = await scrapeUrl(body.sourceUrl)
         } catch {
           rawText = null
+        }
+      } else if (body.type === 'PDF') {
+        const file = (req as Request & { file?: Express.Multer.File }).file
+        if (!file) {
+          res.status(400).json({ error: 'No PDF file uploaded' })
+          return
+        }
+        try {
+          const parsed = await pdfParse(file.buffer)
+          rawText = parsed.text.replace(/\s+/g, ' ').trim().slice(0, 50000) || null
+        } catch {
+          res.status(422).json({ error: 'Could not extract text from PDF' })
+          return
         }
       }
 

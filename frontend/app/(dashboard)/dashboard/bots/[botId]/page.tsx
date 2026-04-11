@@ -45,7 +45,30 @@ export default function BotDetailPage() {
   }, [fetchData])
 
   if (loading) {
-    return <div className="text-sm text-gray-500">Loading...</div>
+    return (
+      <div className="animate-pulse">
+        <div className="mb-6 flex items-center gap-3">
+          <div className="h-8 w-8 rounded-md bg-gray-200" />
+          <div className="h-9 w-9 rounded-full bg-gray-200" />
+          <div className="h-5 w-40 rounded-md bg-gray-200" />
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex gap-1">
+            <div className="h-9 w-24 rounded-md bg-gray-200" />
+            <div className="h-9 w-32 rounded-md bg-gray-200" />
+            <div className="h-9 w-28 rounded-md bg-gray-200" />
+          </div>
+          <div className="flex gap-2">
+            <div className="h-9 w-20 rounded-md bg-gray-200" />
+            <div className="h-9 w-20 rounded-md bg-gray-200" />
+          </div>
+        </div>
+        <div className="mt-6 space-y-4">
+          <div className="h-48 rounded-xl bg-gray-200" />
+          <div className="h-32 rounded-xl bg-gray-200" />
+        </div>
+      </div>
+    )
   }
 
   if (!bot) return null
