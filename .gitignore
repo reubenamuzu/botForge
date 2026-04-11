@@ -41,3 +41,5 @@ Thumbs.db
 # Claude / OMC
 .claude/
 .omc/
+
+sprint.md

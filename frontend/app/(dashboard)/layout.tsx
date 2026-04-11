@@ -1,6 +1,7 @@
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Topbar } from '@/components/layout/Topbar'
 import { Toaster } from '@/components/ui/sonner'
+import { OnboardingWizard } from '@/components/OnboardingWizard'
 
 export default function DashboardLayout({
   children,
@@ -15,6 +16,7 @@ export default function DashboardLayout({
         <main className="flex-1 overflow-y-auto p-8">{children}</main>
       </div>
       <Toaster />
+      <OnboardingWizard />
     </div>
   )
 }

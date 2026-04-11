@@ -147,6 +147,16 @@ export async function paystackWebhookHandler(
       const { userId, plan } = event.data.metadata ?? {}
       if (userId && plan) {
         await db.user.update({ where: { id: userId }, data: { plan: plan as PlanKey } })
+        try {
+          const user = await db.user.findUnique({ where: { id: userId }, select: { email: true, name: true } })
+          if (user) {
+            const PRICES_GHS: Record<string, string> = { STARTER: 'GHS 120', PRO: 'GHS 300', AGENCY: 'GHS 700' }
+            const { sendPaymentReceiptEmail } = await import('../lib/email')
+            await sendPaymentReceiptEmail(user.email, user.name, plan, PRICES_GHS[plan] ?? '')
+          }
+        } catch (emailErr) {
+          console.error('Receipt email failed:', emailErr)
+        }
       }
     }
 

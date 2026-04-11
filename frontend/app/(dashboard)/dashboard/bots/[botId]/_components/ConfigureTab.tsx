@@ -32,6 +32,7 @@ export function ConfigureTab({ bot, onSaved }: Props) {
     tone: bot.tone,
     fallbackMsg: bot.fallbackMsg,
     isActive: bot.isActive,
+    leadCapture: bot.leadCapture,
   })
   const [saving, setSaving] = useState(false)
 
@@ -110,6 +111,20 @@ export function ConfigureTab({ bot, onSaved }: Props) {
               onCheckedChange={(v) => setForm({ ...form, isActive: v })}
             />
             <Label htmlFor="cfg-active">Active</Label>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <Switch
+              id="cfg-lead"
+              checked={form.leadCapture}
+              onCheckedChange={(v) => setForm({ ...form, leadCapture: v })}
+            />
+            <div>
+              <Label htmlFor="cfg-lead">Lead capture</Label>
+              <p className="mt-0.5 text-xs text-gray-500">
+                Ask visitors for their name and email before they start chatting.
+              </p>
+            </div>
           </div>
 
           <Button type="submit" disabled={saving}>

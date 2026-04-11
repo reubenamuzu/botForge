@@ -51,6 +51,12 @@ webhookRouter.post('/clerk', async (req: Request, res: Response) => {
         await db.user.create({
           data: { clerkId: data.id, email, name, plan: 'FREE' },
         })
+        try {
+          const { sendWelcomeEmail } = await import('../lib/email')
+          await sendWelcomeEmail(email, name)
+        } catch (emailErr) {
+          console.error('Welcome email failed:', emailErr)
+        }
         break
       }
 

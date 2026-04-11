@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@clerk/nextjs'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Code2 } from 'lucide-react'
+import { ArrowLeft, Code2, FlaskConical } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import type { Bot, KnowledgeItem } from '@/lib/types'
@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ConfigureTab } from './_components/ConfigureTab'
 import { KnowledgeBaseTab } from './_components/KnowledgeBaseTab'
+import { AppearanceTab } from './_components/AppearanceTab'
 
 export default function BotDetailPage() {
   const { botId } = useParams<{ botId: string }>()
@@ -68,19 +69,31 @@ export default function BotDetailPage() {
           <TabsList>
             <TabsTrigger value="configure">Configure</TabsTrigger>
             <TabsTrigger value="knowledge">Knowledge Base</TabsTrigger>
+            <TabsTrigger value="appearance">Appearance</TabsTrigger>
           </TabsList>
-          <Button asChild variant="outline" size="sm" className="gap-1.5">
-            <Link href={`/dashboard/bots/${botId}/embed`}>
-              <Code2 className="h-3.5 w-3.5" />
-              Embed
-            </Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button asChild variant="outline" size="sm" className="gap-1.5">
+              <Link href={`/dashboard/bots/${botId}/test`}>
+                <FlaskConical className="h-3.5 w-3.5" />
+                Test
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="sm" className="gap-1.5">
+              <Link href={`/dashboard/bots/${botId}/embed`}>
+                <Code2 className="h-3.5 w-3.5" />
+                Embed
+              </Link>
+            </Button>
+          </div>
         </div>
         <TabsContent value="configure" className="mt-6">
           <ConfigureTab bot={bot} onSaved={setBot} />
         </TabsContent>
         <TabsContent value="knowledge" className="mt-6">
           <KnowledgeBaseTab botId={botId} items={knowledge} onItemsChanged={setKnowledge} />
+        </TabsContent>
+        <TabsContent value="appearance" className="mt-6">
+          <AppearanceTab bot={bot} onSaved={setBot} />
         </TabsContent>
       </Tabs>
     </div>

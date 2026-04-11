@@ -50,6 +50,9 @@ const createBotSchema = z.object({
 
 const updateBotSchema = createBotSchema.partial().extend({
   isActive: z.boolean().optional(),
+  widgetColor: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+  widgetPosition: z.enum(['bottom-right', 'bottom-left']).optional(),
+  leadCapture: z.boolean().optional(),
 })
 
 const createKnowledgeSchema = z.object({
@@ -217,6 +220,64 @@ botsRouter.get(
         orderBy: { createdAt: 'desc' },
       })
       res.json(items)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
+botsRouter.get(
+  '/:botId/leads',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = getAuth(req)
+      const user = await resolveUser(userId!)
+      const bot = await db.bot.findFirst({
+        where: { id: req.params.botId, userId: user.id },
+      })
+      if (!bot) {
+        res.status(404).json({ error: 'Bot not found' })
+        return
+      }
+
+      const page = Math.max(1, parseInt(req.query.page as string) || 1)
+      const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 20))
+      const skip = (page - 1) * limit
+
+      const [total, leads] = await Promise.all([
+        db.conversation.count({
+          where: { botId: bot.id, leadEmail: { not: null } },
+        }),
+        db.conversation.findMany({
+          where: { botId: bot.id, leadEmail: { not: null } },
+          orderBy: { createdAt: 'desc' },
+          skip,
+          take: limit,
+          select: {
+            id: true,
+            sessionId: true,
+            leadName: true,
+            leadEmail: true,
+            createdAt: true,
+            _count: { select: { messages: true } },
+          },
+        }),
+      ])
+
+      res.json({
+        items: leads.map((l) => ({
+          id: l.id,
+          sessionId: l.sessionId,
+          leadName: l.leadName,
+          leadEmail: l.leadEmail,
+          createdAt: l.createdAt,
+          messageCount: l._count.messages,
+        })),
+        total,
+        page,
+        limit,
+        pages: Math.ceil(total / limit),
+      })
     } catch (err) {
       next(err)
     }

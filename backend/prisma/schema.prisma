@@ -34,26 +34,32 @@ enum MessageRole {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  clerkId   String   @unique
-  email     String
-  name      String
-  plan      Plan     @default(FREE)
-  createdAt DateTime @default(now())
+  id                 String    @id @default(cuid())
+  clerkId            String    @unique
+  email              String
+  name               String
+  plan               Plan      @default(FREE)
+  onboardingDone     Boolean   @default(false)
+  deletedAt          DateTime?
+  usageAlertSentAt   DateTime?
+  createdAt          DateTime  @default(now())
 
   bots Bot[]
 }
 
 model Bot {
-  id          String   @id @default(cuid())
-  userId      String
-  name        String
-  avatar      String?
-  greeting    String
-  tone        Tone     @default(FRIENDLY)
-  fallbackMsg String
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
+  id             String   @id @default(cuid())
+  userId         String
+  name           String
+  avatar         String?
+  greeting       String
+  tone           Tone     @default(FRIENDLY)
+  fallbackMsg    String
+  isActive       Boolean  @default(true)
+  widgetColor    String   @default("#4f46e5")
+  widgetPosition String   @default("bottom-right")
+  leadCapture    Boolean  @default(false)
+  createdAt      DateTime @default(now())
 
   user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   knowledgeItems KnowledgeItem[]
@@ -78,6 +84,8 @@ model Conversation {
   id        String   @id @default(cuid())
   botId     String
   sessionId String
+  leadName  String?
+  leadEmail String?
   createdAt DateTime @default(now())
 
   bot      Bot       @relation(fields: [botId], references: [id], onDelete: Cascade)

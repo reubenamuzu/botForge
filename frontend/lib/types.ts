@@ -26,7 +26,72 @@ export interface Bot {
   tone: Tone
   fallbackMsg: string
   isActive: boolean
+  widgetColor: string
+  widgetPosition: 'bottom-right' | 'bottom-left'
+  leadCapture: boolean
   createdAt: string
+}
+
+export interface LeadItem {
+  id: string
+  sessionId: string
+  leadName: string | null
+  leadEmail: string
+  createdAt: string
+  messageCount: number
+}
+
+export interface LeadListResponse {
+  items: LeadItem[]
+  total: number
+  page: number
+  limit: number
+  pages: number
+}
+
+export interface CurrentUser {
+  id: string
+  email: string
+  name: string
+  plan: Plan
+  onboardingDone: boolean
+}
+
+export interface AnalyticsSummary {
+  totalConversations: number
+  totalMessages: number
+  messagesThisMonth: number
+  avgMessagesPerConversation: number
+  topQuestions: { content: string; count: number }[]
+  unansweredCount: number
+  dailyMessages: { date: string; count: number }[]
+}
+
+export interface ConversationItem {
+  id: string
+  sessionId: string
+  createdAt: string
+  messageCount: number
+  lastMessage: string
+}
+
+export interface ConversationListResponse {
+  items: ConversationItem[]
+  total: number
+  page: number
+  limit: number
+  pages: number
+}
+
+export interface ConversationMessage {
+  role: 'USER' | 'BOT'
+  content: string
+  createdAt: string
+}
+
+export interface ConversationDetail {
+  conversation: { id: string; sessionId: string; createdAt: string }
+  messages: ConversationMessage[]
 }
 
 export interface KnowledgeItem {
