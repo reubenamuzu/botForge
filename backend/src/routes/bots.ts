@@ -3,6 +3,7 @@ import { getAuth, clerkClient } from '@clerk/express'
 import { clerkAuth } from '../middlewares/auth'
 import { db } from '../lib/db'
 import { generateEmbedding } from '../lib/embeddings'
+import { checkBotLimit, checkSourceAllowed } from '../lib/limits'
 import { z } from 'zod'
 import axios from 'axios'
 import { load } from 'cheerio'
@@ -63,6 +64,7 @@ botsRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
   try {
     const { userId } = getAuth(req)
     const user = await resolveUser(userId!)
+    await checkBotLimit(user.id)
     const body = createBotSchema.parse(req.body)
     const bot = await db.bot.create({ data: { ...body, userId: user.id } })
     res.status(201).json(bot)
@@ -153,6 +155,7 @@ botsRouter.post(
         return
       }
       const body = createKnowledgeSchema.parse(req.body)
+      await checkSourceAllowed(user.id, body.type)
 
       let rawText: string | null = null
       if (body.type === 'FAQ' && body.question && body.answer) {

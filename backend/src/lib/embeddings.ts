@@ -1,11 +1,9 @@
-import OpenAI from 'openai'
+import { GoogleGenerativeAI } from '@google/generative-ai'
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? '')
+const embeddingModel = genAI.getGenerativeModel({ model: 'gemini-embedding-001' })
 
 export async function generateEmbedding(text: string): Promise<number[]> {
-  const response = await openai.embeddings.create({
-    model: 'text-embedding-3-small',
-    input: text,
-  })
-  return response.data[0].embedding
+  const result = await embeddingModel.embedContent(text)
+  return result.embedding.values
 }

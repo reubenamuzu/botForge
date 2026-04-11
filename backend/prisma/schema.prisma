@@ -68,7 +68,7 @@ model KnowledgeItem {
   answer     String?
   sourceUrl  String?
   rawText    String?
-  embedding  Unsupported("vector(1536)")?
+  embedding  Unsupported("vector(3072)")?
   createdAt  DateTime      @default(now())
 
   bot Bot @relation(fields: [botId], references: [id], onDelete: Cascade)

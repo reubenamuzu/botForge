@@ -1,5 +1,21 @@
 export type Tone = 'FRIENDLY' | 'PROFESSIONAL' | 'FORMAL'
 export type KnowledgeType = 'FAQ' | 'PDF' | 'URL'
+export type Plan = 'FREE' | 'STARTER' | 'PRO' | 'AGENCY'
+
+export interface PlanLimits {
+  maxBots: number
+  maxMessagesPerMonth: number
+  allowPDF: boolean
+  allowURL: boolean
+  whiteLabel: boolean
+}
+
+export interface UsageStats {
+  plan: Plan
+  botCount: number
+  messageCount: number
+  limits: PlanLimits
+}
 
 export interface Bot {
   id: string

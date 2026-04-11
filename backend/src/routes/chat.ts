@@ -3,6 +3,7 @@ import rateLimit from 'express-rate-limit'
 import { z } from 'zod'
 import { db } from '../lib/db'
 import { generateBotResponse } from '../lib/chat'
+import { checkMessageLimit } from '../lib/limits'
 
 export const chatRouter = Router()
 
@@ -26,6 +27,13 @@ const chatSchema = z.object({
 chatRouter.post('/', limiter, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { botId, sessionId, message } = chatSchema.parse(req.body)
+
+    const bot = await db.bot.findUnique({ where: { id: botId }, select: { userId: true } })
+    if (!bot) {
+      res.status(404).json({ error: 'Bot not found' })
+      return
+    }
+    await checkMessageLimit(bot.userId)
 
     let conversation = await db.conversation.findFirst({
       where: { botId, sessionId },

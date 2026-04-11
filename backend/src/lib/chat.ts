@@ -16,7 +16,12 @@ export async function generateBotResponse(
   history: { role: string; content: string }[]
 ): Promise<string> {
   const bot = await db.bot.findUniqueOrThrow({ where: { id: botId } })
-  const chunks = await retrieveContext(botId, userMessage)
+  let chunks: string[] = []
+  try {
+    chunks = await retrieveContext(botId, userMessage)
+  } catch {
+    // Embedding/retrieval failure (e.g. quota) — continue with no context
+  }
 
   const systemPrompt = [
     `You are ${bot.name}, a customer support assistant.`,
