@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@clerk/nextjs'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Code2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import type { Bot, KnowledgeItem } from '@/lib/types'
@@ -64,10 +64,18 @@ export default function BotDetailPage() {
       </div>
 
       <Tabs defaultValue="configure">
-        <TabsList>
-          <TabsTrigger value="configure">Configure</TabsTrigger>
-          <TabsTrigger value="knowledge">Knowledge Base</TabsTrigger>
-        </TabsList>
+        <div className="flex items-center justify-between">
+          <TabsList>
+            <TabsTrigger value="configure">Configure</TabsTrigger>
+            <TabsTrigger value="knowledge">Knowledge Base</TabsTrigger>
+          </TabsList>
+          <Button asChild variant="outline" size="sm" className="gap-1.5">
+            <Link href={`/dashboard/bots/${botId}/embed`}>
+              <Code2 className="h-3.5 w-3.5" />
+              Embed
+            </Link>
+          </Button>
+        </div>
         <TabsContent value="configure" className="mt-6">
           <ConfigureTab bot={bot} onSaved={setBot} />
         </TabsContent>

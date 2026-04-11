@@ -11,7 +11,7 @@ const limiter = rateLimit({
   limit: 30,
   keyGenerator: (req: Request) => {
     const body = req.body as { sessionId?: string }
-    return body?.sessionId ?? req.ip ?? 'unknown'
+    return body?.sessionId ?? 'anonymous'
   },
   standardHeaders: true,
   legacyHeaders: false,

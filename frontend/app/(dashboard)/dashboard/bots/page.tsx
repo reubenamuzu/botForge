@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -96,6 +97,9 @@ export default function BotsPage() {
             <DialogHeader>
               <DialogTitle>Create a new bot</DialogTitle>
             </DialogHeader>
+            <DialogDescription className="sr-only">
+              Fill in the details below to create a new AI support bot.
+            </DialogDescription>
             <form onSubmit={handleCreate} className="space-y-4 pt-2">
               <div className="space-y-1.5">
                 <Label htmlFor="name">Bot name</Label>
