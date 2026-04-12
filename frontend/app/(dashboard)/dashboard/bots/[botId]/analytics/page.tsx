@@ -34,7 +34,7 @@ function MetricCard({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium text-gray-600">{label}</CardTitle>
-        <Icon className="h-4 w-4 text-indigo-500" />
+        <Icon className="h-4 w-4 text-[#6C47FF]" />
       </CardHeader>
       <CardContent>
         <p className="text-2xl font-bold text-gray-900">{value}</p>
@@ -91,7 +91,7 @@ export default function AnalyticsPage() {
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6C47FF] text-sm font-semibold text-white">
           {bot ? bot.name.charAt(0).toUpperCase() : '?'}
         </div>
         <div>
@@ -161,7 +161,7 @@ export default function AnalyticsPage() {
                     }}
                     cursor={{ fill: '#eef2ff' }}
                   />
-                  <Bar dataKey="Messages" fill="#4f46e5" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="Messages" fill="#6C47FF" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             )}
@@ -193,7 +193,7 @@ export default function AnalyticsPage() {
                     <span className="line-clamp-2 text-sm text-gray-700">{content}</span>
                     <Badge
                       variant="secondary"
-                      className="ml-auto shrink-0 bg-indigo-50 text-indigo-700 hover:bg-indigo-50"
+                      className="ml-auto shrink-0 bg-[#f0ebff] text-[#6C47FF] hover:bg-[#f0ebff]"
                     >
                       {count}
                     </Badge>

@@ -52,7 +52,7 @@ export default function EmbedPage() {
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6C47FF] text-sm font-semibold text-white">
           {bot ? bot.name.charAt(0).toUpperCase() : '?'}
         </div>
         <div>
@@ -67,7 +67,7 @@ export default function EmbedPage() {
           {/* Snippet card */}
           <div className="rounded-lg border border-gray-200 bg-white p-6">
             <div className="mb-1 flex items-center gap-2">
-              <Code2 className="h-4 w-4 text-indigo-600" />
+              <Code2 className="h-4 w-4 text-[#6C47FF]" />
               <h2 className="text-sm font-semibold text-gray-900">Embed code</h2>
             </div>
             <p className="mb-4 text-sm text-gray-500">
@@ -99,7 +99,7 @@ export default function EmbedPage() {
           {/* Go live checklist */}
           <div className="rounded-lg border border-gray-200 bg-white p-6">
             <div className="mb-4 flex items-center gap-2">
-              <Zap className="h-4 w-4 text-indigo-600" />
+              <Zap className="h-4 w-4 text-[#6C47FF]" />
               <h2 className="text-sm font-semibold text-gray-900">Go live checklist</h2>
             </div>
             <ol className="space-y-4">
@@ -118,7 +118,7 @@ export default function EmbedPage() {
                 },
               ].map(({ title, desc }, i) => (
                 <li key={i} className="flex gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-xs font-semibold text-indigo-600">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f0ebff] text-xs font-semibold text-[#6C47FF]">
                     {i + 1}
                   </span>
                   <div>
@@ -134,7 +134,7 @@ export default function EmbedPage() {
         {/* Right column — live preview */}
         <div className="rounded-lg border border-gray-200 bg-white p-6">
           <div className="mb-1 flex items-center gap-2">
-            <ExternalLink className="h-4 w-4 text-indigo-600" />
+            <ExternalLink className="h-4 w-4 text-[#6C47FF]" />
             <h2 className="text-sm font-semibold text-gray-900">Live preview</h2>
           </div>
           <p className="mb-4 text-sm text-gray-500">

@@ -76,7 +76,7 @@ export function AppearanceTab({ bot, onSaved }: Props) {
                 onChange={(e) => handleHexInput(e.target.value)}
                 maxLength={7}
                 placeholder="#4f46e5"
-                className="w-32 rounded-md border border-gray-200 px-3 py-2 font-mono text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                className="w-32 rounded-md border border-gray-200 px-3 py-2 font-mono text-sm outline-none focus:border-[#6C47FF] focus:ring-1 focus:ring-[#6C47FF]"
               />
             </div>
             <p className="text-xs text-gray-400">
@@ -120,7 +120,7 @@ export function AppearanceTab({ bot, onSaved }: Props) {
                 className={cn(
                   'rounded-lg border-2 p-4 text-left text-sm font-medium transition-colors',
                   position === p
-                    ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
+                    ? 'border-[#6C47FF] bg-[#f0ebff] text-[#6C47FF]'
                     : 'border-gray-200 text-gray-600 hover:border-gray-300'
                 )}
               >
@@ -132,7 +132,7 @@ export function AppearanceTab({ bot, onSaved }: Props) {
         </CardContent>
       </Card>
 
-      <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
+      <Button onClick={handleSave} disabled={saving} className="bg-[#6C47FF] hover:bg-[#5835ee]">
         {saving ? 'Saving…' : 'Save appearance'}
       </Button>
     </div>

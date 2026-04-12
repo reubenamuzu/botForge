@@ -124,7 +124,7 @@ export default function BillingPage() {
                 {usage.messageCount.toLocaleString()} / {msgLimit === Infinity ? '∞' : msgLimit.toLocaleString()}
               </span>
             </div>
-            <Progress value={msgPct} className="h-2 [&>[data-slot=progress-indicator]]:bg-indigo-600" />
+            <Progress value={msgPct} className="h-2 [&>[data-slot=progress-indicator]]:bg-[#6C47FF]" />
             {msgPct >= 90 && (
               <p className="mt-2 text-xs text-amber-600">
                 You&apos;re nearly at your message limit.
@@ -141,7 +141,7 @@ export default function BillingPage() {
             </div>
             <Progress
               value={usage.limits.maxBots === Infinity ? 0 : Math.min(100, Math.round((usage.botCount / usage.limits.maxBots) * 100))}
-              className="h-2 [&>[data-slot=progress-indicator]]:bg-indigo-600"
+              className="h-2 [&>[data-slot=progress-indicator]]:bg-[#6C47FF]"
             />
           </div>
         </div>
@@ -158,13 +158,13 @@ export default function BillingPage() {
           return (
             <Card
               key={plan.key}
-              className={isCurrent ? 'border-indigo-500 ring-1 ring-indigo-500' : undefined}
+              className={isCurrent ? 'border-[#6C47FF] ring-1 ring-[#6C47FF]' : undefined}
             >
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base">{plan.label}</CardTitle>
                   {isCurrent && (
-                    <Badge className="bg-indigo-600 text-white hover:bg-indigo-600">
+                    <Badge className="bg-[#6C47FF] text-white hover:bg-[#6C47FF]">
                       Current
                     </Badge>
                   )}
@@ -184,7 +184,7 @@ export default function BillingPage() {
                 <ul className="space-y-2">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-sm text-gray-600">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-indigo-500" />
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#6C47FF]" />
                       {f}
                     </li>
                   ))}
@@ -203,7 +203,7 @@ export default function BillingPage() {
                 ) : (
                   <Button
                     size="sm"
-                    className="w-full gap-1.5 bg-indigo-600 hover:bg-indigo-700"
+                    className="w-full gap-1.5 bg-[#6C47FF] hover:bg-[#5835ee]"
                     disabled={!isUpgrade || upgrading !== null}
                     onClick={() => handleUpgrade(plan.key)}
                   >

@@ -169,7 +169,7 @@ export default function BotsPage() {
           {bots.map((bot) => (
             <Card key={bot.id}>
               <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#6C47FF] text-sm font-semibold text-white">
                   {bot.name.charAt(0).toUpperCase()}
                 </div>
                 <CardTitle className="flex-1 truncate text-base">{bot.name}</CardTitle>

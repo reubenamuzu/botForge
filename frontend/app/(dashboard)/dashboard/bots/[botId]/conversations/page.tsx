@@ -160,7 +160,7 @@ export default function ConversationsPage() {
           <Button asChild variant="ghost" size="icon">
             <Link href={`/dashboard/bots/${botId}`}><ArrowLeft className="h-4 w-4" /></Link>
           </Button>
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6C47FF] text-sm font-semibold text-white">
             {botInitial}
           </div>
           <div className="flex-1">
@@ -234,8 +234,8 @@ export default function ConversationsPage() {
                         key={conv.id}
                         onClick={() => openConversation(conv.id)}
                         className={cn(
-                          'cursor-pointer border-b border-gray-100 transition-colors last:border-0 hover:bg-indigo-50/50',
-                          selectedId === conv.id ? 'bg-indigo-50' : ''
+                          'cursor-pointer border-b border-gray-100 transition-colors last:border-0 hover:bg-[#f0ebff]/50',
+                          selectedId === conv.id ? 'bg-[#f0ebff]' : ''
                         )}
                       >
                         <td className="px-4 py-3 font-mono text-xs text-gray-500">
@@ -293,7 +293,7 @@ export default function ConversationsPage() {
                       <tr key={lead.id} className="border-b border-gray-100 last:border-0">
                         <td className="px-4 py-3 text-gray-800">{lead.leadName ?? <span className="text-gray-400">—</span>}</td>
                         <td className="px-4 py-3">
-                          <a href={`mailto:${lead.leadEmail}`} className="text-indigo-600 hover:underline">{lead.leadEmail}</a>
+                          <a href={`mailto:${lead.leadEmail}`} className="text-[#6C47FF] hover:underline">{lead.leadEmail}</a>
                         </td>
                         <td className="px-4 py-3 text-gray-600">{formatDate(lead.createdAt)}</td>
                         <td className="px-4 py-3">
@@ -342,10 +342,10 @@ export default function ConversationsPage() {
                     <div key={i} className={cn('flex', msg.role === 'USER' ? 'justify-end' : 'justify-start')}>
                       <div className={cn(
                         'max-w-[80%] rounded-2xl px-3 py-2 text-sm',
-                        msg.role === 'USER' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800'
+                        msg.role === 'USER' ? 'bg-[#6C47FF] text-white' : 'bg-gray-100 text-gray-800'
                       )}>
                         <p>{msg.content}</p>
-                        <p className={cn('mt-1 text-right text-xs', msg.role === 'USER' ? 'text-indigo-200' : 'text-gray-400')}>
+                        <p className={cn('mt-1 text-right text-xs', msg.role === 'USER' ? 'text-white/60' : 'text-gray-400')}>
                           {new Date(msg.createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                         </p>
                       </div>

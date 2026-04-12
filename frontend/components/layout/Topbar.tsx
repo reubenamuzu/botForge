@@ -11,8 +11,8 @@ export async function Topbar() {
   }
 
   return (
-    <header className="flex h-16 flex-shrink-0 items-center justify-between border-b border-gray-200 bg-white px-6">
-      <span className="text-sm font-medium text-gray-500">{displayName}</span>
+    <header className="flex h-16 flex-shrink-0 items-center justify-between border-b border-[#ede9f8] bg-white px-6">
+      <span className="text-sm font-medium text-[#6B6490]">{displayName}</span>
       <UserButton />
     </header>
   )

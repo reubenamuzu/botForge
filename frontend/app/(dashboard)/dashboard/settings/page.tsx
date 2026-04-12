@@ -66,7 +66,7 @@ export default function SettingsPage() {
                 href="https://accounts.clerk.com/user"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-indigo-600 hover:underline"
+                className="text-[#6C47FF] hover:underline"
               >
                 Clerk account settings
               </a>

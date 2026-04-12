@@ -81,7 +81,7 @@ export default function BotDetailPage() {
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6C47FF] text-sm font-semibold text-white">
           {bot.name.charAt(0).toUpperCase()}
         </div>
         <h1 className="text-xl font-semibold text-gray-900">{bot.name}</h1>

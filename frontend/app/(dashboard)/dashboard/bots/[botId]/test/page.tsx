@@ -86,7 +86,7 @@ export default function BotTestPage() {
         <Button asChild variant="ghost" size="icon">
           <Link href={`/dashboard/bots/${botId}`}><ArrowLeft className="h-4 w-4" /></Link>
         </Button>
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6C47FF] text-sm font-semibold text-white">
           {bot ? bot.name.charAt(0).toUpperCase() : '?'}
         </div>
         <div className="flex-1">
@@ -117,7 +117,7 @@ export default function BotTestPage() {
                 className={cn(
                   'max-w-[72%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed',
                   msg.role === 'user'
-                    ? 'rounded-br-sm bg-indigo-600 text-white'
+                    ? 'rounded-br-sm bg-[#6C47FF] text-white'
                     : 'rounded-bl-sm bg-gray-100 text-gray-900'
                 )}
               >
@@ -151,7 +151,7 @@ export default function BotTestPage() {
             type="submit"
             size="icon"
             disabled={loading || !input.trim() || !bot}
-            className="shrink-0 bg-indigo-600 hover:bg-indigo-700"
+            className="shrink-0 bg-[#6C47FF] hover:bg-[#5835ee]"
           >
             <Send className="h-4 w-4" />
           </Button>

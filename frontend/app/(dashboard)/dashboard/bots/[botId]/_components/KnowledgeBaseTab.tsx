@@ -224,7 +224,7 @@ export function KnowledgeBaseTab({ botId, items, onItemsChanged }: Props) {
             <div className="divide-y divide-gray-100 rounded-md border border-gray-200">
               {urls.map((url) => (
                 <div key={url.id} className="flex items-center justify-between px-3 py-2.5">
-                  <span className="truncate text-sm text-indigo-600">{url.sourceUrl}</span>
+                  <span className="truncate text-sm text-[#6C47FF]">{url.sourceUrl}</span>
                   <Button
                     variant="ghost"
                     size="icon"
