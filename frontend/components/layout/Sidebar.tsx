@@ -54,7 +54,9 @@ export function Sidebar() {
   return (
     <aside className="flex w-64 flex-shrink-0 flex-col border-r border-gray-200 bg-white">
       <div className="flex h-16 items-center border-b border-gray-200 px-6">
-        <span className="text-xl font-bold text-indigo-600">BotForge</span>
+        <Link href="/" className="text-xl font-bold text-indigo-600">
+          BotForge
+        </Link>
       </div>
       <nav className="flex-1 space-y-0.5 p-3">
         {navItems.map(({ label, href, icon: Icon }) => {

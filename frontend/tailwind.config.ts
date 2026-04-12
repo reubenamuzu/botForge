@@ -10,6 +10,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        ghost: '#F8F8FF',
+        clerk: {
+          purple:       '#6C47FF',
+          'purple-hover': '#5D3BE8',
+          'purple-dark':  '#4F35CC',
+          lavender:     '#EDE8FF',
+          'lavender-soft': '#F5F3FF',
+          dark:         '#1A1035',
+          muted:        '#6B6490',
+          border:       '#D9D3F0',
+        },
         indigo: {
           50: '#EEF2FF',
           100: '#E0E7FF',
