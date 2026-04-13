@@ -3,13 +3,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@clerk/nextjs'
 import Link from 'next/link'
-import { Bot as BotIcon, Plus } from 'lucide-react'
+import { Bot as BotIcon, Plus, MessageSquare, Clock } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import type { Bot, Tone } from '@/lib/types'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 import {
   Dialog,
   DialogContent,
@@ -28,6 +28,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+
+function timeAgo(iso: string | null): string {
+  if (!iso) return 'Never'
+  const diff = Date.now() - new Date(iso).getTime()
+  const mins = Math.floor(diff / 60000)
+  if (mins < 1) return 'Just now'
+  if (mins < 60) return `${mins}m ago`
+  const hrs = Math.floor(mins / 60)
+  if (hrs < 24) return `${hrs}h ago`
+  const days = Math.floor(hrs / 24)
+  if (days < 30) return `${days}d ago`
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
 
 const defaultForm = { name: '', greeting: '', tone: 'FRIENDLY' as Tone }
 
@@ -193,25 +206,42 @@ export default function BotsPage() {
       ) : (
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {bots.map((bot) => (
-            <Card key={bot.id}>
-              <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#6C47FF] text-sm font-semibold text-white">
-                  {bot.name.charAt(0).toUpperCase()}
+            <Link
+              key={bot.id}
+              href={`/dashboard/bots/${bot.id}`}
+              className="group flex flex-col rounded-2xl border border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5 shadow-sm transition-all hover:border-[#6C47FF] hover:shadow-md"
+            >
+              <div className="mb-3 flex items-start justify-between gap-2">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#6C47FF] to-[#5835ee] text-sm font-bold text-white shadow-sm">
+                    {bot.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate font-bold text-[#1A1035] dark:text-[#f8f8ff]">{bot.name}</p>
+                    <div className="mt-0.5 flex items-center gap-1.5">
+                      <span className={`h-1.5 w-1.5 rounded-full ${bot.isActive ? 'bg-emerald-400' : 'bg-gray-300'}`} />
+                      <span className="text-xs text-[#6B6490] dark:text-[#a19bb8]">{bot.isActive ? 'Active' : 'Inactive'}</span>
+                    </div>
+                  </div>
                 </div>
-                <CardTitle className="flex-1 truncate text-base">{bot.name}</CardTitle>
-                <Badge variant={bot.isActive ? 'success' : 'secondary'}>
-                  {bot.isActive ? 'Active' : 'Inactive'}
+                <Badge variant={bot.isActive ? 'success' : 'secondary'} className="shrink-0 text-xs">
+                  {bot.isActive ? 'Live' : 'Off'}
                 </Badge>
-              </CardHeader>
-              <CardContent className="pb-3">
-                <p className="line-clamp-2 text-sm text-gray-500 dark:text-gray-400">{bot.greeting}</p>
-              </CardContent>
-              <CardFooter>
-                <Button asChild variant="outline" size="sm" className="w-full">
-                  <Link href={`/dashboard/bots/${bot.id}`}>Open</Link>
-                </Button>
-              </CardFooter>
-            </Card>
+              </div>
+
+              <p className="mb-4 line-clamp-2 flex-1 text-sm text-[#6B6490] dark:text-[#a19bb8]">{bot.greeting}</p>
+
+              <div className="flex items-center justify-between border-t border-[#f0ebff] dark:border-[#382b61] pt-3 text-xs text-[#6B6490] dark:text-[#a19bb8]">
+                <span className="flex items-center gap-1">
+                  <MessageSquare className="h-3.5 w-3.5" />
+                  {(bot.conversationCount ?? 0).toLocaleString()} convos
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="h-3.5 w-3.5" />
+                  {timeAgo(bot.lastActiveAt)}
+                </span>
+              </div>
+            </Link>
           ))}
         </div>
       )}

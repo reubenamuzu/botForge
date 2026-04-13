@@ -16,10 +16,11 @@ import {
   CartesianGrid,
 } from 'recharts'
 import { api } from '@/lib/api'
-import type { AnalyticsSummary, Bot } from '@/lib/types'
+import type { AnalyticsSummary, Bot, ConversationItem, ConversationListResponse } from '@/lib/types'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 function MetricCard({
   label,
@@ -49,6 +50,24 @@ export default function AnalyticsPage() {
   const [bot, setBot] = useState<Bot | null>(null)
   const [summary, setSummary] = useState<AnalyticsSummary | null>(null)
   const [loading, setLoading] = useState(true)
+  const [unanswered, setUnanswered] = useState<ConversationItem[]>([])
+  const [unansweredLoading, setUnansweredLoading] = useState(false)
+
+  const fetchUnanswered = useCallback(async () => {
+    setUnansweredLoading(true)
+    try {
+      const token = await getToken()
+      const { data } = await api.get<ConversationListResponse>(
+        `/analytics/${botId}/conversations?unanswered=true&limit=50`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      setUnanswered(data.items)
+    } catch {
+      // silently ignore
+    } finally {
+      setUnansweredLoading(false)
+    }
+  }, [botId, getToken])
 
   const fetchData = useCallback(async () => {
     try {
@@ -70,6 +89,10 @@ export default function AnalyticsPage() {
   useEffect(() => {
     fetchData()
   }, [fetchData])
+
+  useEffect(() => {
+    if (summary && summary.unansweredCount > 0) fetchUnanswered()
+  }, [summary, fetchUnanswered])
 
   if (loading) {
     return (
@@ -143,6 +166,55 @@ export default function AnalyticsPage() {
           icon={AlertCircle}
         />
       </div>
+
+      {/* Unanswered queue */}
+      {summary.unansweredCount > 0 && (
+        <div className="mb-6">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-xs font-bold text-amber-700">!</span>
+              Unanswered Questions
+            </h2>
+            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700">
+              {summary.unansweredCount} conversation{summary.unansweredCount !== 1 ? 's' : ''}
+            </span>
+          </div>
+          <Card>
+            <CardContent className="p-0">
+              {unansweredLoading ? (
+                <div className="animate-pulse divide-y divide-gray-100">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex gap-3 px-4 py-3">
+                      <div className="h-3 w-24 rounded bg-gray-200" />
+                      <div className="h-3 flex-1 rounded bg-gray-100" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-100 dark:divide-[#382b61]">
+                  {unanswered.map((conv) => (
+                    <Link
+                      key={conv.id}
+                      href={`/dashboard/bots/${botId}/conversations`}
+                      className={cn(
+                        'flex items-center gap-4 px-4 py-3 text-sm transition-colors',
+                        'hover:bg-gray-50 dark:hover:bg-[#1A1035]/50'
+                      )}
+                    >
+                      <span className="font-mono text-xs text-gray-400">{conv.sessionId.slice(0, 12)}…</span>
+                      <span className="flex-1 truncate text-gray-600 dark:text-gray-400">{conv.lastMessage}</span>
+                      <span className="shrink-0 text-xs text-gray-400">
+                        {new Date(conv.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </span>
+                      <Badge variant="secondary" className="shrink-0">{conv.messageCount}</Badge>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Bar chart */}

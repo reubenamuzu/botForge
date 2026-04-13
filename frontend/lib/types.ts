@@ -30,6 +30,8 @@ export interface Bot {
   widgetPosition: 'bottom-right' | 'bottom-left'
   leadCapture: boolean
   createdAt: string
+  conversationCount: number
+  lastActiveAt: string | null
 }
 
 export interface LeadItem {

@@ -110,11 +110,19 @@ analyticsRouter.get(
       const page = Math.max(1, parseInt(req.query.page as string) || 1)
       const limit = Math.min(50, Math.max(1, parseInt(req.query.limit as string) || 20))
       const skip = (page - 1) * limit
+      const search = (req.query.search as string)?.trim() || ''
+      const unanswered = req.query.unanswered === 'true'
+
+      const where = {
+        botId: bot.id,
+        ...(unanswered ? { messages: { some: { role: 'BOT' as const, content: bot.fallbackMsg } } } : {}),
+        ...(search ? { messages: { some: { content: { contains: search, mode: 'insensitive' as const } } } } : {}),
+      }
 
       const [total, conversations] = await Promise.all([
-        db.conversation.count({ where: { botId: bot.id } }),
+        db.conversation.count({ where }),
         db.conversation.findMany({
-          where: { botId: bot.id },
+          where,
           orderBy: { createdAt: 'desc' },
           skip,
           take: limit,

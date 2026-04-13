@@ -214,10 +214,32 @@
       msgsDiv.className = 'bf-messages';
       panel.appendChild(msgsDiv);
 
+      function renderMarkdown(text) {
+        // Escape HTML to prevent XSS
+        var s = text
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        // Bold **text**
+        s = s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        // Italic *text*
+        s = s.replace(/\*(.+?)\*/g,'<em>$1</em>');
+        // Links [label](url) — only allow http/https
+        s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">$1</a>');
+        // Unordered list lines starting with - or *
+        s = s.replace(/^[-*] (.+)$/gm,'<li>$1</li>');
+        s = s.replace(/(<li>.*<\/li>)/s,'<ul style="margin:4px 0;padding-left:18px">$1</ul>');
+        // Line breaks
+        s = s.replace(/\n/g,'<br>');
+        return s;
+      }
+
       function appendMsg(role, text) {
         var div = document.createElement('div');
         div.className = 'bf-msg '+(role==='bot'?'bf-msg-bot':'bf-msg-user');
-        div.textContent = text;
+        if (role === 'bot') {
+          div.innerHTML = renderMarkdown(text);
+        } else {
+          div.textContent = text;
+        }
         msgsDiv.appendChild(div);
         msgsDiv.scrollTop = msgsDiv.scrollHeight;
       }

@@ -88,8 +88,22 @@ botsRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     const bots = await db.bot.findMany({
       where: { userId: user.id },
       orderBy: { createdAt: 'desc' },
+      include: {
+        _count: { select: { conversations: true } },
+        conversations: {
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+          select: { createdAt: true },
+        },
+      },
     })
-    res.json(bots)
+    res.json(
+      bots.map(({ _count, conversations, ...bot }) => ({
+        ...bot,
+        conversationCount: _count.conversations,
+        lastActiveAt: conversations[0]?.createdAt ?? null,
+      }))
+    )
   } catch (err) {
     next(err)
   }
