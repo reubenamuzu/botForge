@@ -56,8 +56,8 @@ export default function EmbedPage() {
           {bot ? bot.name.charAt(0).toUpperCase() : '?'}
         </div>
         <div>
-          <h1 className="text-xl font-semibold text-gray-900">Embed your bot</h1>
-          {bot && <p className="text-sm text-gray-500">{bot.name}</p>}
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Embed your bot</h1>
+          {bot && <p className="text-sm text-gray-500 dark:text-gray-400">{bot.name}</p>}
         </div>
       </div>
 
@@ -65,12 +65,12 @@ export default function EmbedPage() {
         {/* Left column */}
         <div className="space-y-6">
           {/* Snippet card */}
-          <div className="rounded-lg border border-gray-200 bg-white p-6">
+          <div className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-6">
             <div className="mb-1 flex items-center gap-2">
               <Code2 className="h-4 w-4 text-[#6C47FF]" />
-              <h2 className="text-sm font-semibold text-gray-900">Embed code</h2>
+              <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Embed code</h2>
             </div>
-            <p className="mb-4 text-sm text-gray-500">
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
               Paste this snippet before the{' '}
               <code className="rounded bg-gray-100 px-1 py-0.5 text-xs font-mono">&lt;/body&gt;</code>{' '}
               tag on your website.
@@ -97,10 +97,10 @@ export default function EmbedPage() {
           </div>
 
           {/* Go live checklist */}
-          <div className="rounded-lg border border-gray-200 bg-white p-6">
+          <div className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-6">
             <div className="mb-4 flex items-center gap-2">
               <Zap className="h-4 w-4 text-[#6C47FF]" />
-              <h2 className="text-sm font-semibold text-gray-900">Go live checklist</h2>
+              <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Go live checklist</h2>
             </div>
             <ol className="space-y-4">
               {[
@@ -122,8 +122,8 @@ export default function EmbedPage() {
                     {i + 1}
                   </span>
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{title}</p>
-                    <p className="mt-0.5 text-xs text-gray-500">{desc}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{title}</p>
+                    <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{desc}</p>
                   </div>
                 </li>
               ))}
@@ -132,15 +132,15 @@ export default function EmbedPage() {
         </div>
 
         {/* Right column — live preview */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
+        <div className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-6">
           <div className="mb-1 flex items-center gap-2">
             <ExternalLink className="h-4 w-4 text-[#6C47FF]" />
-            <h2 className="text-sm font-semibold text-gray-900">Live preview</h2>
+            <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Live preview</h2>
           </div>
-          <p className="mb-4 text-sm text-gray-500">
+          <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
             See exactly how your bot will look on a real page.
           </p>
-          <div className="overflow-hidden rounded-lg border border-gray-200" style={{ height: 480 }}>
+          <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-[#382b61]" style={{ height: 480 }}>
             <iframe
               src={`${API_BASE}/demo.html?botId=${botId}`}
               className="h-full w-full"

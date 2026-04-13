@@ -80,8 +80,8 @@ export default function KnowledgePage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-[#1A1035]">Knowledge Base</h1>
-        <p className="mt-1 text-sm text-[#6B6490]">Manage training data across all your bots.</p>
+        <h1 className="text-2xl font-bold text-[#1A1035] dark:text-[#f8f8ff]">Knowledge Base</h1>
+        <p className="mt-1 text-sm text-[#6B6490] dark:text-[#a19bb8]">Manage training data across all your bots.</p>
       </div>
 
       {/* Summary stats */}
@@ -92,12 +92,12 @@ export default function KnowledgePage() {
             { label: 'PDFs', value: totalPdfs, icon: FileText, color: 'text-amber-500', bg: 'bg-amber-50' },
             { label: 'URLs', value: totalUrls, icon: Globe, color: 'text-emerald-500', bg: 'bg-emerald-50' },
           ].map(({ label, value, icon: Icon, color, bg }) => (
-            <div key={label} className="rounded-2xl border border-[#ede9f8] bg-white p-5 shadow-sm">
+            <div key={label} className="rounded-2xl border border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5 shadow-sm">
               <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl ${bg}`}>
                 <Icon className={`h-5 w-5 ${color}`} />
               </div>
-              <p className="text-2xl font-bold text-[#1A1035]">{value}</p>
-              <p className="mt-0.5 text-sm font-medium text-[#6B6490]">{label} across all bots</p>
+              <p className="text-2xl font-bold text-[#1A1035] dark:text-[#f8f8ff]">{value}</p>
+              <p className="mt-0.5 text-sm font-medium text-[#6B6490] dark:text-[#a19bb8]">{label} across all bots</p>
             </div>
           ))}
         </div>
@@ -105,7 +105,7 @@ export default function KnowledgePage() {
 
       {/* Per-bot breakdown */}
       <div>
-        <h2 className="mb-4 text-base font-bold text-[#1A1035]">By Bot</h2>
+        <h2 className="mb-4 text-base font-bold text-[#1A1035] dark:text-[#f8f8ff]">By Bot</h2>
 
         {loading ? (
           <div className="space-y-3">
@@ -114,10 +114,10 @@ export default function KnowledgePage() {
             ))}
           </div>
         ) : data.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[#ede9f8] py-20 text-center">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[#ede9f8] dark:border-[#382b61] py-20 text-center">
             <BookOpen className="mb-3 h-10 w-10 text-[#c4b5fd]" />
-            <p className="text-sm font-semibold text-[#1A1035]">No bots yet</p>
-            <p className="mt-1 text-xs text-[#6B6490]">
+            <p className="text-sm font-semibold text-[#1A1035] dark:text-[#f8f8ff]">No bots yet</p>
+            <p className="mt-1 text-xs text-[#6B6490] dark:text-[#a19bb8]">
               Create a bot to start adding knowledge.
             </p>
           </div>
@@ -131,24 +131,24 @@ export default function KnowledgePage() {
               return (
                 <div
                   key={bot.id}
-                  className="overflow-hidden rounded-2xl border border-[#ede9f8] bg-white shadow-sm"
+                  className="overflow-hidden rounded-2xl border border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035] shadow-sm"
                 >
                   {/* Header row */}
                   <button
                     onClick={() => toggleExpand(bot.id)}
-                    className="flex w-full items-center gap-4 p-5 text-left transition-colors hover:bg-[#faf8ff]"
+                    className="flex w-full items-center gap-4 p-5 text-left transition-colors hover:bg-[#faf8ff] dark:bg-[#130b29]"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#6C47FF] to-[#5835ee] text-sm font-bold text-white shadow-sm">
                       {bot.name.charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <p className="text-sm font-bold text-[#1A1035]">{bot.name}</p>
+                        <p className="text-sm font-bold text-[#1A1035] dark:text-[#f8f8ff]">{bot.name}</p>
                         <span
                           className={`h-1.5 w-1.5 rounded-full ${bot.isActive ? 'bg-emerald-400' : 'bg-gray-300'}`}
                         />
                       </div>
-                      <div className="mt-1 flex items-center gap-3 text-xs text-[#6B6490]">
+                      <div className="mt-1 flex items-center gap-3 text-xs text-[#6B6490] dark:text-[#a19bb8]">
                         <span>{faqs.length} FAQs</span>
                         <span>{pdfs.length} PDFs</span>
                         <span>{urls.length} URLs</span>
@@ -161,15 +161,15 @@ export default function KnowledgePage() {
                       <Link
                         href={`/dashboard/bots/${bot.id}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1.5 rounded-xl border border-[#ede9f8] px-3 py-1.5 text-xs font-semibold text-[#6C47FF] transition-colors hover:bg-[#f0ebff]"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-[#ede9f8] dark:border-[#382b61] px-3 py-1.5 text-xs font-semibold text-[#6C47FF] transition-colors hover:bg-[#f0ebff]"
                       >
                         <ArrowRight className="h-3.5 w-3.5" />
                         Manage
                       </Link>
                       {expanded ? (
-                        <ChevronDown className="h-4 w-4 text-[#6B6490]" />
+                        <ChevronDown className="h-4 w-4 text-[#6B6490] dark:text-[#a19bb8]" />
                       ) : (
-                        <ChevronRight className="h-4 w-4 text-[#6B6490]" />
+                        <ChevronRight className="h-4 w-4 text-[#6B6490] dark:text-[#a19bb8]" />
                       )}
                     </div>
                   </button>
@@ -193,7 +193,7 @@ export default function KnowledgePage() {
                         </div>
                       ))}
                       {items.length > 5 && (
-                        <div className="px-5 py-3 text-xs font-medium text-[#6B6490]">
+                        <div className="px-5 py-3 text-xs font-medium text-[#6B6490] dark:text-[#a19bb8]">
                           +{items.length - 5} more items —{' '}
                           <Link
                             href={`/dashboard/bots/${bot.id}`}
@@ -207,7 +207,7 @@ export default function KnowledgePage() {
                   )}
 
                   {expanded && items.length === 0 && (
-                    <div className="border-t border-[#f4efff] px-5 py-4 text-sm text-[#6B6490]">
+                    <div className="border-t border-[#f4efff] px-5 py-4 text-sm text-[#6B6490] dark:text-[#a19bb8]">
                       No knowledge items yet.{' '}
                       <Link
                         href={`/dashboard/bots/${bot.id}`}

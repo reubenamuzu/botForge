@@ -80,8 +80,8 @@ export default function BotsPage() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">My Bots</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">My Bots</h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Manage and configure your AI customer support bots.
           </p>
         </div>
@@ -155,12 +155,12 @@ export default function BotsPage() {
       </div>
 
       {loading ? (
-        <div className="mt-8 text-sm text-gray-500">Loading...</div>
+        <div className="mt-8 text-sm text-gray-500 dark:text-gray-400">Loading...</div>
       ) : bots.length === 0 ? (
         <div className="mt-16 flex flex-col items-center text-center">
           <BotIcon className="h-12 w-12 text-gray-300" />
-          <h3 className="mt-4 text-sm font-medium text-gray-900">No bots yet</h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <h3 className="mt-4 text-sm font-medium text-gray-900 dark:text-gray-100">No bots yet</h3>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Create your first bot to get started.
           </p>
         </div>
@@ -178,7 +178,7 @@ export default function BotsPage() {
                 </Badge>
               </CardHeader>
               <CardContent className="pb-3">
-                <p className="line-clamp-2 text-sm text-gray-500">{bot.greeting}</p>
+                <p className="line-clamp-2 text-sm text-gray-500 dark:text-gray-400">{bot.greeting}</p>
               </CardContent>
               <CardFooter>
                 <Button asChild variant="outline" size="sm" className="w-full">

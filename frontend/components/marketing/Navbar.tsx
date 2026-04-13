@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { useUser, UserButton } from '@clerk/nextjs'
-import { ChevronRight, ArrowUpRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 const NAV_LINKS = ['features', 'how-it-works', 'pricing'] as const
 
@@ -16,29 +17,30 @@ export default function Navbar() {
           <span className="text-xl font-bold tracking-tight text-[#6C47FF]">BotForge</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 rounded-full bg-white/50 px-8 py-3 backdrop-blur-md shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-white/60 sm:flex">
+        <nav className="hidden items-center gap-8 rounded-full bg-white/50 dark:bg-white/5 px-8 py-3 backdrop-blur-md shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-[#e2d5fa] dark:border-[#382b61]/60 dark:border-[#382b61] sm:flex">
           {NAV_LINKS.map((id) => (
             <a
               key={id}
               href={`#${id}`}
-              className="text-sm font-semibold capitalize text-[#1A1035] hover:text-[#9a70ff] transition-colors hover:scale-105 transform"
+              className="text-sm font-semibold capitalize text-[#1A1035] dark:text-[#e8e0ff] hover:text-[#9a70ff] transition-colors hover:scale-105 transform"
             >
               {id.replace('-', ' ')}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <ThemeToggle variant="marketing" />
           {!isLoaded ? null : isSignedIn ? (
             <>
-              <Link href="/dashboard" className="text-sm font-semibold text-[#1A1035] hover:text-[#9a70ff] transition-colors">
+              <Link href="/dashboard" className="text-sm font-semibold text-[#1A1035] dark:text-[#e8e0ff] hover:text-[#9a70ff] transition-colors">
                 Dashboard
               </Link>
               <UserButton />
             </>
           ) : (
             <>
-              <Link href="/sign-in" className="hidden text-sm font-semibold text-[#1A1035] hover:text-[#9a70ff] transition-colors sm:block">
+              <Link href="/sign-in" className="hidden text-sm font-semibold text-[#1A1035] dark:text-[#e8e0ff] hover:text-[#9a70ff] transition-colors sm:block">
                 Log In
               </Link>
               <Link

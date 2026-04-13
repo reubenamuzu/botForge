@@ -90,8 +90,8 @@ export default function BotTestPage() {
           {bot ? bot.name.charAt(0).toUpperCase() : '?'}
         </div>
         <div className="flex-1">
-          <h1 className="text-xl font-semibold text-gray-900">Test Bot</h1>
-          {bot && <p className="text-sm text-gray-500">{bot.name}</p>}
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Test Bot</h1>
+          {bot && <p className="text-sm text-gray-500 dark:text-gray-400">{bot.name}</p>}
         </div>
         <Button variant="outline" size="sm" onClick={reset} className="gap-1.5">
           <RotateCcw className="h-3.5 w-3.5" />
@@ -100,11 +100,11 @@ export default function BotTestPage() {
       </div>
 
       {/* Chat */}
-      <div className="flex flex-1 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white">
+      <div className="flex flex-1 flex-col overflow-hidden rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
         {/* Status bar */}
         <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-4 py-2">
           <span className={cn('h-2 w-2 rounded-full flex-shrink-0', bot?.isActive ? 'bg-green-400' : 'bg-gray-300')} />
-          <span className="truncate text-xs text-gray-500">
+          <span className="truncate text-xs text-gray-500 dark:text-gray-400">
             {bot?.isActive ? 'Active' : 'Inactive'} · session <code className="font-mono">{sessionId}</code>
           </span>
         </div>
@@ -118,7 +118,7 @@ export default function BotTestPage() {
                   'max-w-[72%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed',
                   msg.role === 'user'
                     ? 'rounded-br-sm bg-[#6C47FF] text-white'
-                    : 'rounded-bl-sm bg-gray-100 text-gray-900'
+                    : 'rounded-bl-sm bg-gray-100 text-gray-900 dark:text-gray-100'
                 )}
               >
                 {msg.content}

@@ -42,9 +42,9 @@ export function Sidebar() {
     : []
 
   return (
-    <aside className="flex w-64 flex-shrink-0 flex-col border-r border-[#ede9f8] bg-white">
+    <aside className="flex w-64 flex-shrink-0 flex-col border-r border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
       {/* Logo */}
-      <div className="flex h-16 items-center border-b border-[#ede9f8] px-5">
+      <div className="flex h-16 items-center border-b border-[#ede9f8] dark:border-[#382b61] px-5">
         <Link href="/">
           <span className="text-lg font-bold text-[#6C47FF] tracking-tight">BotForge</span>
         </Link>
@@ -64,7 +64,7 @@ export function Sidebar() {
                   'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
                   isActive
                     ? 'bg-[#f0ebff] text-[#6C47FF]'
-                    : 'text-[#6B6490] hover:bg-[#faf8ff] hover:text-[#1A1035]'
+                    : 'text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:bg-[#130b29] hover:text-[#1A1035] dark:text-[#f8f8ff]'
                 )}
               >
                 <Icon className="h-4 w-4 flex-shrink-0" />
@@ -72,7 +72,7 @@ export function Sidebar() {
               </Link>
 
               {href === '/dashboard/bots' && botSubnav.length > 0 && (
-                <div className="ml-7 mt-0.5 space-y-0.5 border-l border-[#ede9f8] pl-3">
+                <div className="ml-7 mt-0.5 space-y-0.5 border-l border-[#ede9f8] dark:border-[#382b61] pl-3">
                   {botSubnav.map(({ label: subLabel, href: subHref, icon: SubIcon }) => {
                     const isSubActive = pathname.startsWith(subHref)
                     return (
@@ -83,7 +83,7 @@ export function Sidebar() {
                           'flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors',
                           isSubActive
                             ? 'bg-[#f0ebff] text-[#6C47FF]'
-                            : 'text-[#6B6490] hover:bg-[#faf8ff] hover:text-[#1A1035]'
+                            : 'text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:bg-[#130b29] hover:text-[#1A1035] dark:text-[#f8f8ff]'
                         )}
                       >
                         <SubIcon className="h-3.5 w-3.5 flex-shrink-0" />

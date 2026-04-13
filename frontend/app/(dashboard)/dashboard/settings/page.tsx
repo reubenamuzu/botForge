@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useAuth, useUser, useClerk } from '@clerk/nextjs'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
@@ -37,8 +38,8 @@ export default function SettingsPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Settings</h1>
-        <p className="mt-1 text-sm text-gray-500">Manage your account.</p>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Settings</h1>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage your account.</p>
       </div>
 
       <div className="max-w-xl space-y-6">
@@ -72,6 +73,22 @@ export default function SettingsPage() {
               </a>
               .
             </p>
+          </CardContent>
+        </Card>
+
+        {/* Appearance */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Appearance</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Theme</p>
+                <p className="mt-0.5 text-xs text-[#6B6490] dark:text-[#a19bb8]">Switch between light and dark mode.</p>
+              </div>
+              <ThemeToggle />
+            </div>
           </CardContent>
         </Card>
 

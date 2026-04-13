@@ -84,7 +84,7 @@ export default function BotDetailPage() {
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6C47FF] text-sm font-semibold text-white">
           {bot.name.charAt(0).toUpperCase()}
         </div>
-        <h1 className="text-xl font-semibold text-gray-900">{bot.name}</h1>
+        <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{bot.name}</h1>
       </div>
 
       <Tabs defaultValue="configure">

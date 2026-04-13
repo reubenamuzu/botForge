@@ -110,17 +110,17 @@ export default function BillingPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Billing</h1>
-        <p className="mt-1 text-sm text-gray-500">Manage your plan and view usage.</p>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Billing</h1>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage your plan and view usage.</p>
       </div>
 
       {/* Usage summary */}
       {usage && (
         <div className="mb-8 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-lg border border-gray-200 bg-white p-5">
+          <div className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">
             <div className="mb-3 flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-700">Messages this month</p>
-              <span className="text-sm text-gray-500">
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Messages this month</p>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 {usage.messageCount.toLocaleString()} / {msgLimit === Infinity ? '∞' : msgLimit.toLocaleString()}
               </span>
             </div>
@@ -132,10 +132,10 @@ export default function BillingPage() {
             )}
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-white p-5">
+          <div className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">
             <div className="mb-3 flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-700">Bots used</p>
-              <span className="text-sm text-gray-500">
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Bots used</p>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 {usage.botCount} / {botLimit}
               </span>
             </div>
@@ -175,8 +175,8 @@ export default function BillingPage() {
                   )}
                 </div>
                 <div className="mt-1">
-                  <span className="text-2xl font-bold text-gray-900">{plan.price}</span>
-                  <span className="ml-1 text-sm text-gray-500">{plan.priceNote}</span>
+                  <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">{plan.price}</span>
+                  <span className="ml-1 text-sm text-gray-500 dark:text-gray-400">{plan.priceNote}</span>
                 </div>
               </CardHeader>
 

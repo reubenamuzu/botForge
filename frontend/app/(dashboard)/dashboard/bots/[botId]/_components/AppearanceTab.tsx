@@ -68,7 +68,7 @@ export function AppearanceTab({ bot, onSaved }: Props) {
                 type="color"
                 value={color}
                 onChange={(e) => handlePicker(e.target.value)}
-                className="h-10 w-14 cursor-pointer rounded-md border border-gray-200 p-0.5"
+                className="h-10 w-14 cursor-pointer rounded-md border border-gray-200 dark:border-[#382b61] p-0.5"
               />
               <input
                 type="text"
@@ -76,7 +76,7 @@ export function AppearanceTab({ bot, onSaved }: Props) {
                 onChange={(e) => handleHexInput(e.target.value)}
                 maxLength={7}
                 placeholder="#4f46e5"
-                className="w-32 rounded-md border border-gray-200 px-3 py-2 font-mono text-sm outline-none focus:border-[#6C47FF] focus:ring-1 focus:ring-[#6C47FF]"
+                className="w-32 rounded-md border border-gray-200 dark:border-[#382b61] px-3 py-2 font-mono text-sm outline-none focus:border-[#6C47FF] focus:ring-1 focus:ring-[#6C47FF]"
               />
             </div>
             <p className="text-xs text-gray-400">
@@ -86,7 +86,7 @@ export function AppearanceTab({ bot, onSaved }: Props) {
 
           {/* Live preview */}
           <div className="rounded-lg border border-gray-100 bg-gray-50 p-4">
-            <p className="mb-3 text-xs font-medium text-gray-500">Preview</p>
+            <p className="mb-3 text-xs font-medium text-gray-500 dark:text-gray-400">Preview</p>
             <div className="flex items-end gap-3">
               <div
                 className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full shadow-md"
@@ -121,7 +121,7 @@ export function AppearanceTab({ bot, onSaved }: Props) {
                   'rounded-lg border-2 p-4 text-left text-sm font-medium transition-colors',
                   position === p
                     ? 'border-[#6C47FF] bg-[#f0ebff] text-[#6C47FF]'
-                    : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                    : 'border-gray-200 dark:border-[#382b61] text-gray-600 hover:border-gray-300'
                 )}
               >
                 <span className="mb-1 block text-xl">{p === 'bottom-right' ? '↘' : '↙'}</span>

@@ -130,11 +130,11 @@ export function OnboardingWizard() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-lg rounded-2xl bg-white shadow-2xl">
+      <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-[#1A1035] shadow-2xl">
         {/* Header */}
         <div className="border-b border-gray-100 px-8 pt-8 pb-6">
-          <h2 className="text-xl font-bold text-gray-900">Welcome to BotForge 👋</h2>
-          <p className="mt-1 text-sm text-gray-500">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Welcome to BotForge 👋</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Let&apos;s get your first bot up and running in 3 quick steps.
           </p>
 
@@ -151,14 +151,14 @@ export function OnboardingWizard() {
                         ? 'bg-indigo-600 text-white'
                         : active
                         ? 'border-2 border-indigo-600 text-indigo-600'
-                        : 'border-2 border-gray-200 text-gray-400'
+                        : 'border-2 border-gray-200 dark:border-[#382b61] text-gray-400'
                     }`}
                   >
                     {done ? <Check className="h-3.5 w-3.5" /> : i + 1}
                   </div>
                   <span
                     className={`hidden text-xs font-medium sm:block ${
-                      active ? 'text-indigo-600' : done ? 'text-gray-500' : 'text-gray-400'
+                      active ? 'text-indigo-600' : done ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400'
                     }`}
                   >
                     {s.label}
@@ -182,8 +182,8 @@ export function OnboardingWizard() {
               <div className="flex items-center gap-3 rounded-xl bg-indigo-50 p-4">
                 <Bot className="h-8 w-8 text-indigo-500" />
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">Name your first bot</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Name your first bot</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     Give it a friendly name your customers will recognise.
                   </p>
                 </div>
@@ -215,8 +215,8 @@ export function OnboardingWizard() {
               <div className="flex items-center gap-3 rounded-xl bg-indigo-50 p-4">
                 <MessageSquare className="h-8 w-8 text-indigo-500" />
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">Add your first FAQ</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Add your first FAQ</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     Teach your bot to answer a common customer question.
                   </p>
                 </div>
@@ -257,8 +257,8 @@ export function OnboardingWizard() {
               <div className="flex items-center gap-3 rounded-xl bg-indigo-50 p-4">
                 <Code2 className="h-8 w-8 text-indigo-500" />
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">Copy your embed code</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Copy your embed code</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     Paste this snippet before the{' '}
                     <code className="font-mono">&lt;/body&gt;</code> tag on your site.
                   </p>

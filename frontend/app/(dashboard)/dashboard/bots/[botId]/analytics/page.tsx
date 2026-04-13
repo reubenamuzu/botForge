@@ -37,7 +37,7 @@ function MetricCard({
         <Icon className="h-4 w-4 text-[#6C47FF]" />
       </CardHeader>
       <CardContent>
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
+        <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{value}</p>
       </CardContent>
     </Card>
   )
@@ -72,7 +72,7 @@ export default function AnalyticsPage() {
   }, [fetchData])
 
   if (loading) {
-    return <div className="text-sm text-gray-500">Loading analytics…</div>
+    return <div className="text-sm text-gray-500 dark:text-gray-400">Loading analytics…</div>
   }
 
   if (!summary) return null
@@ -95,8 +95,8 @@ export default function AnalyticsPage() {
           {bot ? bot.name.charAt(0).toUpperCase() : '?'}
         </div>
         <div>
-          <h1 className="text-xl font-semibold text-gray-900">Analytics</h1>
-          {bot && <p className="text-sm text-gray-500">{bot.name}</p>}
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Analytics</h1>
+          {bot && <p className="text-sm text-gray-500 dark:text-gray-400">{bot.name}</p>}
         </div>
       </div>
 
@@ -128,7 +128,7 @@ export default function AnalyticsPage() {
         {/* Bar chart */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm font-semibold text-gray-900">
+            <CardTitle className="text-sm font-semibold text-gray-900 dark:text-gray-100">
               Messages — Last 7 Days
             </CardTitle>
           </CardHeader>
@@ -171,7 +171,7 @@ export default function AnalyticsPage() {
         {/* Top questions */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-900">Top Questions</CardTitle>
+            <CardTitle className="text-sm font-semibold text-gray-900 dark:text-gray-100">Top Questions</CardTitle>
             {summary.unansweredCount > 0 && (
               <span className="rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700">
                 {summary.unansweredCount} unanswered
@@ -190,7 +190,7 @@ export default function AnalyticsPage() {
                     key={i}
                     className="flex items-start justify-between gap-3 rounded-lg bg-gray-50 px-3 py-2.5"
                   >
-                    <span className="line-clamp-2 text-sm text-gray-700">{content}</span>
+                    <span className="line-clamp-2 text-sm text-gray-700 dark:text-gray-300">{content}</span>
                     <Badge
                       variant="secondary"
                       className="ml-auto shrink-0 bg-[#f0ebff] text-[#6C47FF] hover:bg-[#f0ebff]"

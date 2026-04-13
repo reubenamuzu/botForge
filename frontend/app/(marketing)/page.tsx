@@ -28,7 +28,7 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#faf8ff] text-[#1A1035] antialiased">
+    <div className="min-h-screen bg-[#faf8ff] dark:bg-transparent text-[#1A1035] dark:text-white antialiased">
       <Navbar />
       <HeroSection />
       <StatsSection />

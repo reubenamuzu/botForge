@@ -121,7 +121,7 @@ export function ConfigureTab({ bot, onSaved }: Props) {
             />
             <div>
               <Label htmlFor="cfg-lead">Lead capture</Label>
-              <p className="mt-0.5 text-xs text-gray-500">
+              <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
                 Ask visitors for their name and email before they start chatting.
               </p>
             </div>

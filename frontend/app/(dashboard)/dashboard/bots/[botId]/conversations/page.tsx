@@ -164,21 +164,21 @@ export default function ConversationsPage() {
             {botInitial}
           </div>
           <div className="flex-1">
-            <h1 className="text-xl font-semibold text-gray-900">Conversations</h1>
-            {bot && <p className="text-sm text-gray-500">{bot.name}</p>}
+            <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Conversations</h1>
+            {bot && <p className="text-sm text-gray-500 dark:text-gray-400">{bot.name}</p>}
           </div>
         </div>
 
         {/* Tab bar */}
         <div className="mb-4 flex items-center justify-between">
-          <div className="flex gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1">
+          <div className="flex gap-1 rounded-lg border border-gray-200 dark:border-[#382b61] bg-gray-50 p-1">
             <button
               onClick={() => setActiveTab('conversations')}
               className={cn(
                 'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
                 activeTab === 'conversations'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'bg-white dark:bg-[#1A1035] text-gray-900 dark:text-gray-100 shadow-sm'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300'
               )}
             >
               <MessageCircle className="h-3.5 w-3.5" />
@@ -189,8 +189,8 @@ export default function ConversationsPage() {
               className={cn(
                 'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
                 activeTab === 'leads'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'bg-white dark:bg-[#1A1035] text-gray-900 dark:text-gray-100 shadow-sm'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300'
               )}
             >
               <Users className="h-3.5 w-3.5" />
@@ -209,16 +209,16 @@ export default function ConversationsPage() {
         {/* Conversations tab */}
         {activeTab === 'conversations' && (
           loading ? (
-            <div className="text-sm text-gray-500">Loading…</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">Loading…</div>
           ) : !data || data.items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 py-20 text-center">
+            <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 dark:border-[#382b61] py-20 text-center">
               <MessageCircle className="mb-3 h-10 w-10 text-gray-300" />
-              <p className="text-sm font-medium text-gray-500">No conversations yet</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">No conversations yet</p>
               <p className="mt-1 text-xs text-gray-400">Messages will appear once users start chatting.</p>
             </div>
           ) : (
             <>
-              <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+              <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50 text-left">
@@ -238,7 +238,7 @@ export default function ConversationsPage() {
                           selectedId === conv.id ? 'bg-[#f0ebff]' : ''
                         )}
                       >
-                        <td className="px-4 py-3 font-mono text-xs text-gray-500">
+                        <td className="px-4 py-3 font-mono text-xs text-gray-500 dark:text-gray-400">
                           {conv.sessionId.slice(0, 12)}…
                         </td>
                         <td className="px-4 py-3 text-gray-600">{formatDate(conv.createdAt)}</td>
@@ -254,7 +254,7 @@ export default function ConversationsPage() {
                 </table>
               </div>
               {data.pages > 1 && (
-                <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+                <div className="mt-4 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                   <span>Page {data.page} of {data.pages} ({data.total} total)</span>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" disabled={data.page <= 1} onClick={() => setPage((p) => p - 1)}>Previous</Button>
@@ -269,16 +269,16 @@ export default function ConversationsPage() {
         {/* Leads tab */}
         {activeTab === 'leads' && (
           leadsLoading ? (
-            <div className="text-sm text-gray-500">Loading…</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">Loading…</div>
           ) : !leadsData || leadsData.items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 py-20 text-center">
+            <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 dark:border-[#382b61] py-20 text-center">
               <Users className="mb-3 h-10 w-10 text-gray-300" />
-              <p className="text-sm font-medium text-gray-500">No leads yet</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">No leads yet</p>
               <p className="mt-1 text-xs text-gray-400">Enable lead capture in your bot settings to collect visitor details.</p>
             </div>
           ) : (
             <>
-              <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+              <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50 text-left">
@@ -305,7 +305,7 @@ export default function ConversationsPage() {
                 </table>
               </div>
               {leadsData.pages > 1 && (
-                <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+                <div className="mt-4 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                   <span>Page {leadsData.page} of {leadsData.pages} ({leadsData.total} total)</span>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" disabled={leadsData.page <= 1} onClick={() => setLeadsPage((p) => p - 1)}>Previous</Button>
@@ -321,10 +321,10 @@ export default function ConversationsPage() {
       {/* Conversation detail panel */}
       {selectedId && (
         <div className="w-full flex-shrink-0 lg:w-96">
-          <div className="sticky top-0 flex h-full flex-col rounded-xl border border-gray-200 bg-white">
+          <div className="sticky top-0 flex h-full flex-col rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
             <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
               <div>
-                <p className="text-sm font-semibold text-gray-900">Conversation</p>
+                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Conversation</p>
                 <p className="font-mono text-xs text-gray-400">
                   {detail?.conversation.sessionId.slice(0, 16)}…
                 </p>

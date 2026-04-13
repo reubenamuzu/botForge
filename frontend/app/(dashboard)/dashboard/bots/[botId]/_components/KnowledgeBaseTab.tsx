@@ -138,10 +138,10 @@ export function KnowledgeBaseTab({ botId, items, onItemsChanged }: Props) {
           </form>
 
           {faqs.length > 0 && (
-            <div className="divide-y divide-gray-100 rounded-md border border-gray-200">
+            <div className="divide-y divide-gray-100 rounded-md border border-gray-200 dark:border-[#382b61]">
               {faqs.map((faq) => (
                 <div key={faq.id} className="flex items-center justify-between px-3 py-2.5">
-                  <span className="truncate text-sm text-gray-700">{faq.question}</span>
+                  <span className="truncate text-sm text-gray-700 dark:text-gray-300">{faq.question}</span>
                   <Button
                     variant="ghost"
                     size="icon"
@@ -179,10 +179,10 @@ export function KnowledgeBaseTab({ botId, items, onItemsChanged }: Props) {
           </form>
 
           {pdfs.length > 0 && (
-            <div className="divide-y divide-gray-100 rounded-md border border-gray-200">
+            <div className="divide-y divide-gray-100 rounded-md border border-gray-200 dark:border-[#382b61]">
               {pdfs.map((pdf) => (
                 <div key={pdf.id} className="flex items-center justify-between px-3 py-2.5">
-                  <span className="truncate text-sm text-gray-700">{pdf.sourceUrl}</span>
+                  <span className="truncate text-sm text-gray-700 dark:text-gray-300">{pdf.sourceUrl}</span>
                   <Button
                     variant="ghost"
                     size="icon"
@@ -221,7 +221,7 @@ export function KnowledgeBaseTab({ botId, items, onItemsChanged }: Props) {
           </form>
 
           {urls.length > 0 && (
-            <div className="divide-y divide-gray-100 rounded-md border border-gray-200">
+            <div className="divide-y divide-gray-100 rounded-md border border-gray-200 dark:border-[#382b61]">
               {urls.map((url) => (
                 <div key={url.id} className="flex items-center justify-between px-3 py-2.5">
                   <span className="truncate text-sm text-[#6C47FF]">{url.sourceUrl}</span>
