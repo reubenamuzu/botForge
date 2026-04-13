@@ -72,7 +72,27 @@ export default function AnalyticsPage() {
   }, [fetchData])
 
   if (loading) {
-    return <div className="text-sm text-gray-500 dark:text-gray-400">Loading analytics…</div>
+    return (
+      <div className="animate-pulse">
+        <div className="mb-6 flex items-center gap-3">
+          <div className="h-8 w-8 rounded-md bg-gray-200 dark:bg-[#2a1f4e]" />
+          <div className="h-9 w-9 rounded-full bg-gray-200 dark:bg-[#2a1f4e]" />
+          <div className="h-5 w-32 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+        </div>
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">
+              <div className="mb-3 h-3 w-24 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+              <div className="h-8 w-20 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+            </div>
+          ))}
+        </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="h-72 rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]" />
+          <div className="h-72 rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]" />
+        </div>
+      </div>
+    )
   }
 
   if (!summary) return null

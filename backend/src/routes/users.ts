@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express'
 import { getAuth, clerkClient } from '@clerk/express'
 import { clerkAuth } from '../middlewares/auth'
 import { db } from '../lib/db'
+import { sendWelcomeEmail } from '../lib/email'
 
 export const usersRouter = Router()
 usersRouter.use(clerkAuth)
@@ -10,7 +11,7 @@ async function resolveUser(clerkUserId: string) {
   const existing = await db.user.findUnique({ where: { clerkId: clerkUserId } })
   if (existing) return existing
   const clerkUser = await clerkClient.users.getUser(clerkUserId)
-  return db.user.create({
+  const user = await db.user.create({
     data: {
       clerkId: clerkUserId,
       email: clerkUser.emailAddresses[0]?.emailAddress ?? '',
@@ -18,6 +19,8 @@ async function resolveUser(clerkUserId: string) {
         [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(' ') || 'User',
     },
   })
+  sendWelcomeEmail(user.email, user.name).catch(() => {})
+  return user
 }
 
 // GET /api/users/me

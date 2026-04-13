@@ -140,7 +140,7 @@ export default function EmbedPage() {
           <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
             See exactly how your bot will look on a real page.
           </p>
-          <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-[#382b61]" style={{ height: 480 }}>
+          <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-[#382b61]" style={{ height: 600 }}>
             <iframe
               src={`${API_BASE}/demo.html?botId=${botId}`}
               className="h-full w-full"

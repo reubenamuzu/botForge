@@ -115,6 +115,19 @@ export default function BillingPage() {
       </div>
 
       {/* Usage summary */}
+      {!usage && (
+        <div className="mb-8 grid animate-pulse gap-4 sm:grid-cols-2">
+          {[1, 2].map((i) => (
+            <div key={i} className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">
+              <div className="mb-3 flex items-center justify-between">
+                <div className="h-3 w-36 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+                <div className="h-3 w-16 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+              </div>
+              <div className="h-2 rounded-full bg-gray-200 dark:bg-[#2a1f4e]" />
+            </div>
+          ))}
+        </div>
+      )}
       {usage && (
         <div className="mb-8 grid gap-4 sm:grid-cols-2">
           <div className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">

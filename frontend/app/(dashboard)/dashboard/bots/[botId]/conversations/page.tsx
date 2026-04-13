@@ -209,7 +209,16 @@ export default function ConversationsPage() {
         {/* Conversations tab */}
         {activeTab === 'conversations' && (
           loading ? (
-            <div className="text-sm text-gray-500 dark:text-gray-400">Loading…</div>
+            <div className="animate-pulse overflow-hidden rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="flex items-center gap-4 border-b border-gray-100 dark:border-[#382b61] px-4 py-3 last:border-0">
+                  <div className="h-3 w-24 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+                  <div className="h-3 w-32 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+                  <div className="h-5 w-8 rounded-full bg-gray-200 dark:bg-[#2a1f4e]" />
+                  <div className="h-3 flex-1 rounded bg-gray-100 dark:bg-[#231942]" />
+                </div>
+              ))}
+            </div>
           ) : !data || data.items.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 dark:border-[#382b61] py-20 text-center">
               <MessageCircle className="mb-3 h-10 w-10 text-gray-300" />
@@ -269,7 +278,16 @@ export default function ConversationsPage() {
         {/* Leads tab */}
         {activeTab === 'leads' && (
           leadsLoading ? (
-            <div className="text-sm text-gray-500 dark:text-gray-400">Loading…</div>
+            <div className="animate-pulse overflow-hidden rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="flex items-center gap-4 border-b border-gray-100 dark:border-[#382b61] px-4 py-3 last:border-0">
+                  <div className="h-3 w-28 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+                  <div className="h-3 w-40 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+                  <div className="h-3 w-24 rounded bg-gray-100 dark:bg-[#231942]" />
+                  <div className="h-5 w-8 rounded-full bg-gray-100 dark:bg-[#231942]" />
+                </div>
+              ))}
+            </div>
           ) : !leadsData || leadsData.items.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 dark:border-[#382b61] py-20 text-center">
               <Users className="mb-3 h-10 w-10 text-gray-300" />
@@ -335,7 +353,13 @@ export default function ConversationsPage() {
             </div>
             <div className="flex-1 overflow-y-auto p-4">
               {detailLoading ? (
-                <div className="text-center text-sm text-gray-400">Loading…</div>
+                <div className="animate-pulse space-y-3">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className={`flex ${i % 2 === 0 ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`h-10 rounded-2xl bg-gray-200 dark:bg-[#2a1f4e] ${i % 2 === 0 ? 'w-3/5' : 'w-4/5'}`} />
+                    </div>
+                  ))}
+                </div>
               ) : detail ? (
                 <div className="space-y-3">
                   {detail.messages.map((msg, i) => (

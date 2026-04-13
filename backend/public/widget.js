@@ -71,7 +71,7 @@
       '.bf-bubble:hover{transform:scale(1.08);box-shadow:0 6px 20px '+csh+';}',
       '.bf-bubble svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}',
 
-      '.bf-panel{position:fixed;bottom:92px;'+pos+':24px;width:360px;height:520px;',
+      '.bf-panel{position:fixed;bottom:92px;'+pos+':24px;width:360px;height:min(520px,calc(100vh - 120px));',
       'background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.18);',
       'z-index:9999;display:flex;flex-direction:column;overflow:hidden;',
       'transition:opacity .2s,transform .2s;transform-origin:bottom '+pos+';}',
