@@ -236,9 +236,17 @@ export default function ConversationsPage() {
             </div>
           ) : !data || data.items.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 dark:border-[#382b61] py-20 text-center">
-              <MessageCircle className="mb-3 h-10 w-10 text-gray-300" />
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">No conversations yet</p>
-              <p className="mt-1 text-xs text-gray-400">Messages will appear once users start chatting.</p>
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden className="mb-3">
+                <rect x="8" y="16" width="40" height="30" rx="8" fill="#f0ebff" stroke="#c4b5fd" strokeWidth="1.5"/>
+                <rect x="24" y="34" width="32" height="22" rx="8" fill="#ede9f8" stroke="#c4b5fd" strokeWidth="1.5"/>
+                <circle cx="20" cy="31" r="3" fill="#a78bfa"/>
+                <circle cx="28" cy="31" r="3" fill="#a78bfa"/>
+                <circle cx="36" cy="31" r="3" fill="#a78bfa"/>
+                <circle cx="36" cy="45" r="2.5" fill="#c4b5fd"/>
+                <circle cx="44" cy="45" r="2.5" fill="#c4b5fd"/>
+              </svg>
+              <p className="text-sm font-semibold text-[#1A1035] dark:text-[#f8f8ff]">No conversations yet</p>
+              <p className="mt-1 text-xs text-[#6B6490] dark:text-[#a19bb8]">Messages will appear once users start chatting with your bot.</p>
             </div>
           ) : (
             <>
@@ -305,9 +313,13 @@ export default function ConversationsPage() {
             </div>
           ) : !leadsData || leadsData.items.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 dark:border-[#382b61] py-20 text-center">
-              <Users className="mb-3 h-10 w-10 text-gray-300" />
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">No leads yet</p>
-              <p className="mt-1 text-xs text-gray-400">Enable lead capture in your bot settings to collect visitor details.</p>
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden className="mb-3">
+                <circle cx="36" cy="26" r="14" fill="#f0ebff" stroke="#c4b5fd" strokeWidth="1.5"/>
+                <circle cx="36" cy="23" r="7" fill="#a78bfa"/>
+                <path d="M14 58c0-12.15 9.85-22 22-22s22 9.85 22 22" stroke="#c4b5fd" strokeWidth="1.5" strokeLinecap="round" fill="#ede9f8"/>
+              </svg>
+              <p className="text-sm font-semibold text-[#1A1035] dark:text-[#f8f8ff]">No leads yet</p>
+              <p className="mt-1 text-xs text-[#6B6490] dark:text-[#a19bb8]">Enable lead capture in your bot settings to collect visitor details.</p>
             </div>
           ) : (
             <>

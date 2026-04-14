@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useAuth } from '@clerk/nextjs'
-import { Trash2, Plus, ChevronDown, ChevronUp } from 'lucide-react'
+import { Trash2, Plus, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import type { KnowledgeItem, KnowledgeType } from '@/lib/types'
@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 
 interface Props {
   botId: string
@@ -28,6 +29,7 @@ export function KnowledgeBaseTab({ botId, items, onItemsChanged }: Props) {
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
   const [bulkDeleting, setBulkDeleting] = useState(false)
+  const [confirmBulkOpen, setConfirmBulkOpen] = useState(false)
 
   const faqs = items.filter((i) => i.type === 'FAQ')
   const pdfs = items.filter((i) => i.type === 'PDF')
@@ -229,7 +231,7 @@ export function KnowledgeBaseTab({ botId, items, onItemsChanged }: Props) {
             size="sm"
             variant="destructive"
             disabled={bulkDeleting}
-            onClick={bulkDelete}
+            onClick={() => setConfirmBulkOpen(true)}
             className="h-7 gap-1.5 text-xs"
           >
             <Trash2 className="h-3 w-3" />
@@ -397,6 +399,20 @@ export function KnowledgeBaseTab({ botId, items, onItemsChanged }: Props) {
           )}
         </CardContent>
       </Card>
+
+      <ConfirmDialog
+        open={confirmBulkOpen}
+        onOpenChange={setConfirmBulkOpen}
+        title={`Delete ${selectedCount} item${selectedCount > 1 ? 's' : ''}?`}
+        description="These knowledge items will be permanently removed. Your bot will no longer use them to answer questions."
+        confirmLabel={`Delete ${selectedCount} item${selectedCount > 1 ? 's' : ''}`}
+        destructive
+        loading={bulkDeleting}
+        onConfirm={async () => {
+          setConfirmBulkOpen(false)
+          await bulkDelete()
+        }}
+      />
     </div>
   )
 }

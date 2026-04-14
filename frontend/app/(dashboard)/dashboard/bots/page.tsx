@@ -197,10 +197,21 @@ export default function BotsPage() {
         </div>
       ) : bots.length === 0 ? (
         <div className="mt-16 flex flex-col items-center text-center">
-          <BotIcon className="h-12 w-12 text-gray-300" />
-          <h3 className="mt-4 text-sm font-medium text-gray-900 dark:text-gray-100">No bots yet</h3>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Create your first bot to get started.
+          {/* Bot illustration */}
+          <svg width="96" height="96" viewBox="0 0 96 96" fill="none" aria-hidden className="mb-2">
+            <rect x="20" y="32" width="56" height="44" rx="12" fill="#f0ebff"/>
+            <rect x="20" y="32" width="56" height="44" rx="12" stroke="#c4b5fd" strokeWidth="2"/>
+            <circle cx="36" cy="52" r="6" fill="#a78bfa"/>
+            <circle cx="60" cy="52" r="6" fill="#a78bfa"/>
+            <rect x="36" y="63" width="24" height="4" rx="2" fill="#c4b5fd"/>
+            <rect x="40" y="18" width="16" height="16" rx="4" fill="#ede9f8" stroke="#c4b5fd" strokeWidth="2"/>
+            <line x1="48" y1="18" x2="48" y2="32" stroke="#c4b5fd" strokeWidth="2"/>
+            <rect x="10" y="44" width="10" height="16" rx="5" fill="#ede9f8" stroke="#c4b5fd" strokeWidth="2"/>
+            <rect x="76" y="44" width="10" height="16" rx="5" fill="#ede9f8" stroke="#c4b5fd" strokeWidth="2"/>
+          </svg>
+          <h3 className="mt-2 text-base font-semibold text-[#1A1035] dark:text-[#f8f8ff]">No bots yet</h3>
+          <p className="mt-1 text-sm text-[#6B6490] dark:text-[#a19bb8]">
+            Create your first bot and start answering customer questions automatically.
           </p>
         </div>
       ) : (
