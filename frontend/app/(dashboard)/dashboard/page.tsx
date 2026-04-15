@@ -2,11 +2,12 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth, useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Bot, MessageSquare, Zap, Plus, ArrowRight, BarChart2, CreditCard } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
-import type { Bot as BotType, UsageStats } from '@/lib/types'
+import type { Bot as BotType, CurrentUser, UsageStats } from '@/lib/types'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 
@@ -27,6 +28,7 @@ const PLAN_LABEL: Record<string, string> = {
 export default function DashboardPage() {
   const { user } = useUser()
   const { getToken } = useAuth()
+  const router = useRouter()
   const [usage, setUsage] = useState<UsageStats | null>(null)
   const [bots, setBots] = useState<BotType[]>([])
   const [loading, setLoading] = useState(true)
@@ -35,10 +37,15 @@ export default function DashboardPage() {
     try {
       const token = await getToken()
       const headers = { Authorization: `Bearer ${token}` }
-      const [usageRes, botsRes] = await Promise.all([
+      const [usageRes, botsRes, userRes] = await Promise.all([
         api.get<UsageStats>('/billing/usage', { headers }),
         api.get<BotType[]>('/bots', { headers }),
+        api.get<CurrentUser>('/users/me', { headers }),
       ])
+      if (!userRes.data.onboardingDone) {
+        router.replace('/dashboard/onboarding')
+        return
+      }
       setUsage(usageRes.data)
       setBots(botsRes.data)
     } catch {
@@ -46,7 +53,7 @@ export default function DashboardPage() {
     } finally {
       setLoading(false)
     }
-  }, [getToken])
+  }, [getToken, router])
 
   useEffect(() => {
     fetchData()

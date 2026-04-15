@@ -28,7 +28,7 @@ analyticsRouter.get(
       })
 
       const totalConversations = conversations.length
-      const allMessages = conversations.flatMap((c) => c.messages)
+      const allMessages = conversations.flatMap((c: (typeof conversations)[number]) => c.messages)
       const totalMessages = allMessages.length
 
       const now = new Date()
@@ -130,7 +130,7 @@ analyticsRouter.get(
         }),
       ])
 
-      const items = conversations.map((c) => ({
+      const items = conversations.map((c: (typeof conversations)[number]) => ({
         id: c.id,
         sessionId: c.sessionId,
         createdAt: c.createdAt,
@@ -169,7 +169,7 @@ analyticsRouter.get(
           sessionId: conversation.sessionId,
           createdAt: conversation.createdAt,
         },
-        messages: conversation.messages.map((m) => ({
+        messages: conversation.messages.map((m: (typeof conversation.messages)[number]) => ({
           role: m.role,
           content: m.content,
           createdAt: m.createdAt,

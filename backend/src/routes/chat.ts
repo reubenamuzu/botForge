@@ -63,7 +63,7 @@ chatRouter.post('/', limiter, async (req: Request, res: Response, next: NextFunc
       data: { conversationId: conversation.id, role: 'USER', content: message },
     })
 
-    const history = conversation.messages.map((m) => ({
+    const history = conversation.messages.map((m: (typeof conversation.messages)[number]) => ({
       role: m.role as string,
       content: m.content,
     }))

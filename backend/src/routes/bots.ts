@@ -98,7 +98,7 @@ botsRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
       },
     })
     res.json(
-      bots.map(({ _count, conversations, ...bot }) => ({
+      bots.map(({ _count, conversations, ...bot }: (typeof bots)[number]) => ({
         ...bot,
         conversationCount: _count.conversations,
         lastActiveAt: conversations[0]?.createdAt ?? null,
@@ -298,7 +298,7 @@ botsRouter.get(
       ])
 
       res.json({
-        items: leads.map((l) => ({
+        items: leads.map((l: (typeof leads)[number]) => ({
           id: l.id,
           sessionId: l.sessionId,
           leadName: l.leadName,
