@@ -18,6 +18,7 @@ import {
 import { cn } from '@/lib/utils'
 import { useSidebar } from './SidebarContext'
 import { ReportIssueDialog } from '@/components/ReportIssueDialog'
+import { KeyboardShortcutsDialog } from '@/components/KeyboardShortcutsDialog'
 
 const navItems = [
   { label: 'Dashboard',      href: '/dashboard',           icon: LayoutDashboard },
@@ -32,6 +33,7 @@ export function Sidebar() {
   const pathname = usePathname()
   const { isOpen, close, isCollapsed } = useSidebar()
   const [reportOpen, setReportOpen] = useState(false)
+  const [shortcutsOpen, setShortcutsOpen] = useState(false)
 
   // Close mobile drawer on navigation
   useEffect(() => { close() }, [pathname, close])
@@ -130,6 +132,22 @@ export function Sidebar() {
         })}
       </nav>
 
+      {/* Docs link */}
+      <div className={cn('px-2', isCollapsed && 'flex justify-center')}>
+        <Link
+          href="/docs"
+          target="_blank"
+          title="Documentation"
+          className={cn(
+            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:hover:bg-[#2d1f5e] hover:text-[#6C47FF]',
+            isCollapsed ? 'justify-center' : 'gap-3'
+          )}
+        >
+          <BookOpen className="h-4 w-4 flex-shrink-0" aria-hidden />
+          {!isCollapsed && <span>Documentation</span>}
+        </Link>
+      </div>
+
       {/* Report Issue */}
       <div className={cn('border-t border-[#ede9f8] dark:border-[#382b61] p-2', isCollapsed && 'flex justify-center')}>
         <button
@@ -145,25 +163,20 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* Keyboard hints — only when expanded */}
-      {!isCollapsed && (
-        <div className="hidden border-t border-[#ede9f8] dark:border-[#382b61] px-4 py-3 lg:block space-y-1">
-          <p className="text-[11px] text-[#6B6490] dark:text-[#a19bb8]">
-            Press{' '}
-            <kbd className="rounded border border-[#ede9f8] dark:border-[#382b61] bg-[#faf8ff] dark:bg-[#130b29] px-1 py-0.5 font-mono text-[10px]">
-              ⌘K
-            </kbd>{' '}
-            to open commands
-          </p>
-          <p className="text-[11px] text-[#6B6490] dark:text-[#a19bb8]">
-            Press{' '}
-            <kbd className="rounded border border-[#ede9f8] dark:border-[#382b61] bg-[#faf8ff] dark:bg-[#130b29] px-1 py-0.5 font-mono text-[10px]">
-              ⌘B
-            </kbd>{' '}
-            to collapse sidebar
-          </p>
-        </div>
-      )}
+      {/* Keyboard shortcuts help */}
+      <div className={cn('border-t border-[#ede9f8] dark:border-[#382b61] p-2', isCollapsed && 'flex justify-center')}>
+        <button
+          onClick={() => setShortcutsOpen(true)}
+          title="Keyboard shortcuts"
+          className={cn(
+            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:hover:bg-[#2d1f5e] hover:text-[#6C47FF]',
+            isCollapsed ? 'justify-center' : 'gap-3'
+          )}
+        >
+          <span className="flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border border-current text-[10px] font-bold leading-none">?</span>
+          {!isCollapsed && <span>Keyboard shortcuts</span>}
+        </button>
+      </div>
     </aside>
   )
 
@@ -187,6 +200,7 @@ export function Sidebar() {
       )}
 
       <ReportIssueDialog open={reportOpen} onClose={() => setReportOpen(false)} />
+      <KeyboardShortcutsDialog open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </>
   )
 }

@@ -27,6 +27,12 @@ export default function Navbar() {
               {id.replace('-', ' ')}
             </a>
           ))}
+          <Link
+            href="/docs"
+            className="text-sm font-semibold text-[#1A1035] dark:text-[#e8e0ff] hover:text-[#9a70ff] transition-colors hover:scale-105 transform"
+          >
+            Docs
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
