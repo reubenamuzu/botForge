@@ -79,7 +79,7 @@ export function ReportIssueDialog({ open, onClose, collapsed }: Props) {
         },
         { headers: { Authorization: `Bearer ${token}` } }
       )
-      toast.success('Report sent — we'll look into it shortly.')
+      toast.success("Report sent — we'll look into it shortly.")
       handleClose()
     } catch {
       toast.error('Failed to send report. Please try again.')
