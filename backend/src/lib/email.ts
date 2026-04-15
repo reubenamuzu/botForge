@@ -61,8 +61,8 @@ export async function sendReportEmail(
   screenshotBase64?: string,
   screenshotName?: string
 ): Promise<void> {
-  const supportEmail = process.env.SUPPORT_EMAIL ?? process.env.RESEND_FROM_EMAIL ?? 'support@botforge.app'
-  await resend.emails.send({
+  const supportEmail = process.env.SUPPORT_EMAIL ?? 'support@botforge.app'
+  const { error } = await resend.emails.send({
     from: FROM,
     to: supportEmail,
     replyTo: fromEmail,
@@ -80,6 +80,7 @@ export async function sendReportEmail(
       ? [{ filename: screenshotName ?? 'screenshot.png', content: screenshotBase64 }]
       : undefined,
   })
+  if (error) throw new Error(error.message)
 }
 
 export async function sendPaymentReceiptEmail(
