@@ -52,6 +52,36 @@ export async function sendUsageAlertEmail(
   })
 }
 
+export async function sendReportEmail(
+  fromName: string,
+  fromEmail: string,
+  category: string,
+  subject: string,
+  description: string,
+  screenshotBase64?: string,
+  screenshotName?: string
+): Promise<void> {
+  const supportEmail = process.env.SUPPORT_EMAIL ?? process.env.RESEND_FROM_EMAIL ?? 'support@botforge.app'
+  await resend.emails.send({
+    from: FROM,
+    to: supportEmail,
+    replyTo: fromEmail,
+    subject: `[${category}] ${subject}`,
+    html: `
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:560px;margin:0 auto;padding:40px 24px;color:#111827">
+        <h1 style="font-size:20px;font-weight:700;color:#4f46e5;margin:0 0 4px">[${category}] ${subject}</h1>
+        <p style="font-size:13px;color:#9ca3af;margin:0 0 24px">Reported by <strong>${fromName}</strong> (${fromEmail})</p>
+        <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:20px;margin:0 0 24px;white-space:pre-wrap;font-size:14px;color:#374151;line-height:1.6">${description.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+        ${screenshotBase64 ? '<p style="color:#6b7280;font-size:13px">A screenshot is attached.</p>' : ''}
+        <p style="margin:32px 0 0;font-size:12px;color:#9ca3af">BotForge · Issue Report</p>
+      </div>
+    `,
+    attachments: screenshotBase64
+      ? [{ filename: screenshotName ?? 'screenshot.png', content: screenshotBase64 }]
+      : undefined,
+  })
+}
+
 export async function sendPaymentReceiptEmail(
   to: string,
   name: string,

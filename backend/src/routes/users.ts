@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express'
 import { getAuth, clerkClient } from '@clerk/express'
 import { clerkAuth } from '../middlewares/auth'
 import { db } from '../lib/db'
-import { sendWelcomeEmail } from '../lib/email'
+import { sendWelcomeEmail, sendReportEmail } from '../lib/email'
 
 export const usersRouter = Router()
 usersRouter.use(clerkAuth)
@@ -46,6 +46,32 @@ usersRouter.patch('/me/onboarding', async (req: Request, res: Response, next: Ne
     const { userId } = getAuth(req)
     const user = await resolveUser(userId!)
     await db.user.update({ where: { id: user.id }, data: { onboardingDone: true } })
+    res.json({ ok: true })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// POST /api/users/me/report
+usersRouter.post('/me/report', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { userId } = getAuth(req)
+    const user = await resolveUser(userId!)
+
+    const { category, subject, description, screenshotBase64, screenshotName } = req.body as {
+      category?: string
+      subject?: string
+      description?: string
+      screenshotBase64?: string
+      screenshotName?: string
+    }
+
+    if (!category || !subject || !description) {
+      res.status(400).json({ error: 'category, subject, and description are required' })
+      return
+    }
+
+    await sendReportEmail(user.name, user.email, category, subject, description, screenshotBase64, screenshotName)
     res.json({ ok: true })
   } catch (err) {
     next(err)

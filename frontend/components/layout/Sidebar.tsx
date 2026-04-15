@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
   LayoutDashboard,
   Bot,
@@ -13,9 +13,11 @@ import {
   MessageSquare,
   LineChart,
   X,
+  Flag,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useSidebar } from './SidebarContext'
+import { ReportIssueDialog } from '@/components/ReportIssueDialog'
 
 const navItems = [
   { label: 'Dashboard',      href: '/dashboard',           icon: LayoutDashboard },
@@ -29,6 +31,7 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname()
   const { isOpen, close, isCollapsed } = useSidebar()
+  const [reportOpen, setReportOpen] = useState(false)
 
   // Close mobile drawer on navigation
   useEffect(() => { close() }, [pathname, close])
@@ -127,6 +130,21 @@ export function Sidebar() {
         })}
       </nav>
 
+      {/* Report Issue */}
+      <div className={cn('border-t border-[#ede9f8] dark:border-[#382b61] p-2', isCollapsed && 'flex justify-center')}>
+        <button
+          onClick={() => setReportOpen(true)}
+          title="Report an Issue"
+          className={cn(
+            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:hover:bg-[#2d1f5e] hover:text-[#6C47FF]',
+            isCollapsed ? 'justify-center' : 'gap-3'
+          )}
+        >
+          <Flag className="h-4 w-4 flex-shrink-0" aria-hidden />
+          {!isCollapsed && <span>Report an Issue</span>}
+        </button>
+      </div>
+
       {/* Keyboard hints — only when expanded */}
       {!isCollapsed && (
         <div className="hidden border-t border-[#ede9f8] dark:border-[#382b61] px-4 py-3 lg:block space-y-1">
@@ -167,6 +185,8 @@ export function Sidebar() {
           </div>
         </>
       )}
+
+      <ReportIssueDialog open={reportOpen} onClose={() => setReportOpen(false)} />
     </>
   )
 }
