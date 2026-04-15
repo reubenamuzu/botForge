@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@clerk/nextjs'
 import { useSearchParams } from 'next/navigation'
 import { Check, Zap } from 'lucide-react'
@@ -55,7 +55,7 @@ const PLANS: PlanConfig[] = [
 
 const PLAN_ORDER: Plan[] = ['FREE', 'STARTER', 'PRO', 'AGENCY']
 
-export default function BillingPage() {
+function BillingPageContent() {
   const { getToken } = useAuth()
   const searchParams = useSearchParams()
   const [usage, setUsage] = useState<UsageStats | null>(null)
@@ -236,5 +236,13 @@ export default function BillingPage() {
         })}
       </div>
     </div>
+  )
+}
+
+export default function BillingPage() {
+  return (
+    <Suspense>
+      <BillingPageContent />
+    </Suspense>
   )
 }
