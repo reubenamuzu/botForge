@@ -28,7 +28,7 @@ analyticsRouter.get(
       })
 
       const totalConversations = conversations.length
-      const allMessages = conversations.flatMap((c: (typeof conversations)[number]) => c.messages)
+      const allMessages: (typeof conversations)[number]['messages'] = conversations.flatMap((c: (typeof conversations)[number]) => c.messages)
       const totalMessages = allMessages.length
 
       const now = new Date()
