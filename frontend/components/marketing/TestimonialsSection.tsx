@@ -1,41 +1,47 @@
-import { Star } from 'lucide-react'
-import { TESTIMONIALS, DOT_GRID } from './data'
+const TESTIMONIALS = [
+  {
+    quote: 'Replaced 60% of our support tickets in the first week. The team got their evenings back.',
+    author: 'Akosua M.',
+    role: 'Founder · StyleKart',
+  },
+  {
+    quote: 'We embed it in client sites. Setup is genuinely 30 minutes. Our retainer margins thank us.',
+    author: 'Kwame B.',
+    role: 'Director · Mobalsoft',
+  },
+  {
+    quote: "The Claude backend means answers don't read like canned bot replies. Customers don't notice.",
+    author: 'Linda O.',
+    role: 'Head of Ops · AccraEats',
+  },
+]
 
 export default function TestimonialsSection() {
   return (
-    <section id="customers" className="relative overflow-hidden bg-transparent py-28">
-      <div className="absolute inset-0 opacity-20 mix-blend-overlay" style={{ backgroundImage: DOT_GRID, backgroundSize: '28px 28px' }} />
-      <div className="pointer-events-none absolute -top-40 right-[-10%] h-[600px] w-[600px] rounded-full bg-[#ecdfff] blur-[140px] opacity-60" />
-
-      <div className="relative mx-auto max-w-6xl px-6">
-        <div className="mb-16 text-center reveal">
-          <span className="mb-3 inline-flex items-center rounded-full bg-white/60 dark:bg-[#111111]/60 border border-[#e2d5fa] dark:border-[#382b61] px-4 py-1.5 text-sm font-semibold text-[#8b5cf6] shadow-sm backdrop-blur-md">
-            Customer stories
-          </span>
-          <h2 className="text-3xl font-bold text-[#1A1035] dark:text-white sm:text-4xl mt-2 tracking-tight">
-            Trusted by growing businesses
-          </h2>
+    <section className="relative bg-[#F0EDFA] dark:bg-[#0A0518] px-8 py-28">
+      <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
+          TESTIMONIALS
         </div>
+        <h2 className="mb-14 mt-5 max-w-[600px] text-[42px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF]">
+          Teams using BotForge<br />in production.
+        </h2>
 
-        <div className="grid gap-8 sm:grid-cols-3">
-          {TESTIMONIALS.map(({ name, role, company, avatar, color, text, stars }, i) => (
-            <div
-              key={name}
-              className={`reveal delay-${i * 150} flex flex-col rounded-3xl border border-[#e2d5fa] dark:border-[#382b61] bg-white/50 dark:bg-[#111111]/50 backdrop-blur-xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-lg transition-all duration-300`}
-            >
-              <div className="mb-5 flex gap-1">
-                {Array.from({ length: stars }).map((_, j) => (
-                  <Star key={j} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <p className="flex-1 text-[15px] font-medium leading-relaxed text-[#514972] dark:text-white/60">&ldquo;{text}&rdquo;</p>
-              <div className="mt-8 flex items-center gap-4  dark:border-[#e2d5fa] dark:border-[#382b61]/10 pt-6">
-                <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${color} shadow-inner text-base font-bold text-white`}>
-                  {avatar}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+          {TESTIMONIALS.map((t) => (
+            <div key={t.author} className="flex flex-col rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-7">
+              <span className="mb-3 font-mono text-[18px] text-[#6C47FF] dark:text-[#8B6FFF]">&ldquo;</span>
+              <p className="m-0 flex-1 text-[16px] font-medium leading-[1.55] text-[#1A1035] dark:text-[#F4F1FF]">
+                {t.quote}
+              </p>
+              <div className="mt-6 flex items-center gap-3 border-t border-[#E8E3F5] dark:border-white/[0.08] pt-5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E8E3F5] dark:border-white/10 bg-[#F5F3FF] dark:bg-white/5 font-bold text-[13px] text-[#4F35CC] dark:text-[#c9b1ff]">
+                  {t.author[0]}
                 </div>
                 <div>
-                  <p className="text-[15px] font-bold text-[#1A1035] dark:text-white">{name}</p>
-                  <p className="text-xs font-semibold text-[#8b5cf6]">{role} · {company}</p>
+                  <div className="text-[13px] font-bold text-[#1A1035] dark:text-[#F4F1FF]">{t.author}</div>
+                  <div className="font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">{t.role}</div>
                 </div>
               </div>
             </div>

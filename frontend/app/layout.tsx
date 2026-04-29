@@ -1,10 +1,16 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Instrument_Serif } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Providers } from '@/components/providers'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument-serif',
+})
 
 export const metadata: Metadata = {
   title: 'BotForge',
@@ -18,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider afterSignOutUrl="/sign-in">
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning className={`${inter.variable} ${instrumentSerif.variable}`}>
         <body className={inter.className}>
           <Providers>{children}</Providers>
         </body>

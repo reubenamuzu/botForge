@@ -2,58 +2,67 @@
 
 import Link from 'next/link'
 import { useUser, UserButton } from '@clerk/nextjs'
-import { ChevronRight } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { Wordmark } from '@/components/Logo'
 
-const NAV_LINKS = ['features', 'how-it-works', 'pricing'] as const
+const NAV_LINKS = [
+  { label: 'Features', href: '#features' },
+  { label: 'Pricing',  href: '#pricing' },
+  { label: 'Docs',     href: '/docs' },
+] as const
 
 export default function Navbar() {
   const { isSignedIn, isLoaded } = useUser()
 
   return (
-    <header className="fixed top-0 w-full z-50 py-4 md:py-6 backdrop-blur-md transition-all">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2 group">
-          <span className="text-xl font-bold tracking-tight text-[#6C47FF]">BotForge</span>
-        </Link>
-
-        <nav className="hidden items-center gap-8 rounded-full bg-white/50 dark:bg-white/5 px-8 py-3 backdrop-blur-md shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-[#e2d5fa] dark:border-[#382b61]/60 dark:border-[#382b61] sm:flex">
-          {NAV_LINKS.map((id) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className="text-sm font-semibold capitalize text-[#1A1035] dark:text-[#e8e0ff] hover:text-[#9a70ff] transition-colors hover:scale-105 transform"
-            >
-              {id.replace('-', ' ')}
-            </a>
-          ))}
-          <Link
-            href="/docs"
-            className="text-sm font-semibold text-[#1A1035] dark:text-[#e8e0ff] hover:text-[#9a70ff] transition-colors hover:scale-105 transform"
-          >
-            Docs
+    <header className="sticky top-0 z-50 w-full border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF]/90 dark:bg-[#0E0820]/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4">
+        <div className="flex items-center gap-3">
+          <Link href="/" aria-label="BotForge home">
+            <Wordmark size={22} />
           </Link>
+          <span className="rounded border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-[#6B6490] dark:text-white/40">
+            v1.0
+          </span>
+        </div>
+
+        <nav className="hidden items-center gap-6 sm:flex">
+          {NAV_LINKS.map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              className="text-[14px] font-medium text-[#3D3163] dark:text-white/60 transition-colors hover:text-[#6C47FF] dark:hover:text-[#8B6FFF]"
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-3">
           <ThemeToggle variant="marketing" />
           {!isLoaded ? null : isSignedIn ? (
             <>
-              <Link href="/dashboard" className="text-sm font-semibold text-[#1A1035] dark:text-[#e8e0ff] hover:text-[#9a70ff] transition-colors">
+              <Link
+                href="/dashboard"
+                className="text-sm font-semibold text-[#1A1035] dark:text-white/90 hover:text-[#6C47FF] dark:hover:text-[#8B6FFF] transition-colors"
+              >
                 Dashboard
               </Link>
               <UserButton />
             </>
           ) : (
             <>
-              <Link href="/sign-in" className="hidden text-sm font-semibold text-[#1A1035] dark:text-[#e8e0ff] hover:text-[#9a70ff] transition-colors sm:block">
-                Log In
+              <Link
+                href="/sign-in"
+                className="hidden text-sm font-medium text-[#1A1035] dark:text-white/70 hover:text-[#6C47FF] dark:hover:text-[#8B6FFF] transition-colors sm:block"
+              >
+                Log in
               </Link>
               <Link
                 href="/sign-up"
-                className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#dabdff] to-[#c1a0ff] px-6 py-2.5 text-sm font-semibold text-[#1a1035] hover:opacity-90 transition-opacity shadow-md border border-[#e5d4ff] hover:scale-105 transform"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-[#1A1035] dark:bg-[#F4F1FF] px-4 py-2 text-sm font-semibold text-white dark:text-[#0E0820] transition-opacity hover:opacity-80"
               >
-                Get started <ChevronRight className="h-3.5 w-3.5" />
+                Get started →
               </Link>
             </>
           )}

@@ -1,38 +1,48 @@
-import FloatingDots from './FloatingDots'
-import { FEATURES, MESH_GRID } from './data'
+const FEATURES = [
+  { title: 'Train on anything',    desc: 'Upload FAQs, paste a help-center URL, or drop in PDFs. BotForge reads and learns from all of it.', tag: 'Any content' },
+  { title: 'One line to embed',    desc: 'Copy a single script tag into your site. Works on Shopify, WordPress, or any custom HTML page.',    tag: 'No-code setup' },
+  { title: 'Capture leads',        desc: 'Ask for a name or email before the chat starts. All contacts exported to CSV whenever you need.',   tag: 'Lead capture' },
+  { title: 'See every conversation', desc: 'Every customer exchange is logged and threaded. Spot gaps in your answers and fix them fast.',    tag: 'Full history' },
+  { title: 'Scales with you',      desc: 'Start free, upgrade as you grow. Bots, messages, and white-labeling gated cleanly by plan.',       tag: 'Flexible plans' },
+  { title: 'Built for teams',      desc: 'Add teammates to help manage your bots. Set permissions, assign conversations, and collaborate. Coming soon!.', tag: 'Team access' },
+]
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="relative overflow-hidden bg-transparent py-24">
-      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: MESH_GRID, backgroundSize: '16px 16px' }} />
-      <div className="pointer-events-none absolute -top-32 -left-32 h-[500px] w-[500px] rounded-full bg-[#ecdfff] blur-[120px] opacity-60" />
-      <div className="pointer-events-none absolute top-1/2 right-[-10%] h-[500px] w-[500px] rounded-full bg-[#faefff] blur-[120px] opacity-50" />
-      <FloatingDots className="top-8 right-8 w-72 opacity-50 text-[#8a68ff]" />
-
-      <div className="relative mx-auto max-w-6xl px-6">
-        <div className="mb-16 text-center reveal">
-          <span className="mb-3 inline-flex items-center rounded-full bg-white/60 dark:bg-[#111111]/60 border border-[#e2d5fa] dark:border-[#382b61] px-4 py-1.5 text-sm font-semibold text-[#8b5cf6] shadow-sm backdrop-blur-md">
-            Everything you need
-          </span>
-          <h2 className="text-3xl font-bold text-[#1A1035] dark:text-white sm:text-4xl mt-2 tracking-tight">
-            Built for businesses that move fast
-          </h2>
-          <p className="mt-4 text-lg text-[#6B6490] dark:text-white/60 font-medium">
-            All the tools to deploy, train, and grow your AI support operation.
+    <section id="features" className="relative bg-[#F0EDFA] dark:bg-[#0A0518] px-8 py-28">
+      <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mb-14 flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
+          <div>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
+              FEATURES
+            </div>
+            <h2 className="m-0 max-w-[600px] text-[42px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[52px]">
+              Everything you need.
+              <br />
+              <span className="font-normal italic text-[#6B6490] dark:text-[#8B82B0]"
+                style={{ fontFamily: 'var(--font-instrument-serif), "Instrument Serif", Georgia, serif' }}>
+                Nothing you don&rsquo;t.
+              </span>
+            </h2>
+          </div>
+          <p className="max-w-[340px] text-[15px] leading-[1.6] text-[#6B6490] dark:text-[#8B82B0]">
+            We did the hard work — vector search, RAG, billing, embed — so you can focus on writing better answers.
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map(({ icon: Icon, title, desc, color }, i) => (
-            <div
-              key={title}
-              className={`reveal delay-${Math.min(i * 100, 500)} rounded-3xl border border-[#e2d5fa] dark:border-[#382b61] bg-white/50 dark:bg-[#111111]/50 backdrop-blur-xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(100,50,200,0.08)] hover:-translate-y-1 transition-all duration-300`}
-            >
-              <div className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${color} shadow-lg shadow-[#1A1035]/10`}>
-                <Icon className="h-6 w-6 text-white" />
+        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[20px] border border-[#E8E3F5] dark:border-white/[0.08] bg-[#E8E3F5] dark:bg-white/[0.08] sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((f) => (
+            <div key={f.title} className="min-h-[200px] bg-white dark:bg-[#15102E] p-8">
+              <div className="mb-4 inline-block rounded-md border border-[#E8E3F5] dark:border-white/10 bg-[#F5F3FF] dark:bg-white/5 px-2 py-0.5 text-[11px] font-semibold text-[#4F35CC] dark:text-[#c9b1ff]">
+                {f.tag}
               </div>
-              <h3 className="mb-3 text-lg font-bold text-[#1A1035] dark:text-white">{title}</h3>
-              <p className="text-[15px] leading-relaxed font-medium text-[#6B6490] dark:text-white/60">{desc}</p>
+              <h3 className="mb-2 mt-0 text-[19px] font-bold tracking-[-0.015em] text-[#1A1035] dark:text-[#F4F1FF]">
+                {f.title}
+              </h3>
+              <p className="m-0 text-[14px] leading-[1.55] text-[#6B6490] dark:text-[#8B82B0]">
+                {f.desc}
+              </p>
             </div>
           ))}
         </div>
