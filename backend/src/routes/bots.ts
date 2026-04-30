@@ -9,7 +9,14 @@ import axios from 'axios'
 import { load } from 'cheerio'
 import multer from 'multer'
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const pdfParse = require('pdf-parse') as (buf: Buffer) => Promise<{ text: string }>
+const pdfParseModule = require('pdf-parse') as
+  | ((buf: Buffer) => Promise<{ text: string }>)
+  | { default?: (buf: Buffer) => Promise<{ text: string }> }
+
+const pdfParse =
+  typeof pdfParseModule === 'function'
+    ? pdfParseModule
+    : pdfParseModule?.default
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } })
 
@@ -195,11 +202,18 @@ botsRouter.post(
           res.status(400).json({ error: 'No PDF file uploaded' })
           return
         }
+        if (!pdfParse) {
+          res.status(500).json({ error: 'PDF parser is not configured correctly' })
+          return
+        }
         try {
           const parsed = await pdfParse(file.buffer)
           rawText = parsed.text.replace(/\s+/g, ' ').trim().slice(0, 50000) || null
         } catch {
-          res.status(422).json({ error: 'Could not extract text from PDF' })
+          res.status(422).json({
+            error:
+              'Could not extract text from PDF. Please upload a text-based PDF (not scanned image-only).',
+          })
           return
         }
       }
