@@ -111,15 +111,15 @@ function BillingPageContent() {
   const botLimit = usage?.limits.maxBots === Infinity ? '∞' : String(usage?.limits.maxBots ?? 1)
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Page header strip */}
-      <div className="relative -mx-4 -mt-4 mb-8 overflow-hidden border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-8 sm:-mx-8 sm:-mt-8">
+      <div className="relative -mx-3 -mt-3 mb-6 overflow-hidden border-b border-[#E8E3F5] bg-[#F8F8FF] px-4 py-6 dark:border-white/[0.08] dark:bg-[#0E0820] sm:-mx-6 sm:-mt-6 sm:mb-8 sm:px-8 sm:py-8 lg:-mx-8 lg:-mt-8">
         <div className="pointer-events-none absolute inset-0" style={gridStyle} />
         <div className="relative">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
             BILLING
           </div>
-          <h1 className="text-[32px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">
+          <h1 className="text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[32px]">
             Plans &{' '}
             <em style={{ fontFamily: 'var(--font-instrument-serif)', fontStyle: 'italic', fontWeight: 400 }}>
               Billing.
@@ -150,7 +150,7 @@ function BillingPageContent() {
             <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0]">
               Messages this month
             </div>
-            <div className="font-mono text-[36px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF]">
+            <div className="font-mono text-[32px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[36px]">
               {usage.messageCount.toLocaleString()}
             </div>
             <div className="mt-1 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">
@@ -168,7 +168,7 @@ function BillingPageContent() {
             <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0]">
               Bots used
             </div>
-            <div className="font-mono text-[36px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF]">
+            <div className="font-mono text-[32px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[36px]">
               {usage.botCount}
             </div>
             <div className="mt-1 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">
@@ -187,7 +187,7 @@ function BillingPageContent() {
         <div className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6490] dark:text-[#8B82B0]">
           Choose a Plan
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {PLANS.map((plan) => {
             const isCurrent = usage?.plan === plan.key
             const planIndex = PLAN_ORDER.indexOf(plan.key)

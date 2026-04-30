@@ -9,7 +9,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-[#F3F3F5] text-[#1B1B1F] dark:bg-[#0E0820] dark:text-[#F4F1FF]">
+    <div className="min-h-screen overflow-x-hidden bg-[#F3F3F5] text-[#1B1B1F] dark:bg-[#0E0820] dark:text-[#F4F1FF]">
       <header className="sticky top-0 z-40 flex h-14 items-center border-b border-[#E4E4E8] bg-[#F3F3F5]/95 px-4 backdrop-blur md:hidden dark:border-white/[0.08] dark:bg-[#0E0820]/90">
         <button
           onClick={() => setSidebarOpen(true)}
@@ -20,12 +20,12 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         </button>
       </header>
 
-      <div className="p-2 md:p-3">
-        <div className="flex h-[calc(100vh-1rem)] overflow-hidden rounded-2xl border border-[#E1E1E6] bg-white dark:border-white/[0.08] dark:bg-[#120C26] md:h-[calc(100vh-1.5rem)]">
+      <div className="p-0 md:p-3">
+        <div className="flex h-[calc(100dvh-3.5rem)] overflow-hidden border border-[#E1E1E6] bg-white dark:border-white/[0.08] dark:bg-[#120C26] md:h-[calc(100dvh-1.5rem)] md:rounded-2xl">
           <DocsSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
           <main className="min-w-0 flex-1">
-            <div className="h-full overflow-y-auto border-l border-[#ECECF1] px-6 py-6 md:px-8 dark:border-white/[0.08]">
+            <div className="h-full overflow-y-auto border-l border-[#ECECF1] px-4 py-4 sm:px-6 sm:py-6 md:px-8 dark:border-white/[0.08]">
               <DocsBreadcrumb />
               <div className="w-full max-w-none">{children}</div>
             </div>

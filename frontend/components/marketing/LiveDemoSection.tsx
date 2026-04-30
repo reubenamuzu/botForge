@@ -54,7 +54,7 @@ export default function LiveDemoSection() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-[#F0EDFA] dark:bg-[#0A0518] px-8 py-28">
+    <section className="relative overflow-hidden bg-[#F0EDFA] dark:bg-[#0A0518] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
       <div className="pointer-events-none absolute inset-0 opacity-50" style={{
         backgroundImage: 'linear-gradient(rgba(108,71,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.05) 1px, transparent 1px)',
         backgroundSize: '64px 64px',
@@ -65,7 +65,7 @@ export default function LiveDemoSection() {
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
             LIVE DEMO ·
           </div>
-          <h2 className="mx-auto m-0 max-w-[720px] text-[42px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[52px]">
+          <h2 className="mx-auto m-0 max-w-[720px] text-[34px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[52px]">
             Don&rsquo;t take our word for it.
             <br />
             <span style={{ fontFamily: 'var(--font-instrument-serif), "Instrument Serif", Georgia, serif' }}
@@ -101,7 +101,7 @@ export default function LiveDemoSection() {
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="flex h-[340px] flex-col gap-3 overflow-y-auto p-5">
+            <div ref={scrollRef} className="flex h-[300px] flex-col gap-3 overflow-y-auto p-4 sm:h-[340px] sm:p-5">
               {messages.map((m, i) => (
                 <div key={i} className={`flex gap-2.5 ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {m.from === 'bot' && (
@@ -109,7 +109,7 @@ export default function LiveDemoSection() {
                       <Logo size={14} color="#c9b1ff" />
                     </div>
                   )}
-                  <div className={`max-w-[72%] rounded-xl px-3.5 py-2.5 text-[14px] leading-[1.55] border ${
+                  <div className={`max-w-[86%] rounded-xl px-3 py-2 text-[13px] leading-[1.55] border sm:max-w-[72%] sm:px-3.5 sm:py-2.5 sm:text-[14px] ${
                     m.from === 'user'
                       ? 'rounded-tr-sm border-white/10 bg-[#6C47FF]/18 text-[#E8E0FF]'
                       : 'rounded-tl-sm border-white/10 bg-white/[0.04] text-[#F0E9FF]'

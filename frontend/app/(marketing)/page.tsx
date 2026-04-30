@@ -31,7 +31,7 @@ export default function LandingPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#F8F8FF] dark:bg-[#0E0820] text-[#1A1035] dark:text-[#F4F1FF] antialiased">
+    <div className="min-h-screen overflow-x-hidden bg-[#F8F8FF] dark:bg-[#0E0820] text-[#1A1035] dark:text-[#F4F1FF] antialiased">
       <Navbar />
       <HeroSection />
       <LogosBar />

@@ -209,7 +209,7 @@ export function Sidebar() {
             onClick={close}
             aria-hidden
           />
-          <div className="fixed inset-y-0 left-0 z-50 flex lg:hidden">
+          <div className="fixed inset-y-0 left-0 z-50 flex w-[88vw] max-w-[320px] lg:hidden">
             {sidebarContent}
           </div>
         </>

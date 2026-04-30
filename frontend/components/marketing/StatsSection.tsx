@@ -9,7 +9,7 @@ const STATS = [
 
 export default function StatsSection() {
   return (
-    <section className="relative border-y border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-16">
+    <section className="relative border-y border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
       <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
         {STATS.map(([n, label]) => (

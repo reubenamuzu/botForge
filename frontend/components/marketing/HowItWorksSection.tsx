@@ -23,14 +23,14 @@ const STEPS = [
 
 export default function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="relative bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-28">
+    <section id="how-it-works" className="relative bg-[#F8F8FF] dark:bg-[#0E0820] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
           HOW IT WORKS
         </div>
 
-        <h2 className="m-0 mb-14 max-w-[620px] text-[44px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[52px]">
+        <h2 className="m-0 mb-10 max-w-[620px] text-[34px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:mb-14 sm:text-[52px]">
           From zero to live in{' '}
           <span style={{ fontFamily: 'var(--font-instrument-serif), "Instrument Serif", Georgia, serif' }}
             className="font-normal italic text-[#6C47FF] dark:text-[#8B6FFF]">
@@ -38,9 +38,9 @@ export default function HowItWorksSection() {
           </span>
         </h2>
 
-        <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {STEPS.map((s, i) => (
-            <div key={s.n} className="relative rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-8">
+            <div key={s.n} className="relative rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6 sm:p-8">
               <div className="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#F5F3FF] dark:bg-white/5 font-mono text-[12px] font-bold text-[#6C47FF] dark:text-[#8B6FFF]">
                 {s.n}
               </div>

@@ -53,8 +53,8 @@ export default function DocsSidebar({ isOpen, onClose }: DocsSidebarProps) {
 
       <aside
         className={cn(
-          'fixed top-0 left-0 z-30 flex h-full w-72 flex-col overflow-y-auto border-r border-[#ECECF1] bg-[#FAFAFB] pt-4 pb-8 transition-transform duration-200 dark:border-white/[0.08] dark:bg-[#0E0820]',
-          'md:relative md:h-full md:translate-x-0',
+          'fixed top-0 left-0 z-30 flex h-full w-[88vw] max-w-[320px] flex-col overflow-y-auto border-r border-[#ECECF1] bg-[#FAFAFB] pt-4 pb-8 transition-transform duration-200 dark:border-white/[0.08] dark:bg-[#0E0820]',
+          'md:relative md:h-full md:w-72 md:max-w-none md:translate-x-0',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
@@ -78,10 +78,10 @@ export default function DocsSidebar({ isOpen, onClose }: DocsSidebarProps) {
         </div>
 
         <div className="mt-4 border-t border-dashed border-[#E3E3E8] px-4 pt-3 dark:border-white/[0.08]">
-          <Link href="/" className="mb-1 flex items-center gap-2 rounded-md px-2 py-2 text-sm text-[#3E3E45] hover:bg-white dark:text-[#B7B1CC] dark:hover:bg-white/5">
+          <Link href="/" onClick={onClose} className="mb-1 flex items-center gap-2 rounded-md px-2 py-2 text-sm text-[#3E3E45] hover:bg-white dark:text-[#B7B1CC] dark:hover:bg-white/5">
             <Home className="h-4 w-4" /> Home
           </Link>
-          <Link href="/dashboard" className="mb-1 flex items-center gap-2 rounded-md px-2 py-2 text-sm text-[#3E3E45] hover:bg-white dark:text-[#B7B1CC] dark:hover:bg-white/5">
+          <Link href="/dashboard" onClick={onClose} className="mb-1 flex items-center gap-2 rounded-md px-2 py-2 text-sm text-[#3E3E45] hover:bg-white dark:text-[#B7B1CC] dark:hover:bg-white/5">
             <LayoutDashboard className="h-4 w-4" /> Dashboard
           </Link>
         </div>

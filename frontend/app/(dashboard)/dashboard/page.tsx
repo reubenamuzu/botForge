@@ -72,15 +72,15 @@ export default function DashboardPage() {
   const firstName = user?.firstName ?? 'there'
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Page header strip */}
-      <div className="relative -mx-4 -mt-4 mb-8 overflow-hidden border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-8 sm:-mx-8 sm:-mt-8">
+      <div className="relative -mx-3 -mt-3 mb-6 overflow-hidden border-b border-[#E8E3F5] bg-[#F8F8FF] px-4 py-6 dark:border-white/[0.08] dark:bg-[#0E0820] sm:-mx-6 sm:-mt-6 sm:mb-8 sm:px-8 sm:py-8 lg:-mx-8 lg:-mt-8">
         <div className="pointer-events-none absolute inset-0" style={gridStyle} />
         <div className="relative">
           <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6490] dark:text-[#8B82B0]">
             {getGreeting()}
           </div>
-          <h1 className="text-[32px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">
+          <h1 className="text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[32px]">
             {firstName}
             <em style={{ fontFamily: 'var(--font-instrument-serif)', fontStyle: 'italic', fontWeight: 400 }}>, welcome back.</em>
           </h1>
@@ -88,13 +88,13 @@ export default function DashboardPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {/* Bots created */}
         <div className="rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6">
           <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0]">
             Bots created
           </div>
-          <div className="font-mono text-[36px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF]">
+          <div className="font-mono text-[32px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[36px]">
             {loading ? '—' : (usage?.botCount ?? 0)}
           </div>
           {botLimit && (
@@ -112,7 +112,7 @@ export default function DashboardPage() {
           <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0]">
             Messages this month
           </div>
-          <div className="font-mono text-[36px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF]">
+          <div className="font-mono text-[32px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[36px]">
             {loading ? '—' : (usage?.messageCount.toLocaleString() ?? 0)}
           </div>
           <div className="mt-1 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">
@@ -129,7 +129,7 @@ export default function DashboardPage() {
           <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-white/60">
             Current plan
           </div>
-          <div className="font-mono text-[36px] font-bold leading-none tracking-[-0.03em] text-white">
+          <div className="font-mono text-[32px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[36px]">
             {loading ? '—' : (PLAN_LABEL[usage?.plan ?? 'FREE'] ?? 'Free')}
           </div>
           <div className="mt-1 font-mono text-[11px] text-white/70">
@@ -182,7 +182,7 @@ export default function DashboardPage() {
         </div>
 
         {loading ? (
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {[1, 2, 3].map((i) => (
               <div key={i} className="h-28 animate-pulse rounded-2xl bg-[#F0EDFA] dark:bg-white/5" />
             ))}
@@ -202,7 +202,7 @@ export default function DashboardPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {recentBots.map((bot) => (
               <Link
                 key={bot.id}
@@ -234,7 +234,7 @@ export default function DashboardPage() {
       {/* Upgrade nudge — free plan only */}
       {!loading && usage?.plan === 'FREE' && (
         <div className="rounded-2xl bg-gradient-to-r from-[#6C47FF] to-[#9b72ff] p-6 text-white">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <p className="text-lg font-bold">Unlock more with Starter</p>
               <p className="mt-1 text-sm text-white/80">
@@ -243,7 +243,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/dashboard/billing"
-              className="shrink-0 rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-[#6C47FF] transition-colors hover:bg-[#F0EDFA]"
+              className="rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-[#6C47FF] transition-colors hover:bg-[#F0EDFA] sm:shrink-0"
             >
               Upgrade now
             </Link>

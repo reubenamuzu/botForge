@@ -33,13 +33,13 @@ export default function FAQSection() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section className="relative bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-28">
+    <section className="relative bg-[#F8F8FF] dark:bg-[#0E0820] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
       <div className="relative mx-auto max-w-[820px]">
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
           FAQ
         </div>
-        <h2 className="mb-10 mt-5 text-[42px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF]">
+        <h2 className="mb-10 mt-5 text-[34px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[42px]">
           Frequently asked.
         </h2>
 
@@ -69,7 +69,7 @@ export default function FAQSection() {
                   </span>
                 </div>
                 {isOpen && (
-                  <p className="mb-0 mt-3 pl-[52px] text-[14px] leading-[1.6] text-[#6B6490] dark:text-[#8B82B0]">
+                  <p className="mb-0 mt-3 pl-0 text-[14px] leading-[1.6] text-[#6B6490] dark:text-[#8B82B0] sm:pl-[52px]">
                     {f.a}
                   </p>
                 )}

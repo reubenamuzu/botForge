@@ -9,24 +9,24 @@ const PLANS = [
 
 export default function PricingSection() {
   return (
-    <section id="pricing" className="relative bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-28">
+    <section id="pricing" className="relative bg-[#F8F8FF] dark:bg-[#0E0820] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
       <div className="relative mx-auto max-w-7xl text-center">
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
           PRICING
         </div>
-        <h2 className="mx-auto mt-5 max-w-[640px] text-[42px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[52px]">
+        <h2 className="mx-auto mt-5 max-w-[640px] text-[34px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[52px]">
           Pay for usage,
           <br />
-          <span className="font-mono font-medium text-[#6C47FF] dark:text-[#8B6FFF] text-[34px] sm:text-[40px]">
+            <span className="font-mono font-medium text-[#6C47FF] dark:text-[#8B6FFF] text-[26px] sm:text-[40px]">
               not promises.
-          </span>
+            </span>
         </h2>
         <p className="mx-auto mt-4 mb-14 max-w-[420px] text-[15px] leading-[1.6] text-[#6B6490] dark:text-[#8B82B0]">
           Start free. Upgrade when your messages outgrow you.
         </p>
 
-        <div className="grid grid-cols-1 gap-3 text-left sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 text-left sm:grid-cols-2 xl:grid-cols-4">
           {PLANS.map((p) => (
             <div key={p.label} className={`relative rounded-2xl p-6 ${
               p.highlight

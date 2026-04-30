@@ -13,11 +13,11 @@ export default function DashboardLayout({
 }) {
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-[#F8F8FF] dark:bg-[#0E0820]">
+      <div className="flex h-[100dvh] overflow-hidden bg-[#F8F8FF] dark:bg-[#0E0820]">
         <Sidebar />
         <div className="flex flex-1 flex-col overflow-hidden">
           <Topbar />
-          <main className="flex-1 overflow-y-auto p-4 pb-16 sm:p-8 sm:pb-20 mb-5">
+          <main className="flex-1 overflow-y-auto p-3 pb-14 sm:p-6 sm:pb-16 lg:p-8 lg:pb-20">
             <PageTransition>{children}</PageTransition>
           </main>
         </div>

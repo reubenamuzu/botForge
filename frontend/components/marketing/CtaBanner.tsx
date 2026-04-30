@@ -3,7 +3,7 @@ import { Logo } from '@/components/Logo'
 
 export default function CtaBanner() {
   return (
-    <section className="relative overflow-hidden bg-[#F0EDFA] dark:bg-[#0A0518] px-8 py-24 text-center">
+    <section className="relative overflow-hidden bg-[#F0EDFA] dark:bg-[#0A0518] px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div className="pointer-events-none absolute inset-0 opacity-60" style={{
         backgroundImage: 'linear-gradient(rgba(108,71,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.06) 1px, transparent 1px)',
         backgroundSize: '32px 32px',
@@ -12,7 +12,7 @@ export default function CtaBanner() {
 
       <div className="relative z-10 mx-auto max-w-[680px]">
         <Logo size={48} />
-        <h2 className="mb-0 mt-6 text-[48px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[56px]">
+        <h2 className="mb-0 mt-6 text-[34px] font-bold leading-[1.05] tracking-[-0.035em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[56px]">
           Your customers deserve
           <br />
           <span style={{ fontFamily: 'var(--font-instrument-serif), "Instrument Serif", Georgia, serif' }}

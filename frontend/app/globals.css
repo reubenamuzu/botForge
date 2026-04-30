@@ -171,6 +171,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 11px;
   font-weight: 600;
@@ -249,4 +251,27 @@
 .docs-article ul,
 .docs-article ol {
   margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+  .docs-article h1 {
+    font-size: 1.75rem;
+    line-height: 1.12;
+  }
+
+  .docs-lead {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .docs-article h2 {
+    margin-top: 1.75rem;
+    font-size: 1.45rem;
+    line-height: 1.25;
+  }
+
+  .docs-article p {
+    line-height: 1.7;
+  }
 }

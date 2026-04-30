@@ -51,14 +51,14 @@ function ChatPhone() {
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-[#F8F8FF] dark:bg-[#0E0820] px-20 pb-24 pt-16">
+    <section className="relative overflow-hidden bg-[#F8F8FF] dark:bg-[#0E0820] px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-12 lg:px-12 lg:pb-24 lg:pt-16 xl:px-20">
       <div className="pointer-events-none absolute inset-0 opacity-50" style={{
         backgroundImage: 'linear-gradient(rgba(108,71,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.06) 1px, transparent 1px)',
         backgroundSize: '64px 64px',
       }} />
       <div className="pointer-events-none absolute -top-48 right-[-10%] h-[600px] w-[600px] rounded-full bg-[#6C47FF] opacity-[0.18] blur-[160px] dark:opacity-[0.22]" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 pt-8 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 pt-4 sm:gap-12 sm:pt-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pt-8">
         {/* Left */}
         <div>
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5">
@@ -66,7 +66,7 @@ export default function HeroSection() {
             <span className="font-mono text-[11px] text-[#6B6490] dark:text-white/50">multi-bot teams · now in beta</span>
           </div>
 
-          <h1 className="m-0 text-[52px] font-bold leading-[1.05] tracking-[-0.04em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[64px] lg:text-[74px]">
+          <h1 className="m-0 text-[38px] font-bold leading-[1.05] tracking-[-0.04em] text-[#1A1035] dark:text-[#F4F1FF] sm:text-[56px] lg:text-[74px]">
             AI Support That Works<br />
             <span style={{ fontFamily: 'var(--font-instrument-serif), "Instrument Serif", Georgia, serif' }}
               className="font-normal italic text-[#6C47FF] dark:text-[#8B6FFF]">
@@ -74,7 +74,7 @@ export default function HeroSection() {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-[480px] text-[17px] leading-[1.55] text-[#6B6490] dark:text-[#8B82B0]">
+          <p className="mt-6 max-w-[560px] text-[15px] leading-[1.55] text-[#6B6490] dark:text-[#8B82B0] sm:text-[17px]">
             Train a bot on your FAQs, help docs, and PDFs — then add it to your website with one line of code.
             Your customers get instant answers 24/7, even when you&rsquo;re offline.
           </p>
@@ -102,8 +102,8 @@ export default function HeroSection() {
 
         {/* Right — phone + terminal card */}
         <div className="flex justify-center lg:justify-end">
-          <div className="relative">
-            <div className="absolute -bottom-6 -left-10 z-0 w-[300px] -rotate-[4deg] overflow-hidden rounded-xl border border-white/20 bg-[#0E0820] shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]">
+          <div className="relative origin-top scale-[0.82] sm:scale-100">
+            <div className="absolute -bottom-4 -left-2 z-0 w-[250px] -rotate-[4deg] overflow-hidden rounded-xl border border-white/20 bg-[#0E0820] shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)] sm:-bottom-6 sm:-left-10 sm:w-[300px]">
               <div className="flex items-center gap-1.5 border-b border-white/10 px-3 py-2.5">
                 <span className="h-2 w-2 rounded-full bg-[#FF5F57]" />
                 <span className="h-2 w-2 rounded-full bg-[#FEBC2E]" />

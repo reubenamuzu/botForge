@@ -33,11 +33,11 @@ const COLS = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 pb-8 pt-16">
+    <footer className="relative border-t border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-4 pb-8 pt-12 sm:px-6 sm:pt-16 lg:px-8">
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-3 gap-8 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-12">
         {/* Brand */}
-        <div>
+        <div className="col-span-3 lg:col-span-1">
           <div className="flex items-center gap-2">
             <Logo size={22} />
             <span className="text-[16px] font-bold tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">BotForge</span>
@@ -70,7 +70,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="mx-auto mt-12 flex max-w-7xl items-center justify-between border-t border-[#E8E3F5] dark:border-white/[0.08] pt-6 font-mono text-[12px] text-[#6B6490] dark:text-[#8B82B0]">
+      <div className="mx-auto mt-12 flex max-w-7xl flex-col gap-2 border-t border-[#E8E3F5] pt-6 font-mono text-[12px] text-[#6B6490] dark:border-white/[0.08] dark:text-[#8B82B0] sm:flex-row sm:items-center sm:justify-between">
         <span>© 2026 BotForge</span>
         <span>
           v1.0 · status:{' '}

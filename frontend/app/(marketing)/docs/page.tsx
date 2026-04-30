@@ -19,22 +19,22 @@ export default function DocsHomePage() {
   })
 
   return (
-    <div className="w-full space-y-10 pb-12">
+    <div className="w-full space-y-8 pb-10 sm:space-y-10 sm:pb-12">
       <section className="border-b border-[#ECECF1] pb-8 dark:border-white/[0.08]">
-        <h1 className="text-3xl font-bold tracking-[-0.02em] text-[#1B1B1F] dark:text-[#F4F1FF]">
+        <h1 className="text-[28px] font-bold tracking-[-0.02em] text-[#1B1B1F] dark:text-[#F4F1FF] sm:text-3xl">
           Documentation
         </h1>
-        <p className="mt-3 max-w-3xl text-base leading-relaxed text-[#6D6D75] dark:text-[#8B82B0]">
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[#6D6D75] dark:text-[#8B82B0] sm:text-base">
           This site is designed to help you get the most out of the platform. Here, you&apos;ll find a collection of articles and tutorials covering all aspects of its features.
         </p>
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold tracking-[-0.02em] text-[#1B1B1F] dark:text-[#F4F1FF]">Good starting point</h2>
+        <h2 className="text-xl font-bold tracking-[-0.02em] text-[#1B1B1F] dark:text-[#F4F1FF] sm:text-2xl">Good starting point</h2>
         <p className="mt-1 text-sm text-[#6D6D75] dark:text-[#8B82B0]">
           Everything you need to start using the platform quickly and efficiently.
         </p>
-        <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
           {featured.map(({ href, label, description, Icon }) => (
             <Link
               key={href}
@@ -52,7 +52,7 @@ export default function DocsHomePage() {
       </section>
 
       <section className="pt-2">
-        <h2 className="text-2xl font-bold tracking-[-0.02em] text-[#1B1B1F] dark:text-[#F4F1FF]">Need help?</h2>
+        <h2 className="text-xl font-bold tracking-[-0.02em] text-[#1B1B1F] dark:text-[#F4F1FF] sm:text-2xl">Need help?</h2>
         <p className="mt-2 text-sm leading-relaxed text-[#6D6D75] dark:text-[#8B82B0]">
           Have a question, need some help or advice, reach out to our support team. We&apos;re here to help!
         </p>
