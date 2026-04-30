@@ -9,14 +9,12 @@ import axios from 'axios'
 import { load } from 'cheerio'
 import multer from 'multer'
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const pdfParseModule = require('pdf-parse') as
-  | ((buf: Buffer) => Promise<{ text: string }>)
-  | { default?: (buf: Buffer) => Promise<{ text: string }> }
-
-const pdfParse =
-  typeof pdfParseModule === 'function'
-    ? pdfParseModule
-    : pdfParseModule?.default
+const { PDFParse } = require('pdf-parse') as {
+  PDFParse?: new (args: { data: Buffer }) => {
+    getText: () => Promise<{ text?: string }>
+    destroy?: () => Promise<void> | void
+  }
+}
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } })
 
@@ -202,19 +200,32 @@ botsRouter.post(
           res.status(400).json({ error: 'No PDF file uploaded' })
           return
         }
-        if (!pdfParse) {
+        if (!PDFParse) {
           res.status(500).json({ error: 'PDF parser is not configured correctly' })
           return
         }
+        let parser:
+          | {
+              getText: () => Promise<{ text?: string }>
+              destroy?: () => Promise<void> | void
+            }
+          | undefined
         try {
-          const parsed = await pdfParse(file.buffer)
-          rawText = parsed.text.replace(/\s+/g, ' ').trim().slice(0, 50000) || null
+          parser = new PDFParse({ data: file.buffer })
+          const parsed = await parser.getText()
+          rawText = parsed.text?.replace(/\s+/g, ' ').trim().slice(0, 50000) || null
         } catch {
           res.status(422).json({
             error:
               'Could not extract text from PDF. Please upload a text-based PDF (not scanned image-only).',
           })
           return
+        } finally {
+          try {
+            await parser?.destroy?.()
+          } catch {
+            // no-op
+          }
         }
       }
 
