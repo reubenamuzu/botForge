@@ -58,7 +58,7 @@ export function TableOfContents() {
 
   return (
     <div className="text-sm">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+      <p className="mb-3 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6490] dark:text-[#8B82B0]">
         On This Page
       </p>
       <ul className="space-y-1.5">
@@ -70,8 +70,8 @@ export function TableOfContents() {
                 'block transition-colors leading-snug hover:text-[#6C47FF]',
                 level === 3 && 'pl-3',
                 activeId === id
-                  ? 'text-[#6C47FF] font-medium'
-                  : 'text-gray-500 dark:text-gray-400'
+                  ? 'text-[#6C47FF] font-semibold'
+                  : 'text-[#6B6490] dark:text-[#8B82B0]'
               )}
             >
               {text}
@@ -80,21 +80,21 @@ export function TableOfContents() {
         ))}
       </ul>
 
-      <div className="mt-8 pt-6 border-t border-gray-100 dark:border-[#2d1f5e] space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
+      <div className="mt-8 space-y-2 border-t border-[#E8E3F5] pt-6 dark:border-white/[0.08]">
+        <p className="mb-3 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6490] dark:text-[#8B82B0]">
           Questions?
         </p>
-        <a href="/docs" className="block text-gray-500 dark:text-gray-400 hover:text-[#6C47FF] transition-colors">
+        <a href="/docs" className="block text-[#6B6490] transition-colors hover:text-[#6C47FF] dark:text-[#8B82B0]">
           Browse all docs
         </a>
-        <a href="/sign-up" className="block text-gray-500 dark:text-gray-400 hover:text-[#6C47FF] transition-colors">
+        <a href="/sign-up" className="block text-[#6B6490] transition-colors hover:text-[#6C47FF] dark:text-[#8B82B0]">
           Get started free
         </a>
       </div>
 
       <button
         onClick={scrollToTop}
-        className="mt-6 flex items-center gap-1.5 text-gray-400 hover:text-[#6C47FF] transition-colors"
+        className="mt-6 flex items-center gap-1.5 text-[#6B6490] transition-colors hover:text-[#6C47FF] dark:text-[#8B82B0]"
       >
         <span>↑</span>
         <span>Scroll to top</span>

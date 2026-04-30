@@ -6,23 +6,23 @@ const meta = ALL_DOC_PAGES.find((p) => p.href === '/docs/getting-started')!
 
 export default function GettingStartedPage() {
   return (
-    <article data-docs-content>
-      <div className="flex items-center justify-between mb-4 text-sm text-gray-400">
+    <article data-docs-content className="docs-article">
+      <div className="docs-meta">
         <span>{meta.readTime}</span>
         <span>{meta.lastUpdated}</span>
       </div>
 
-      <h1 className="text-3xl font-bold text-[#1A1035] dark:text-white mb-3">Getting Started</h1>
-      <p className="text-lg text-gray-500 dark:text-gray-400 mb-10 leading-relaxed">
+      <h1>Getting Started</h1>
+      <p className="docs-lead">
         Set up your first AI bot and have it live on your website in under 10 minutes.
       </p>
 
-      <h2 id="what-is-botforge" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">What is BotForge?</h2>
+      <h2 id="what-is-botforge">What is BotForge?</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
         BotForge is a no-code platform that lets businesses build AI-powered customer support chatbots — trained on their own content — and embed them on any website in minutes. No developers required.
       </p>
 
-      <h2 id="create-your-account" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Step 1: Create your account</h2>
+      <h2 id="create-your-account">Step 1: Create your account</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         Go to <a href="/sign-up" className="text-[#6C47FF] hover:underline">botforge.io/sign-up</a> and create a free account using your email address or Google account. No credit card is required.
       </p>
@@ -30,7 +30,7 @@ export default function GettingStartedPage() {
         The free plan lets you create 1 bot and handle up to 50 messages per month — perfect for getting started with no commitment.
       </Callout>
 
-      <h2 id="create-your-first-bot" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Step 2: Create your first bot</h2>
+      <h2 id="create-your-first-bot">Step 2: Create your first bot</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         From your dashboard, click <strong>New Bot</strong>. You&apos;ll fill in three fields:
       </p>
@@ -50,7 +50,7 @@ export default function GettingStartedPage() {
         ))}
       </ul>
 
-      <h2 id="add-knowledge" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Step 3: Add knowledge</h2>
+      <h2 id="add-knowledge">Step 3: Add knowledge</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         Navigate to your bot&apos;s <strong>Knowledge</strong> tab to add content in three ways:
       </p>
@@ -63,12 +63,12 @@ export default function GettingStartedPage() {
         See the <a href="/docs/knowledge-base" className="text-[#6C47FF] hover:underline">Knowledge Base</a> guide for a full walkthrough of each method.
       </Callout>
 
-      <h2 id="test-your-bot" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Step 4: Test your bot</h2>
+      <h2 id="test-your-bot">Step 4: Test your bot</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
         Open the <strong>Test</strong> tab on your bot page. A live chat preview lets you ask questions exactly as your visitors would. Verify that answers are accurate and the fallback triggers correctly when the bot doesn&apos;t know something.
       </p>
 
-      <h2 id="embed-on-your-website" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Step 5: Embed on your website</h2>
+      <h2 id="embed-on-your-website">Step 5: Embed on your website</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         Go to the <strong>Embed</strong> tab and copy the snippet. Paste it before the closing{' '}
         <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono">&lt;/body&gt;</code>{' '}

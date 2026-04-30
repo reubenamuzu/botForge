@@ -159,7 +159,6 @@ export function Sidebar() {
       <div className={cn('border-t border-[#E8E3F5] dark:border-white/[0.08] p-2 space-y-0.5', isCollapsed && 'flex flex-col items-center')}>
         <Link
           href="/docs"
-          target="_blank"
           title="Documentation"
           className={cn(
             'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#8B82B0] hover:bg-[#F8F8FF] dark:hover:bg-white/[0.04] hover:text-[#1A1035] dark:hover:text-[#F4F1FF]',

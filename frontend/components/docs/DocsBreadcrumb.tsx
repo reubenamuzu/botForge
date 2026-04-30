@@ -13,14 +13,14 @@ export function DocsBreadcrumb() {
   const label = page?.label ?? ''
 
   return (
-    <nav className="flex items-center gap-1.5 text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
-      <Link href="/docs" className="hover:text-[#6C47FF] transition-colors">
-        Docs
+    <nav className="mb-6 flex items-center gap-2 text-sm text-[#86868F] dark:text-[#8B82B0]" aria-label="Breadcrumb">
+      <Link href="/docs" className="transition-colors hover:text-[#4A4A52] dark:hover:text-[#F4F1FF]">
+        Documentation
       </Link>
       {label && (
         <>
           <ChevronRight className="h-3.5 w-3.5" />
-          <span className="text-gray-600 dark:text-gray-300">{label}</span>
+          <span className="text-[#34343B] dark:text-[#F4F1FF]">{label}</span>
         </>
       )}
     </nav>

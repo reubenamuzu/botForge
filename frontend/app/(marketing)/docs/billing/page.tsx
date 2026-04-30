@@ -12,18 +12,18 @@ const plans = [
 
 export default function BillingPage() {
   return (
-    <article data-docs-content>
-      <div className="flex items-center justify-between mb-4 text-sm text-gray-400">
+    <article data-docs-content className="docs-article">
+      <div className="docs-meta">
         <span>{meta.readTime}</span>
         <span>{meta.lastUpdated}</span>
       </div>
 
-      <h1 className="text-3xl font-bold text-[#1A1035] dark:text-white mb-3">Billing &amp; Plans</h1>
-      <p className="text-lg text-gray-500 dark:text-gray-400 mb-10 leading-relaxed">
+      <h1>Billing &amp; Plans</h1>
+      <p className="docs-lead">
         Simple pricing in Ghanaian Cedis (GHS), with payments processed securely via Paystack.
       </p>
 
-      <h2 id="plans" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-5 scroll-mt-20">Plans &amp; Pricing</h2>
+      <h2 id="plans">Plans &amp; Pricing</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         {plans.map((plan) => (
           <div
@@ -31,7 +31,7 @@ export default function BillingPage() {
             className={`rounded-xl border p-5 ${
               plan.highlight
                 ? 'border-[#6C47FF] bg-[#f0ebff] dark:bg-[#2d1f5e]'
-                : 'border-gray-200 dark:border-[#2d1f5e] bg-white dark:bg-[#1A1035]/60'
+                : 'border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E]'
             }`}
           >
             <div className="flex items-center justify-between mb-3">
@@ -57,7 +57,7 @@ export default function BillingPage() {
         All plans include: knowledge base, conversation history, analytics, lead capture, and the embeddable chat widget.
       </p>
 
-      <h2 id="upgrading" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">How to upgrade</h2>
+      <h2 id="upgrading">How to upgrade</h2>
       <ol className="space-y-2 list-decimal list-inside text-gray-600 dark:text-gray-400 mb-4">
         <li>From your Dashboard, click <strong>Billing</strong> in the left sidebar.</li>
         <li>Review the available plans and click <strong>Upgrade</strong> on the plan you want.</li>
@@ -68,7 +68,7 @@ export default function BillingPage() {
         Upgrades take effect immediately. Downgrades take effect at the end of your current billing period.
       </Callout>
 
-      <h2 id="payments" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Payments via Paystack</h2>
+      <h2 id="payments">Payments via Paystack</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         BotForge processes all payments through <strong>Paystack</strong>, a leading payment platform across Africa. Supported methods:
       </p>
@@ -82,7 +82,7 @@ export default function BillingPage() {
         BotForge does not store your card or mobile money details — all payment data is handled securely by Paystack.
       </Callout>
 
-      <h2 id="message-limits" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">What happens at your limit</h2>
+      <h2 id="message-limits">What happens at your limit</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         When your account reaches its monthly message limit, your bot automatically responds with your configured <strong>fallback message</strong> instead of generating an AI response. Visitors can still open the widget — they simply receive the fallback until your allowance resets on the 1st of the next month.
       </p>

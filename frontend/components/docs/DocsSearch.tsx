@@ -50,12 +50,12 @@ export default function DocsSearch() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="w-full flex items-center gap-2 rounded-lg border border-gray-200 dark:border-[#2d1f5e] bg-white dark:bg-[#1A1035]/60 px-3 py-2 text-sm text-gray-400 hover:border-[#6C47FF] transition-colors"
+        className="flex w-full items-center gap-2 rounded-xl border border-[#E8E3F5] bg-white px-3 py-2 text-sm text-[#6B6490] transition-colors hover:border-[#6C47FF] dark:border-white/[0.08] dark:bg-white/5 dark:text-[#8B82B0]"
         aria-label="Search documentation"
       >
         <Search className="h-4 w-4 shrink-0" />
         <span className="flex-1 text-left">Search docs…</span>
-        <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded border border-gray-200 dark:border-[#2d1f5e] px-1.5 py-0.5 text-xs font-mono text-gray-400">
+        <kbd className="hidden items-center gap-0.5 rounded border border-[#E8E3F5] px-1.5 py-0.5 font-mono text-[11px] text-[#6B6490] dark:border-white/[0.08] dark:text-[#8B82B0] sm:inline-flex">
           <span>⌘</span>K
         </kbd>
       </button>
@@ -65,20 +65,20 @@ export default function DocsSearch() {
           <DialogHeader className="sr-only">
             <DialogTitle>Search documentation</DialogTitle>
           </DialogHeader>
-          <div className="flex items-center gap-2 border-b border-gray-100 dark:border-[#2d1f5e] px-4 py-3">
-            <Search className="h-4 w-4 shrink-0 text-gray-400" />
+          <div className="flex items-center gap-2 border-b border-[#E8E3F5] px-4 py-3 dark:border-white/[0.08]">
+            <Search className="h-4 w-4 shrink-0 text-[#6B6490] dark:text-[#8B82B0]" />
             <input
               autoFocus
               type="text"
               placeholder="Search docs…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 bg-transparent text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 outline-none"
+              className="flex-1 bg-transparent text-sm text-[#1A1035] placeholder-[#8F87B1] outline-none dark:text-[#F4F1FF] dark:placeholder-[#8B82B0]"
             />
           </div>
           <ul className="max-h-72 overflow-y-auto py-2">
             {filtered.length === 0 ? (
-              <li className="px-4 py-6 text-center text-sm text-gray-400">
+              <li className="px-4 py-6 text-center text-sm text-[#6B6490] dark:text-[#8B82B0]">
                 No results for &ldquo;{query}&rdquo;
               </li>
             ) : (
@@ -87,13 +87,13 @@ export default function DocsSearch() {
                   <button
                     onClick={() => navigate(page.href)}
                     className={cn(
-                      'w-full flex flex-col gap-0.5 px-4 py-2.5 text-left hover:bg-[#f0ebff] dark:hover:bg-[#2d1f5e] transition-colors'
+                      'flex w-full flex-col gap-0.5 px-4 py-2.5 text-left transition-colors hover:bg-[#F0EDFA] dark:hover:bg-white/5'
                     )}
                   >
-                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <span className="text-sm font-medium text-[#1A1035] dark:text-[#F4F1FF]">
                       {page.label}
                     </span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">
+                    <span className="line-clamp-1 text-xs text-[#6B6490] dark:text-[#8B82B0]">
                       {page.description}
                     </span>
                   </button>

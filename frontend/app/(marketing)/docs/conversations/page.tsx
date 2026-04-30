@@ -5,18 +5,18 @@ const meta = ALL_DOC_PAGES.find((p) => p.href === '/docs/conversations')!
 
 export default function ConversationsPage() {
   return (
-    <article data-docs-content>
-      <div className="flex items-center justify-between mb-4 text-sm text-gray-400">
+    <article data-docs-content className="docs-article">
+      <div className="docs-meta">
         <span>{meta.readTime}</span>
         <span>{meta.lastUpdated}</span>
       </div>
 
-      <h1 className="text-3xl font-bold text-[#1A1035] dark:text-white mb-3">Conversations</h1>
-      <p className="text-lg text-gray-500 dark:text-gray-400 mb-10 leading-relaxed">
+      <h1>Conversations</h1>
+      <p className="docs-lead">
         Review chat history, capture leads, and understand how visitors engage with your bot.
       </p>
 
-      <h2 id="viewing-conversations" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Viewing conversations</h2>
+      <h2 id="viewing-conversations">Viewing conversations</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         To see every conversation your bot has had, open your bot from the Dashboard and click the <strong>Conversations</strong> tab. You&apos;ll see a list of all sessions ordered from most recent to oldest.
       </p>
@@ -24,7 +24,7 @@ export default function ConversationsPage() {
         Click any session to expand the full message thread — every visitor message, every bot response, and exact timestamps are shown.
       </p>
 
-      <h2 id="captured-data" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">What data is captured</h2>
+      <h2 id="captured-data">What data is captured</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">For every conversation, BotForge records:</p>
       <ul className="space-y-3 text-gray-600 dark:text-gray-400">
         {[
@@ -40,7 +40,7 @@ export default function ConversationsPage() {
         ))}
       </ul>
 
-      <h2 id="lead-capture" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Lead capture</h2>
+      <h2 id="lead-capture">Lead capture</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         BotForge saves the visitor&apos;s name and email address when they share it during a conversation. Leads are visible in the <strong>Leads</strong> tab — each entry shows the visitor&apos;s name, email, chat date, and a link to the full conversation.
       </p>
@@ -48,7 +48,7 @@ export default function ConversationsPage() {
         Add a line to your system prompt such as: &ldquo;If the visitor asks about pricing or places an order, politely ask for their name and email so we can follow up.&rdquo;
       </Callout>
 
-      <h2 id="analytics" className="text-xl font-semibold text-[#1A1035] dark:text-white mt-10 mb-3 scroll-mt-20">Analytics overview</h2>
+      <h2 id="analytics">Analytics overview</h2>
       <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         The <strong>Analytics</strong> tab gives a high-level view of how your bot is performing:
       </p>
