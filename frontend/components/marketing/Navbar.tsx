@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useUser, UserButton } from '@clerk/nextjs'
 import { Menu, X } from 'lucide-react'
@@ -16,9 +16,44 @@ const NAV_LINKS = [
 export default function Navbar() {
   const { isSignedIn, isLoaded } = useUser()
   const [open, setOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const lastYRef = useRef(0)
+
+  useEffect(() => {
+    lastYRef.current = window.pageYOffset || document.documentElement.scrollTop || 0
+    const onScroll = () => {
+      const y = window.pageYOffset || document.documentElement.scrollTop || 0
+
+      // Always visible near top.
+      if (y <= 16) {
+        setHidden(false)
+      } else if (y > lastYRef.current) {
+        // Scrolling down (immediate)
+        setHidden(true)
+      } else if (y < lastYRef.current) {
+        // Scrolling up (immediate)
+        setHidden(false)
+      }
+
+      lastYRef.current = y
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (open) {
+      setHidden(false)
+      return
+    }
+  }, [open])
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF]/90 dark:bg-[#0E0820]/90 backdrop-blur-md">
+    <>
+    <header className={`fixed inset-x-0 top-0 z-50 w-full border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF]/90 dark:bg-[#0E0820]/90 backdrop-blur-md transition-transform duration-300 ${hidden ? '-translate-y-[110%]' : 'translate-y-0'}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
         <div className="flex items-center gap-3">
           <Link href="/" aria-label="BotForge home">
@@ -125,5 +160,7 @@ export default function Navbar() {
         </div>
       )}
     </header>
+    <div className="h-[57px] sm:h-[65px]" aria-hidden />
+    </>
   )
 }

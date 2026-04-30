@@ -105,7 +105,7 @@ export default function LiveDemoSection() {
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="flex h-[300px] flex-col gap-3 overflow-y-auto p-4 sm:h-[340px] sm:p-5">
+            <div ref={scrollRef} className="demo-scrollbar flex h-[300px] flex-col gap-3 overflow-y-auto p-4 sm:h-[340px] sm:p-5">
               {messages.map((m, i) => (
                 <div key={i} className={`flex gap-2.5 ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {m.from === 'bot' && (
@@ -170,6 +170,30 @@ export default function LiveDemoSection() {
         @keyframes demoBounce {
           0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
           30% { transform: translateY(-3px); opacity: 1; }
+        }
+
+        .demo-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(201,177,255,0.45) rgba(255,255,255,0.06);
+        }
+
+        .demo-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        .demo-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255,255,255,0.06);
+          border-radius: 999px;
+        }
+
+        .demo-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, rgba(201,177,255,0.7), rgba(108,71,255,0.75));
+          border-radius: 999px;
+          border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .demo-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(180deg, rgba(220,209,255,0.9), rgba(139,111,255,0.9));
         }
       `}</style>
     </section>
