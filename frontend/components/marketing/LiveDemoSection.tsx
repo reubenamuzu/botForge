@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react'
 import { Logo } from '@/components/Logo'
 
 const DEMO_BOT_ID = process.env.NEXT_PUBLIC_DEMO_BOT_ID
+const RAW_API_URL = process.env.NEXT_PUBLIC_API_URL ?? ''
+const API_BASE = RAW_API_URL.replace(/\/+$/, '').replace(/\/api$/, '')
 
 const SUGGESTIONS = [
   'Do you ship to Dubai?',
@@ -19,7 +21,7 @@ export default function LiveDemoSection() {
   ])
   const [input, setInput] = useState('')
   const [thinking, setThinking] = useState(false)
-  const [convId, setConvId] = useState<string | undefined>(undefined)
+  const [sessionId] = useState<string>(() => `demo_${Math.random().toString(36).slice(2, 10)}`)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -34,14 +36,16 @@ export default function LiveDemoSection() {
     setThinking(true)
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
+      const res = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ botId: DEMO_BOT_ID, message: userMsg, conversationId: convId }),
+        body: JSON.stringify({ botId: DEMO_BOT_ID, message: userMsg, sessionId }),
       })
       const data = await res.json()
-      if (data.conversationId) setConvId(data.conversationId)
-      setMessages((m) => [...m, { from: 'bot', text: data.message ?? 'Sorry, something went wrong.' }])
+      if (!res.ok) {
+        throw new Error(data?.error || 'Demo chat request failed')
+      }
+      setMessages((m) => [...m, { from: 'bot', text: data.reply ?? data.message ?? 'Sorry, something went wrong.' }])
     } catch {
       setMessages((m) => [...m, { from: 'bot', text: "Hmm, I'm having trouble responding. Try again?" }])
     } finally {
