@@ -102,7 +102,7 @@ export default function BotTestPage() {
       {/* Chat */}
       <div className="flex flex-1 flex-col overflow-hidden rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
         {/* Status bar */}
-        <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-4 py-2">
+        <div className="flex items-center gap-2 border-b border-gray-100 dark:border-white/[0.06] bg-gray-50 dark:bg-[#0E0820] px-4 py-2">
           <span className={cn('h-2 w-2 rounded-full flex-shrink-0', bot?.isActive ? 'bg-green-400' : 'bg-gray-300')} />
           <span className="truncate text-xs text-gray-500 dark:text-gray-400">
             {bot?.isActive ? 'Active' : 'Inactive'} · session <code className="font-mono">{sessionId}</code>
@@ -118,7 +118,7 @@ export default function BotTestPage() {
                   'max-w-[72%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed',
                   msg.role === 'user'
                     ? 'rounded-br-sm bg-[#6C47FF] text-white'
-                    : 'rounded-bl-sm bg-gray-100 text-gray-900 dark:text-gray-100'
+                    : 'rounded-bl-sm bg-gray-100 dark:bg-white/[0.08] text-gray-900 dark:text-[#F4F1FF]'
                 )}
               >
                 {msg.content}
@@ -128,7 +128,7 @@ export default function BotTestPage() {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm bg-gray-100 px-4 py-3">
+              <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm bg-gray-100 dark:bg-white/[0.08] px-4 py-3">
                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-gray-400 [animation-delay:-0.3s]" />
                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-gray-400 [animation-delay:-0.15s]" />
                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-gray-400" />
@@ -139,7 +139,7 @@ export default function BotTestPage() {
         </div>
 
         {/* Input */}
-        <form onSubmit={handleSend} className="flex items-center gap-2 border-t border-gray-100 p-3">
+        <form onSubmit={handleSend} className="flex items-center gap-2 border-t border-gray-100 dark:border-white/[0.06] p-3">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}

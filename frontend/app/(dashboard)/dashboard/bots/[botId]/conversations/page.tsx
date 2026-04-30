@@ -172,7 +172,7 @@ export default function ConversationsPage() {
 
         {/* Tab bar */}
         <div className="mb-4 flex items-center justify-between">
-          <div className="flex gap-1 rounded-lg border border-gray-200 dark:border-[#382b61] bg-gray-50 p-1">
+          <div className="flex gap-1 rounded-lg border border-gray-200 dark:border-white/[0.08] bg-gray-50 dark:bg-[#0E0820] p-1">
             <button
               onClick={() => setActiveTab('conversations')}
               className={cn(
@@ -253,11 +253,11 @@ export default function ConversationsPage() {
               <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-gray-100 bg-gray-50 text-left">
-                      <th className="px-4 py-3 font-medium text-gray-600">Session</th>
-                      <th className="px-4 py-3 font-medium text-gray-600">Date</th>
-                      <th className="px-4 py-3 font-medium text-gray-600">Messages</th>
-                      <th className="px-4 py-3 font-medium text-gray-600">Last message</th>
+                    <tr className="border-b border-gray-100 dark:border-white/[0.06] bg-gray-50 dark:bg-[#0E0820] text-left">
+                      <th className="px-4 py-3 font-medium text-gray-600 dark:text-[#8B82B0]">Session</th>
+                      <th className="px-4 py-3 font-medium text-gray-600 dark:text-[#8B82B0]">Date</th>
+                      <th className="px-4 py-3 font-medium text-gray-600 dark:text-[#8B82B0]">Messages</th>
+                      <th className="px-4 py-3 font-medium text-gray-600 dark:text-[#8B82B0]">Last message</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -266,19 +266,19 @@ export default function ConversationsPage() {
                         key={conv.id}
                         onClick={() => openConversation(conv.id)}
                         className={cn(
-                          'cursor-pointer border-b border-gray-100 transition-colors last:border-0 hover:bg-[#f0ebff]/50',
-                          selectedId === conv.id ? 'bg-[#f0ebff]' : ''
+                          'cursor-pointer border-b border-gray-100 dark:border-white/[0.06] transition-colors last:border-0 hover:bg-[#f0ebff]/50 dark:hover:bg-white/[0.04]',
+                          selectedId === conv.id ? 'bg-[#f0ebff] dark:bg-white/[0.06]' : ''
                         )}
                       >
                         <td className="px-4 py-3 font-mono text-xs text-gray-500 dark:text-gray-400">
                           {conv.sessionId.slice(0, 12)}…
                         </td>
-                        <td className="px-4 py-3 text-gray-600">{formatDate(conv.createdAt)}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-[#8B82B0]">{formatDate(conv.createdAt)}</td>
                         <td className="px-4 py-3">
                           <Badge variant="secondary">{conv.messageCount}</Badge>
                         </td>
                         <td className="max-w-xs px-4 py-3">
-                          <span className="line-clamp-1 text-gray-600">{conv.lastMessage}</span>
+                          <span className="line-clamp-1 text-gray-600 dark:text-[#8B82B0]">{conv.lastMessage}</span>
                         </td>
                       </tr>
                     ))}
@@ -326,21 +326,21 @@ export default function ConversationsPage() {
               <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-gray-100 bg-gray-50 text-left">
-                      <th className="px-4 py-3 font-medium text-gray-600">Name</th>
-                      <th className="px-4 py-3 font-medium text-gray-600">Email</th>
-                      <th className="px-4 py-3 font-medium text-gray-600">Date</th>
-                      <th className="px-4 py-3 font-medium text-gray-600">Messages</th>
+                    <tr className="border-b border-gray-100 dark:border-white/[0.06] bg-gray-50 dark:bg-[#0E0820] text-left">
+                      <th className="px-4 py-3 font-medium text-gray-600 dark:text-[#8B82B0]">Name</th>
+                      <th className="px-4 py-3 font-medium text-gray-600 dark:text-[#8B82B0]">Email</th>
+                      <th className="px-4 py-3 font-medium text-gray-600 dark:text-[#8B82B0]">Date</th>
+                      <th className="px-4 py-3 font-medium text-gray-600 dark:text-[#8B82B0]">Messages</th>
                     </tr>
                   </thead>
                   <tbody>
                     {leadsData.items.map((lead: LeadItem) => (
-                      <tr key={lead.id} className="border-b border-gray-100 last:border-0">
-                        <td className="px-4 py-3 text-gray-800">{lead.leadName ?? <span className="text-gray-400">—</span>}</td>
+                      <tr key={lead.id} className="border-b border-gray-100 dark:border-white/[0.06] last:border-0">
+                        <td className="px-4 py-3 text-gray-800 dark:text-[#F4F1FF]">{lead.leadName ?? <span className="text-gray-400 dark:text-[#8B82B0]">—</span>}</td>
                         <td className="px-4 py-3">
                           <a href={`mailto:${lead.leadEmail}`} className="text-[#6C47FF] hover:underline">{lead.leadEmail}</a>
                         </td>
-                        <td className="px-4 py-3 text-gray-600">{formatDate(lead.createdAt)}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-[#8B82B0]">{formatDate(lead.createdAt)}</td>
                         <td className="px-4 py-3">
                           <Badge variant="secondary">{lead.messageCount}</Badge>
                         </td>
@@ -367,7 +367,7 @@ export default function ConversationsPage() {
       {selectedId && (
         <div className="w-full flex-shrink-0 lg:w-96">
           <div className="sticky top-0 flex h-full flex-col rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035]">
-            <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
+            <div className="flex items-center justify-between border-b border-gray-100 dark:border-white/[0.08] px-4 py-3">
               <div>
                 <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Conversation</p>
                 <p className="font-mono text-xs text-gray-400">
@@ -393,7 +393,7 @@ export default function ConversationsPage() {
                     <div key={i} className={cn('flex', msg.role === 'USER' ? 'justify-end' : 'justify-start')}>
                       <div className={cn(
                         'max-w-[80%] rounded-2xl px-3 py-2 text-sm',
-                        msg.role === 'USER' ? 'bg-[#6C47FF] text-white' : 'bg-gray-100 text-gray-800'
+                        msg.role === 'USER' ? 'bg-[#6C47FF] text-white' : 'bg-gray-100 dark:bg-white/[0.08] text-gray-800 dark:text-[#F4F1FF]'
                       )}>
                         <p>{msg.content}</p>
                         <p className={cn('mt-1 text-right text-xs', msg.role === 'USER' ? 'text-white/60' : 'text-gray-400')}>

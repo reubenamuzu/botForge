@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils'
 import { useSidebar } from './SidebarContext'
 import { ReportIssueDialog } from '@/components/ReportIssueDialog'
 import { KeyboardShortcutsDialog } from '@/components/KeyboardShortcutsDialog'
+import { Logo } from '@/components/Logo'
 
 const navItems = [
   { label: 'Dashboard',      href: '/dashboard',           icon: LayoutDashboard },
@@ -50,30 +51,52 @@ export function Sidebar() {
       ]
     : []
 
+  const gridOverlay = (
+    <div
+      className="pointer-events-none absolute inset-0"
+      style={{
+        backgroundImage:
+          'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)',
+        backgroundSize: '64px 64px',
+      }}
+    />
+  )
+
   const sidebarContent = (
     <aside
       className={cn(
-        'flex h-full flex-shrink-0 flex-col border-r border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035] transition-all duration-200',
+        'flex h-full flex-shrink-0 flex-col border-r border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] transition-all duration-200',
         isCollapsed ? 'w-16' : 'w-64'
       )}
     >
-      {/* Logo */}
+      {/* Logo header band */}
       <div className={cn(
-        'flex h-16 items-center border-b border-[#ede9f8] dark:border-[#382b61] transition-all duration-200',
+        'relative flex h-16 items-center overflow-hidden border-b border-[#E8E3F5] dark:border-white/[0.08] transition-all duration-200',
         isCollapsed ? 'justify-center px-2' : 'justify-between px-5'
       )}>
+        {gridOverlay}
         <Link
           href="/"
           aria-label="BotForge home"
-          className="text-lg font-bold text-[#6C47FF] tracking-tight transition-all duration-200"
+          className="relative flex items-center gap-2 transition-all duration-200"
         >
-          {isCollapsed ? 'BF' : 'BotForge'}
+          <Logo size={18} />
+          {!isCollapsed && (
+            <span className="text-[15px] font-bold tracking-tight text-[#1A1035] dark:text-[#F4F1FF]">
+              BotForge
+            </span>
+          )}
         </Link>
+        {!isCollapsed && (
+          <span className="relative ml-auto font-mono text-[10px] text-[#6B6490] dark:text-[#8B82B0]">
+            v1.0
+          </span>
+        )}
         {/* Mobile close button */}
         <button
           onClick={close}
           aria-label="Close menu"
-          className="flex h-7 w-7 items-center justify-center rounded-lg text-[#6B6490] hover:bg-[#f0ebff] hover:text-[#6C47FF] transition-colors lg:hidden"
+          className="relative flex h-7 w-7 items-center justify-center rounded-lg text-[#6B6490] hover:bg-[#F0EDFA] hover:text-[#6C47FF] transition-colors lg:hidden"
         >
           <X className="h-4 w-4" />
         </button>
@@ -95,8 +118,8 @@ export function Sidebar() {
                   'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
                   isCollapsed ? 'justify-center' : 'gap-3',
                   isActive
-                    ? 'bg-[#f0ebff] text-[#6C47FF]'
-                    : 'text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:hover:bg-[#2d1f5e] hover:text-[#1A1035] dark:hover:text-[#f8f8ff]'
+                    ? 'bg-[#F0EDFA] dark:bg-white/[0.06] text-[#6C47FF] dark:text-[#8B6FFF] border-l-2 border-[#6C47FF]'
+                    : 'text-[#6B6490] dark:text-[#8B82B0] hover:bg-[#F8F8FF] dark:hover:bg-white/[0.04] hover:text-[#1A1035] dark:hover:text-[#F4F1FF]'
                 )}
               >
                 <Icon className="h-4 w-4 flex-shrink-0" aria-hidden />
@@ -105,7 +128,7 @@ export function Sidebar() {
 
               {/* Bot sub-nav — only when expanded */}
               {!isCollapsed && href === '/dashboard/bots' && botSubnav.length > 0 && (
-                <div className="ml-7 mt-0.5 space-y-0.5 border-l border-[#ede9f8] dark:border-[#382b61] pl-3">
+                <div className="ml-7 mt-0.5 space-y-0.5 border-l border-[#E8E3F5] dark:border-white/[0.08] pl-3">
                   {botSubnav.map(({ label: subLabel, href: subHref, icon: SubIcon }) => {
                     const isSubActive = pathname.startsWith(subHref)
                     return (
@@ -116,8 +139,8 @@ export function Sidebar() {
                         className={cn(
                           'flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors',
                           isSubActive
-                            ? 'bg-[#f0ebff] text-[#6C47FF]'
-                            : 'text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:hover:bg-[#2d1f5e]'
+                            ? 'bg-[#F0EDFA] dark:bg-white/[0.06] text-[#6C47FF] dark:text-[#8B6FFF]'
+                            : 'text-[#6B6490] dark:text-[#8B82B0] hover:bg-[#F8F8FF] dark:hover:bg-white/[0.04]'
                         )}
                       >
                         <SubIcon className="h-3.5 w-3.5 flex-shrink-0" aria-hidden />
@@ -132,44 +155,38 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Docs link */}
-      <div className={cn('px-2', isCollapsed && 'flex justify-center')}>
+      {/* Footer: Docs + Report + Shortcuts */}
+      <div className={cn('border-t border-[#E8E3F5] dark:border-white/[0.08] p-2 space-y-0.5', isCollapsed && 'flex flex-col items-center')}>
         <Link
           href="/docs"
           target="_blank"
           title="Documentation"
           className={cn(
-            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:hover:bg-[#2d1f5e] hover:text-[#6C47FF]',
+            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#8B82B0] hover:bg-[#F8F8FF] dark:hover:bg-white/[0.04] hover:text-[#1A1035] dark:hover:text-[#F4F1FF]',
             isCollapsed ? 'justify-center' : 'gap-3'
           )}
         >
           <BookOpen className="h-4 w-4 flex-shrink-0" aria-hidden />
           {!isCollapsed && <span>Documentation</span>}
         </Link>
-      </div>
 
-      {/* Report Issue */}
-      <div className={cn('border-t border-[#ede9f8] dark:border-[#382b61] p-2', isCollapsed && 'flex justify-center')}>
         <button
           onClick={() => setReportOpen(true)}
           title="Report an Issue"
           className={cn(
-            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:hover:bg-[#2d1f5e] hover:text-[#6C47FF]',
+            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#8B82B0] hover:bg-[#F8F8FF] dark:hover:bg-white/[0.04] hover:text-[#1A1035] dark:hover:text-[#F4F1FF]',
             isCollapsed ? 'justify-center' : 'gap-3'
           )}
         >
           <Flag className="h-4 w-4 flex-shrink-0" aria-hidden />
           {!isCollapsed && <span>Report an Issue</span>}
         </button>
-      </div>
 
-      {/* Keyboard shortcuts help */}
-      <div className={cn('border-t border-[#ede9f8] dark:border-[#382b61] p-2', isCollapsed && 'flex justify-center')}>
         <button
           onClick={() => setShortcutsOpen(true)}
           title="Keyboard shortcuts"
           className={cn(
-            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#a19bb8] hover:bg-[#faf8ff] dark:hover:bg-[#2d1f5e] hover:text-[#6C47FF]',
+            'flex items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors w-full text-[#6B6490] dark:text-[#8B82B0] hover:bg-[#F8F8FF] dark:hover:bg-white/[0.04] hover:text-[#1A1035] dark:hover:text-[#F4F1FF]',
             isCollapsed ? 'justify-center' : 'gap-3'
           )}
         >

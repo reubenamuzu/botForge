@@ -232,7 +232,7 @@ export default function AnalyticsPage() {
             ) : (
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={chartData} margin={{ top: 0, right: 8, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(108,71,255,0.12)" vertical={false} />
                   <XAxis
                     dataKey="date"
                     tick={{ fontSize: 11, fill: '#9ca3af' }}
@@ -280,7 +280,7 @@ export default function AnalyticsPage() {
                 {summary.topQuestions.map(({ content, count }, i) => (
                   <li
                     key={i}
-                    className="flex items-start justify-between gap-3 rounded-lg bg-gray-50 px-3 py-2.5"
+                    className="flex items-start justify-between gap-3 rounded-lg bg-gray-50 dark:bg-white/[0.05] px-3 py-2.5"
                   >
                     <span className="line-clamp-2 text-sm text-gray-700 dark:text-gray-300">{content}</span>
                     <Badge

@@ -7,10 +7,7 @@ import { Check, Zap } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import type { Plan, UsageStats } from '@/lib/types'
-import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface PlanConfig {
   key: Plan
@@ -54,6 +51,12 @@ const PLANS: PlanConfig[] = [
 ]
 
 const PLAN_ORDER: Plan[] = ['FREE', 'STARTER', 'PRO', 'AGENCY']
+
+const gridStyle = {
+  backgroundImage:
+    'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)',
+  backgroundSize: '64px 64px',
+}
 
 function BillingPageContent() {
   const { getToken } = useAuth()
@@ -108,117 +111,152 @@ function BillingPageContent() {
   const botLimit = usage?.limits.maxBots === Infinity ? '∞' : String(usage?.limits.maxBots ?? 1)
 
   return (
-    <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Billing</h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage your plan and view usage.</p>
+    <div className="space-y-8">
+      {/* Page header strip */}
+      <div className="relative -mx-4 -mt-4 mb-8 overflow-hidden border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-8 sm:-mx-8 sm:-mt-8">
+        <div className="pointer-events-none absolute inset-0" style={gridStyle} />
+        <div className="relative">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
+            BILLING
+          </div>
+          <h1 className="text-[32px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">
+            Plans &{' '}
+            <em style={{ fontFamily: 'var(--font-instrument-serif)', fontStyle: 'italic', fontWeight: 400 }}>
+              Billing.
+            </em>
+          </h1>
+          <p className="mt-2 font-mono text-[12px] text-[#6B6490] dark:text-[#8B82B0]">
+            Manage your plan and view usage.
+          </p>
+        </div>
       </div>
 
       {/* Usage summary */}
-      {!usage && (
-        <div className="mb-8 grid animate-pulse gap-4 sm:grid-cols-2">
+      {!usage ? (
+        <div className="grid animate-pulse gap-4 sm:grid-cols-2">
           {[1, 2].map((i) => (
-            <div key={i} className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">
+            <div key={i} className="rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6">
               <div className="mb-3 flex items-center justify-between">
-                <div className="h-3 w-36 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
-                <div className="h-3 w-16 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
+                <div className="h-3 w-36 rounded bg-[#F0EDFA] dark:bg-white/5" />
+                <div className="h-3 w-16 rounded bg-[#F0EDFA] dark:bg-white/5" />
               </div>
-              <div className="h-2 rounded-full bg-gray-200 dark:bg-[#2a1f4e]" />
+              <div className="h-2 rounded-full bg-[#F0EDFA] dark:bg-white/5" />
             </div>
           ))}
         </div>
-      )}
-      {usage && (
-        <div className="mb-8 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">
-            <div className="mb-3 flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Messages this month</p>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {usage.messageCount.toLocaleString()} / {msgLimit === Infinity ? '∞' : msgLimit.toLocaleString()}
-              </span>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6">
+            <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0]">
+              Messages this month
             </div>
-            <Progress value={msgPct} className="h-2 [&>[data-slot=progress-indicator]]:bg-[#6C47FF]" />
+            <div className="font-mono text-[36px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF]">
+              {usage.messageCount.toLocaleString()}
+            </div>
+            <div className="mt-1 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">
+              {usage.messageCount.toLocaleString()} / {msgLimit === Infinity ? '∞' : msgLimit.toLocaleString()} used
+            </div>
+            <Progress value={msgPct} className="mt-3 h-1 [&>[data-slot=progress-indicator]]:bg-[#6C47FF]" />
             {msgPct >= 90 && (
-              <p className="mt-2 text-xs text-amber-600">
+              <p className="mt-2 font-mono text-[11px] text-amber-600">
                 You&apos;re nearly at your message limit.
               </p>
             )}
           </div>
 
-          <div className="rounded-lg border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">
-            <div className="mb-3 flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Bots used</p>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {usage.botCount} / {botLimit}
-              </span>
+          <div className="rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6">
+            <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0]">
+              Bots used
+            </div>
+            <div className="font-mono text-[36px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF]">
+              {usage.botCount}
+            </div>
+            <div className="mt-1 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">
+              {usage.botCount} / {botLimit} used
             </div>
             <Progress
               value={usage.limits.maxBots === Infinity ? 0 : Math.min(100, Math.round((usage.botCount / usage.limits.maxBots) * 100))}
-              className="h-2 [&>[data-slot=progress-indicator]]:bg-[#6C47FF]"
+              className="mt-3 h-1 [&>[data-slot=progress-indicator]]:bg-[#6C47FF]"
             />
           </div>
         </div>
       )}
 
       {/* Plan cards */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {PLANS.map((plan) => {
-          const isCurrent = usage?.plan === plan.key
-          const planIndex = PLAN_ORDER.indexOf(plan.key)
-          const isDowngrade = planIndex < currentPlanIndex
-          const isUpgrade = planIndex > currentPlanIndex
+      <div>
+        <div className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6490] dark:text-[#8B82B0]">
+          Choose a Plan
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {PLANS.map((plan) => {
+            const isCurrent = usage?.plan === plan.key
+            const planIndex = PLAN_ORDER.indexOf(plan.key)
+            const isDowngrade = planIndex < currentPlanIndex
+            const isUpgrade = planIndex > currentPlanIndex
+            const isPopular = plan.highlighted && !isCurrent
 
-          return (
-            <Card
-              key={plan.key}
-              className={isCurrent ? 'border-[#6C47FF] ring-1 ring-[#6C47FF]' : undefined}
-            >
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">{plan.label}</CardTitle>
+            return (
+              <div
+                key={plan.key}
+                className={
+                  isCurrent
+                    ? 'flex flex-col rounded-2xl border border-[#6C47FF] bg-[#1A1035] dark:bg-white/[0.07] p-6 text-white'
+                    : 'flex flex-col rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6'
+                }
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6C47FF] dark:text-[#8B6FFF]">
+                    {plan.label}
+                  </div>
                   {isCurrent && (
-                    <Badge className="bg-[#6C47FF] text-white hover:bg-[#6C47FF]">
-                      Current
-                    </Badge>
+                    <span className="rounded-full bg-[#6C47FF] px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-white">
+                      current
+                    </span>
                   )}
-                  {plan.highlighted && !isCurrent && (
-                    <Badge variant="secondary" className="text-xs">
-                      Popular
-                    </Badge>
+                  {isPopular && (
+                    <span className="rounded-full bg-[#F0EDFA] dark:bg-white/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-[#6C47FF] dark:text-[#8B6FFF]">
+                      popular
+                    </span>
                   )}
                 </div>
-                <div className="mt-1">
-                  <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">{plan.price}</span>
-                  <span className="ml-1 text-sm text-gray-500 dark:text-gray-400">{plan.priceNote}</span>
-                </div>
-              </CardHeader>
 
-              <CardContent className="pb-4">
-                <ul className="space-y-2">
+                <div className="mb-4">
+                  <span className={`text-2xl font-bold ${isCurrent ? 'text-white' : 'text-[#1A1035] dark:text-[#F4F1FF]'}`}>
+                    {plan.price}
+                  </span>
+                  <span className={`ml-1 font-mono text-[12px] ${isCurrent ? 'text-white/60' : 'text-[#6B6490] dark:text-[#8B82B0]'}`}>
+                    {plan.priceNote}
+                  </span>
+                </div>
+
+                <ul className="mb-6 flex-1 space-y-2">
                   {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-gray-600">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#6C47FF]" />
+                    <li key={f} className={`flex items-start gap-2 font-mono text-[13px] ${isCurrent ? 'text-white/80' : 'text-[#6B6490] dark:text-[#8B82B0]'}`}>
+                      <Check className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${isCurrent ? 'text-white' : 'text-[#6C47FF]'}`} />
                       {f}
                     </li>
                   ))}
                 </ul>
-              </CardContent>
 
-              <CardFooter>
                 {isCurrent ? (
-                  <Button variant="outline" size="sm" className="w-full" disabled>
+                  <button
+                    disabled
+                    className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 font-mono text-[12px] font-bold uppercase tracking-[0.08em] text-white/60 cursor-not-allowed"
+                  >
                     Current plan
-                  </Button>
+                  </button>
                 ) : isDowngrade ? (
-                  <Button variant="ghost" size="sm" className="w-full text-gray-400" disabled>
+                  <button
+                    disabled
+                    className="w-full rounded-xl border border-[#E8E3F5] dark:border-white/[0.08] px-4 py-2.5 font-mono text-[12px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0] cursor-not-allowed opacity-50"
+                  >
                     Downgrade
-                  </Button>
+                  </button>
                 ) : (
-                  <Button
-                    size="sm"
-                    className="w-full gap-1.5 bg-[#6C47FF] hover:bg-[#5835ee]"
+                  <button
                     disabled={!isUpgrade || upgrading !== null}
                     onClick={() => handleUpgrade(plan.key)}
+                    className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-[#6C47FF] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#5835ee] disabled:opacity-60"
                   >
                     {upgrading === plan.key ? (
                       'Redirecting…'
@@ -228,12 +266,12 @@ function BillingPageContent() {
                         Upgrade
                       </>
                     )}
-                  </Button>
+                  </button>
                 )}
-              </CardFooter>
-            </Card>
-          )
-        })}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

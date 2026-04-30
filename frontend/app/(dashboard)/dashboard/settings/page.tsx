@@ -6,10 +6,14 @@ import { ThemeToggle } from '@/components/theme-toggle'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+const gridStyle = {
+  backgroundImage:
+    'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)',
+  backgroundSize: '64px 64px',
+}
 
 export default function SettingsPage() {
   const { user } = useUser()
@@ -36,32 +40,50 @@ export default function SettingsPage() {
   }
 
   return (
-    <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Settings</h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage your account.</p>
+    <div className="space-y-8">
+      {/* Page header strip */}
+      <div className="relative -mx-4 -mt-4 mb-8 overflow-hidden border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-8 sm:-mx-8 sm:-mt-8">
+        <div className="pointer-events-none absolute inset-0" style={gridStyle} />
+        <div className="relative">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
+            SETTINGS
+          </div>
+          <h1 className="text-[32px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">
+            Account{' '}
+            <em style={{ fontFamily: 'var(--font-instrument-serif)', fontStyle: 'italic', fontWeight: 400 }}>
+              Settings.
+            </em>
+          </h1>
+          <p className="mt-2 font-mono text-[12px] text-[#6B6490] dark:text-[#8B82B0]">
+            Manage your account preferences.
+          </p>
+        </div>
       </div>
 
       <div className="max-w-xl space-y-6">
         {/* Profile */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Profile</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <div className="rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6">
+          <div className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6490] dark:text-[#8B82B0]">
+            Profile
+          </div>
+          <div className="space-y-4">
             <div className="space-y-1.5">
               <Label>Full name</Label>
-              <Input value={user?.fullName ?? ''} disabled className="bg-gray-50" />
+              <Input
+                value={user?.fullName ?? ''}
+                disabled
+                className="border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-white/5"
+              />
             </div>
             <div className="space-y-1.5">
               <Label>Email address</Label>
               <Input
                 value={user?.primaryEmailAddress?.emailAddress ?? ''}
                 disabled
-                className="bg-gray-50"
+                className="border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-white/5"
               />
             </div>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-[#6B6490] dark:text-[#8B82B0]">
               To update your name or email, visit your{' '}
               <a
                 href="https://accounts.clerk.com/user"
@@ -73,75 +95,68 @@ export default function SettingsPage() {
               </a>
               .
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Appearance */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Appearance</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Theme</p>
-                <p className="mt-0.5 text-xs text-[#6B6490] dark:text-[#a19bb8]">Switch between light and dark mode.</p>
-              </div>
-              <ThemeToggle />
+        <div className="rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6">
+          <div className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6490] dark:text-[#8B82B0]">
+            Appearance
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-[#1A1035] dark:text-[#F4F1FF]">Theme</p>
+              <p className="mt-0.5 text-xs text-[#6B6490] dark:text-[#8B82B0]">Switch between light and dark mode.</p>
             </div>
-          </CardContent>
-        </Card>
+            <ThemeToggle />
+          </div>
+        </div>
 
         {/* Danger zone */}
-        <Card className="border-red-100">
-          <CardHeader>
-            <CardTitle className="text-base text-red-600">Danger zone</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {!confirm ? (
-              <div>
-                <p className="mb-4 text-sm text-gray-600">
-                  Delete your BotForge account and all associated bots, knowledge bases, and
-                  conversation data. Your account will be{' '}
-                  <strong>permanently removed after a 30-day grace period</strong>. You will
-                  be signed out immediately.
-                </p>
-                <Button
-                  variant="outline"
-                  className="border-red-200 text-red-600 hover:border-red-300 hover:bg-red-50"
-                  onClick={() => setConfirm(true)}
+        <div className="rounded-2xl border border-red-200 dark:border-red-900/30 bg-white dark:bg-[#15102E] p-6">
+          <div className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-red-500">
+            Danger Zone
+          </div>
+          {!confirm ? (
+            <div>
+              <p className="mb-4 text-sm text-[#6B6490] dark:text-[#8B82B0]">
+                Delete your BotForge account and all associated bots, knowledge bases, and
+                conversation data. Your account will be{' '}
+                <strong className="text-[#1A1035] dark:text-[#F4F1FF]">permanently removed after a 30-day grace period</strong>. You will
+                be signed out immediately.
+              </p>
+              <button
+                onClick={() => setConfirm(true)}
+                className="rounded-xl border border-red-200 dark:border-red-900/30 bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-red-600 transition-colors hover:border-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+              >
+                Delete account…
+              </button>
+            </div>
+          ) : (
+            <div className="rounded-xl border border-red-200 dark:border-red-900/30 bg-red-50 dark:bg-red-900/10 p-4">
+              <p className="mb-4 text-sm font-medium text-red-800 dark:text-red-300">
+                Are you absolutely sure? This action schedules deletion of all your data
+                in 30 days and signs you out immediately.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  disabled={deleting}
+                  onClick={() => setConfirm(false)}
+                  className="rounded-xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-white/5 px-4 py-2 text-sm font-semibold text-[#1A1035] dark:text-[#F4F1FF] transition-colors hover:border-[#6C47FF] disabled:opacity-60"
                 >
-                  Delete account…
-                </Button>
+                  Cancel
+                </button>
+                <button
+                  disabled={deleting}
+                  onClick={handleDelete}
+                  className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-60"
+                >
+                  {deleting ? 'Deleting…' : 'Yes, delete my account'}
+                </button>
               </div>
-            ) : (
-              <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-                <p className="mb-4 text-sm font-medium text-red-800">
-                  Are you absolutely sure? This action schedules deletion of all your data
-                  in 30 days and signs you out immediately.
-                </p>
-                <div className="flex gap-3">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    disabled={deleting}
-                    onClick={() => setConfirm(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    size="sm"
-                    disabled={deleting}
-                    onClick={handleDelete}
-                    className="bg-red-600 text-white hover:bg-red-700"
-                  >
-                    {deleting ? 'Deleting…' : 'Yes, delete my account'}
-                  </Button>
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

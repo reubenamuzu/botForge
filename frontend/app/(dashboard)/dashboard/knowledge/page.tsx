@@ -29,9 +29,9 @@ function typeIcon(type: string) {
 }
 
 function typeBadge(type: string) {
-  if (type === 'FAQ') return 'bg-[#f0ebff] text-[#6C47FF]'
-  if (type === 'PDF') return 'bg-amber-50 text-amber-700'
-  return 'bg-emerald-50 text-emerald-700'
+  if (type === 'FAQ') return 'bg-[#f0ebff] dark:bg-[#6C47FF]/20 text-[#6C47FF] dark:text-[#8B6FFF]'
+  if (type === 'PDF') return 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
+  return 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400'
 }
 
 export default function KnowledgePage() {
@@ -76,21 +76,36 @@ export default function KnowledgePage() {
   const totalPdfs = data.reduce((s, d) => s + d.items.filter((i) => i.type === 'PDF').length, 0)
   const totalUrls = data.reduce((s, d) => s + d.items.filter((i) => i.type === 'URL').length, 0)
 
+  const gridStyle = { backgroundImage: 'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)', backgroundSize: '64px 64px' }
+
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-[#1A1035] dark:text-[#f8f8ff]">Knowledge Base</h1>
-        <p className="mt-1 text-sm text-[#6B6490] dark:text-[#a19bb8]">Manage training data across all your bots.</p>
+      {/* Page header strip */}
+      <div className="relative -mx-4 -mt-4 mb-8 overflow-hidden border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-8 sm:-mx-8 sm:-mt-8">
+        <div className="pointer-events-none absolute inset-0" style={gridStyle} />
+        <div className="relative">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
+            KNOWLEDGE BASE
+          </div>
+          <h1 className="text-[32px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">
+            Knowledge{' '}
+            <em style={{ fontFamily: 'var(--font-instrument-serif)', fontStyle: 'italic', fontWeight: 400 }}>
+              Base.
+            </em>
+          </h1>
+          <p className="mt-2 font-mono text-[12px] text-[#6B6490] dark:text-[#8B82B0]">
+            Manage training data across all your bots.
+          </p>
+        </div>
       </div>
 
       {/* Summary stats */}
       {!loading && (
         <div className="grid gap-4 sm:grid-cols-3">
           {[
-            { label: 'FAQs', value: totalFaqs, icon: HelpCircle, color: 'text-[#6C47FF]', bg: 'bg-[#f0ebff]' },
-            { label: 'PDFs', value: totalPdfs, icon: FileText, color: 'text-amber-500', bg: 'bg-amber-50' },
-            { label: 'URLs', value: totalUrls, icon: Globe, color: 'text-emerald-500', bg: 'bg-emerald-50' },
+            { label: 'FAQs', value: totalFaqs, icon: HelpCircle, color: 'text-[#6C47FF]', bg: 'bg-[#f0ebff] dark:bg-[#6C47FF]/20' },
+            { label: 'PDFs', value: totalPdfs, icon: FileText, color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/20' },
+            { label: 'URLs', value: totalUrls, icon: Globe, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
           ].map(({ label, value, icon: Icon, color, bg }) => (
             <div key={label} className="rounded-2xl border border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5 shadow-sm">
               <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl ${bg}`}>
@@ -176,7 +191,7 @@ export default function KnowledgePage() {
 
                   {/* Knowledge items */}
                   {expanded && items.length > 0 && (
-                    <div className="divide-y divide-[#f4efff] border-t border-[#f4efff]">
+                    <div className="divide-y divide-[#f4efff] dark:divide-white/[0.06] border-t border-[#f4efff] dark:border-white/[0.06]">
                       {items.slice(0, 5).map((item) => (
                         <div key={item.id} className="flex items-center gap-3 px-5 py-3">
                           <div className="shrink-0">{typeIcon(item.type)}</div>
@@ -185,7 +200,7 @@ export default function KnowledgePage() {
                           >
                             {item.type}
                           </span>
-                          <span className="truncate text-sm text-[#514972]">
+                          <span className="truncate text-sm text-[#514972] dark:text-[#8B82B0]">
                             {item.type === 'FAQ'
                               ? item.question
                               : item.sourceUrl ?? item.rawText?.slice(0, 80)}
@@ -207,7 +222,7 @@ export default function KnowledgePage() {
                   )}
 
                   {expanded && items.length === 0 && (
-                    <div className="border-t border-[#f4efff] px-5 py-4 text-sm text-[#6B6490] dark:text-[#a19bb8]">
+                    <div className="border-t border-[#f4efff] dark:border-white/[0.06] px-5 py-4 text-sm text-[#6B6490] dark:text-[#a19bb8]">
                       No knowledge items yet.{' '}
                       <Link
                         href={`/dashboard/bots/${bot.id}`}

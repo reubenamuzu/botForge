@@ -85,8 +85,8 @@ export function AppearanceTab({ bot, onSaved }: Props) {
           </div>
 
           {/* Live preview */}
-          <div className="rounded-lg border border-gray-100 bg-gray-50 p-4">
-            <p className="mb-3 text-xs font-medium text-gray-500 dark:text-gray-400">Preview</p>
+          <div className="rounded-lg border border-gray-100 dark:border-white/[0.08] bg-gray-50 dark:bg-[#0E0820] p-4">
+            <p className="mb-3 text-xs font-medium text-gray-500 dark:text-[#8B82B0]">Preview</p>
             <div className="flex items-end gap-3">
               <div
                 className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full shadow-md"
@@ -120,8 +120,8 @@ export function AppearanceTab({ bot, onSaved }: Props) {
                 className={cn(
                   'rounded-lg border-2 p-4 text-left text-sm font-medium transition-colors',
                   position === p
-                    ? 'border-[#6C47FF] bg-[#f0ebff] text-[#6C47FF]'
-                    : 'border-gray-200 dark:border-[#382b61] text-gray-600 hover:border-gray-300'
+                    ? 'border-[#6C47FF] bg-[#f0ebff] dark:bg-[#6C47FF]/20 text-[#6C47FF] dark:text-[#8B6FFF]'
+                    : 'border-gray-200 dark:border-white/[0.08] text-gray-600 dark:text-[#8B82B0] hover:border-gray-300 dark:hover:border-white/20'
                 )}
               >
                 <span className="mb-1 block text-xl">{p === 'bottom-right' ? '↘' : '↙'}</span>

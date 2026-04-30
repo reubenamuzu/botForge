@@ -13,6 +13,12 @@ interface BotWithAnalytics {
   summary: AnalyticsSummary | null
 }
 
+const gridStyle = {
+  backgroundImage:
+    'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)',
+  backgroundSize: '64px 64px',
+}
+
 export default function AnalyticsPage() {
   const { getToken } = useAuth()
   const [data, setData] = useState<BotWithAnalytics[]>([])
@@ -51,15 +57,26 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-[#1A1035] dark:text-[#f8f8ff]">Analytics</h1>
-        <p className="mt-1 text-sm text-[#6B6490] dark:text-[#a19bb8]">
-          Performance overview across all your bots.
-        </p>
+      {/* Page header strip */}
+      <div className="relative -mx-4 -mt-4 mb-8 overflow-hidden border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-8 sm:-mx-8 sm:-mt-8">
+        <div className="pointer-events-none absolute inset-0" style={gridStyle} />
+        <div className="relative">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
+            ANALYTICS
+          </div>
+          <h1 className="text-[32px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">
+            Your{' '}
+            <em style={{ fontFamily: 'var(--font-instrument-serif)', fontStyle: 'italic', fontWeight: 400 }}>
+              Analytics.
+            </em>
+          </h1>
+          <p className="mt-2 font-mono text-[12px] text-[#6B6490] dark:text-[#8B82B0]">
+            Performance overview across all your bots.
+          </p>
+        </div>
       </div>
 
-      {/* Aggregate stats */}
+      {/* Aggregate stat cards */}
       <div className="grid gap-4 sm:grid-cols-3">
         {[
           {
@@ -80,88 +97,91 @@ export default function AnalyticsPage() {
             sub: `${data.length} bots total`,
             icon: Bot,
           },
-        ].map(({ label, value, sub, icon: Icon }) => (
-          <div key={label} className="rounded-2xl border border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5 shadow-sm">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0ebff]">
-              <Icon className="h-5 w-5 text-[#6C47FF]" />
+        ].map(({ label, value, sub }) => (
+          <div key={label} className="rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6">
+            <div className="mb-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0]">
+              {label}
             </div>
-            <p className="text-2xl font-bold text-[#1A1035] dark:text-[#f8f8ff]">{value}</p>
-            <p className="mt-0.5 text-sm font-bold text-[#6B6490] dark:text-[#a19bb8]">{label}</p>
-            <p className="mt-0.5 text-xs text-[#6B6490]/70 dark:text-[#a19bb8]/70">{sub}</p>
+            <div className="font-mono text-[36px] font-bold leading-none tracking-[-0.03em] text-[#1A1035] dark:text-[#F4F1FF]">
+              {value}
+            </div>
+            <div className="mt-1 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">{sub}</div>
           </div>
         ))}
       </div>
 
       {/* Per-bot breakdown */}
       <div>
-        <h2 className="mb-4 text-base font-bold text-[#1A1035] dark:text-[#f8f8ff]">Bot Breakdown</h2>
+        <div className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6490] dark:text-[#8B82B0]">
+          Bot Breakdown
+        </div>
 
         {loading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-24 animate-pulse rounded-2xl bg-[#f4efff]" />
+              <div key={i} className="h-24 animate-pulse rounded-2xl bg-[#F0EDFA] dark:bg-white/5" />
             ))}
           </div>
         ) : data.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[#ede9f8] dark:border-[#382b61] py-20 text-center">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[#E8E3F5] dark:border-white/[0.08] py-20 text-center">
             <BarChart2 className="mb-3 h-10 w-10 text-[#c4b5fd]" />
-            <p className="text-sm font-semibold text-[#1A1035] dark:text-[#f8f8ff]">No bots yet</p>
-            <p className="mt-1 text-xs text-[#6B6490] dark:text-[#a19bb8]">Create a bot to start seeing analytics.</p>
+            <p className="text-sm font-semibold text-[#1A1035] dark:text-[#F4F1FF]">No bots yet</p>
+            <p className="mt-1 text-xs text-[#6B6490] dark:text-[#8B82B0]">Create a bot to start seeing analytics.</p>
           </div>
         ) : (
           <div className="space-y-3">
             {data.map(({ bot, summary }) => (
               <div
                 key={bot.id}
-                className="flex items-center gap-4 rounded-2xl border border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5 shadow-sm"
+                className="rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6"
               >
-                {/* Avatar */}
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#6C47FF] to-[#5835ee] text-sm font-bold text-white shadow-sm">
-                  {bot.name.charAt(0).toUpperCase()}
-                </div>
-
-                {/* Info */}
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <p className="truncate text-sm font-bold text-[#1A1035] dark:text-[#f8f8ff]">{bot.name}</p>
-                    <span
-                      className={`h-1.5 w-1.5 shrink-0 rounded-full ${bot.isActive ? 'bg-emerald-400' : 'bg-gray-300'}`}
-                    />
-                    <span className="text-xs text-[#6B6490] dark:text-[#a19bb8]">
-                      {bot.isActive ? 'Active' : 'Inactive'}
-                    </span>
+                <div className="flex items-start gap-4">
+                  {/* Avatar */}
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#6C47FF] to-[#5835ee] text-sm font-bold text-white">
+                    {bot.name.charAt(0).toUpperCase()}
                   </div>
-                  <div className="mt-2 flex flex-wrap gap-6">
-                    {[
-                      { label: 'Messages', value: summary?.totalMessages.toLocaleString() ?? '—' },
-                      { label: 'Conversations', value: summary?.totalConversations.toLocaleString() ?? '—' },
-                      { label: 'This month', value: summary?.messagesThisMonth.toLocaleString() ?? '—' },
-                      { label: 'Unanswered', value: summary?.unansweredCount.toLocaleString() ?? '—' },
-                    ].map(({ label, value }) => (
-                      <div key={label}>
-                        <p className="text-xs text-[#6B6490] dark:text-[#a19bb8]">{label}</p>
-                        <p className="text-sm font-bold text-[#1A1035] dark:text-[#f8f8ff]">{value}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
 
-                {/* Actions */}
-                <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                  <Link
-                    href={`/dashboard/bots/${bot.id}/analytics`}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-[#ede9f8] dark:border-[#382b61] px-3 py-1.5 text-xs font-semibold text-[#6C47FF] transition-colors hover:bg-[#f0ebff]"
-                  >
-                    <BarChart2 className="h-3.5 w-3.5" />
-                    Details
-                  </Link>
-                  <Link
-                    href={`/dashboard/bots/${bot.id}/conversations`}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-[#ede9f8] dark:border-[#382b61] px-3 py-1.5 text-xs font-semibold text-[#6B6490] dark:text-[#a19bb8] transition-colors hover:bg-[#faf8ff] dark:bg-[#130b29]"
-                  >
-                    <MessageSquare className="h-3.5 w-3.5" />
-                    Conversations
-                  </Link>
+                  {/* Info */}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="truncate text-sm font-bold text-[#1A1035] dark:text-[#F4F1FF]">{bot.name}</p>
+                      <span className="flex items-center gap-1.5 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">
+                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${bot.isActive ? 'bg-emerald-400' : 'bg-gray-300'}`} />
+                        {bot.isActive ? 'active' : 'inactive'}
+                      </span>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-6">
+                      {[
+                        { label: 'Messages', value: summary?.totalMessages.toLocaleString() ?? '—' },
+                        { label: 'Conversations', value: summary?.totalConversations.toLocaleString() ?? '—' },
+                        { label: 'This month', value: summary?.messagesThisMonth.toLocaleString() ?? '—' },
+                        { label: 'Unanswered', value: summary?.unansweredCount.toLocaleString() ?? '—' },
+                      ].map(({ label, value }) => (
+                        <div key={label}>
+                          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-[#6B6490] dark:text-[#8B82B0]">{label}</div>
+                          <div className="font-mono text-[18px] font-bold leading-none tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">{value}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                    <Link
+                      href={`/dashboard/bots/${bot.id}/analytics`}
+                      className="inline-flex items-center gap-1.5 rounded-xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-semibold text-[#6C47FF] transition-colors hover:border-[#6C47FF]"
+                    >
+                      <BarChart2 className="h-3.5 w-3.5" />
+                      Details
+                    </Link>
+                    <Link
+                      href={`/dashboard/bots/${bot.id}/conversations`}
+                      className="inline-flex items-center gap-1.5 rounded-xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-semibold text-[#6B6490] dark:text-[#8B82B0] transition-colors hover:border-[#6C47FF] hover:text-[#6C47FF]"
+                    >
+                      <MessageSquare className="h-3.5 w-3.5" />
+                      Conversations
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}

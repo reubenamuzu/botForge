@@ -43,7 +43,7 @@ export default function Footer() {
             <span className="text-[16px] font-bold tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">BotForge</span>
           </div>
           <p className="mt-4 max-w-[260px] text-[13px] leading-[1.6] text-[#6B6490] dark:text-[#8B82B0]">
-            AI-powered support bots for every business.<br />Built in Accra, used everywhere.
+            AI-powered support bots for every business. Engage customers, automate FAQs, and boost satisfaction with ease.
           </p>
         </div>
 

@@ -7,8 +7,6 @@ import { Bot as BotIcon, Plus, MessageSquare, Clock } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import type { Bot, Tone } from '@/lib/types'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import {
   Dialog,
@@ -40,6 +38,12 @@ function timeAgo(iso: string | null): string {
   const days = Math.floor(hrs / 24)
   if (days < 30) return `${days}d ago`
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
+
+const gridStyle = {
+  backgroundImage:
+    'linear-gradient(rgba(108,71,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(108,71,255,0.07) 1px, transparent 1px)',
+  backgroundSize: '64px 64px',
 }
 
 const defaultForm = { name: '', greeting: '', tone: 'FRIENDLY' as Tone }
@@ -98,106 +102,118 @@ export default function BotsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">My Bots</h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Manage and configure your AI customer support bots.
-          </p>
-        </div>
+      {/* Page header strip */}
+      <div className="relative -mx-4 -mt-4 mb-8 overflow-hidden border-b border-[#E8E3F5] dark:border-white/[0.08] bg-[#F8F8FF] dark:bg-[#0E0820] px-8 py-8 sm:-mx-8 sm:-mt-8">
+        <div className="pointer-events-none absolute inset-0" style={gridStyle} />
+        <div className="relative flex items-end justify-between gap-4">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#E8E3F5] dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-[#4F35CC] dark:text-[#c9b1ff]">
+              MY BOTS
+            </div>
+            <h1 className="text-[32px] font-bold leading-[1.1] tracking-[-0.02em] text-[#1A1035] dark:text-[#F4F1FF]">
+              My{' '}
+              <em style={{ fontFamily: 'var(--font-instrument-serif)', fontStyle: 'italic', fontWeight: 400 }}>
+                Bots.
+              </em>
+            </h1>
+            <p className="mt-2 font-mono text-[12px] text-[#6B6490] dark:text-[#8B82B0]">
+              Manage and configure your AI customer support bots.
+            </p>
+          </div>
 
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              New Bot
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Create a new bot</DialogTitle>
-            </DialogHeader>
-            <DialogDescription className="sr-only">
-              Fill in the details below to create a new AI support bot.
-            </DialogDescription>
-            <form onSubmit={handleCreate} className="space-y-4 pt-2">
-              <div className="space-y-1.5">
-                <Label htmlFor="name">Bot name</Label>
-                <Input
-                  id="name"
-                  placeholder="e.g. Support Assistant"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="greeting">Greeting message</Label>
-                <Textarea
-                  id="greeting"
-                  placeholder="Hi! How can I help you today?"
-                  value={form.greeting}
-                  onChange={(e) => setForm({ ...form, greeting: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label>Tone</Label>
-                <Select
-                  value={form.tone}
-                  onValueChange={(v) => setForm({ ...form, tone: v as Tone })}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="FRIENDLY">Friendly</SelectItem>
-                    <SelectItem value="PROFESSIONAL">Professional</SelectItem>
-                    <SelectItem value="FORMAL">Formal</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex justify-end gap-2 pt-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={submitting}>
-                  {submitting ? 'Creating...' : 'Create Bot'}
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <button className="shrink-0 rounded-xl bg-[#6C47FF] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#5835ee] inline-flex items-center gap-2">
+                <Plus className="h-4 w-4" />
+                New Bot
+              </button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Create a new bot</DialogTitle>
+              </DialogHeader>
+              <DialogDescription className="sr-only">
+                Fill in the details below to create a new AI support bot.
+              </DialogDescription>
+              <form onSubmit={handleCreate} className="space-y-4 pt-2">
+                <div className="space-y-1.5">
+                  <Label htmlFor="name">Bot name</Label>
+                  <Input
+                    id="name"
+                    placeholder="e.g. Support Assistant"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="greeting">Greeting message</Label>
+                  <Textarea
+                    id="greeting"
+                    placeholder="Hi! How can I help you today?"
+                    value={form.greeting}
+                    onChange={(e) => setForm({ ...form, greeting: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Tone</Label>
+                  <Select
+                    value={form.tone}
+                    onValueChange={(v) => setForm({ ...form, tone: v as Tone })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="FRIENDLY">Friendly</SelectItem>
+                      <SelectItem value="PROFESSIONAL">Professional</SelectItem>
+                      <SelectItem value="FORMAL">Formal</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex justify-end gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    className="rounded-xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-[#1A1035] dark:text-[#F4F1FF] transition-colors hover:border-[#6C47FF] hover:text-[#6C47FF]"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="rounded-xl bg-[#6C47FF] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#5835ee] disabled:opacity-60"
+                  >
+                    {submitting ? 'Creating...' : 'Create Bot'}
+                  </button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       {loading ? (
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="animate-pulse rounded-xl border border-gray-200 dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5">
+            <div key={i} className="animate-pulse rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6">
               <div className="mb-3 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-[#2a1f4e]" />
+                <div className="h-10 w-10 rounded-xl bg-[#F0EDFA] dark:bg-white/5" />
                 <div className="flex-1 space-y-1.5">
-                  <div className="h-4 w-32 rounded bg-gray-200 dark:bg-[#2a1f4e]" />
-                  <div className="h-3 w-16 rounded bg-gray-100 dark:bg-[#231942]" />
+                  <div className="h-4 w-32 rounded bg-[#F0EDFA] dark:bg-white/5" />
+                  <div className="h-3 w-16 rounded bg-[#F0EDFA] dark:bg-white/5" />
                 </div>
               </div>
               <div className="space-y-2 pb-3">
-                <div className="h-3 w-full rounded bg-gray-100 dark:bg-[#231942]" />
-                <div className="h-3 w-4/5 rounded bg-gray-100 dark:bg-[#231942]" />
-              </div>
-              <div className="pt-3">
-                <div className="h-8 w-full rounded-lg bg-gray-100 dark:bg-[#231942]" />
+                <div className="h-3 w-full rounded bg-[#F0EDFA] dark:bg-white/5" />
+                <div className="h-3 w-4/5 rounded bg-[#F0EDFA] dark:bg-white/5" />
               </div>
             </div>
           ))}
         </div>
       ) : bots.length === 0 ? (
         <div className="mt-16 flex flex-col items-center text-center">
-          {/* Bot illustration */}
           <svg width="96" height="96" viewBox="0 0 96 96" fill="none" aria-hidden className="mb-2">
             <rect x="20" y="32" width="56" height="44" rx="12" fill="#f0ebff"/>
             <rect x="20" y="32" width="56" height="44" rx="12" stroke="#c4b5fd" strokeWidth="2"/>
@@ -209,45 +225,45 @@ export default function BotsPage() {
             <rect x="10" y="44" width="10" height="16" rx="5" fill="#ede9f8" stroke="#c4b5fd" strokeWidth="2"/>
             <rect x="76" y="44" width="10" height="16" rx="5" fill="#ede9f8" stroke="#c4b5fd" strokeWidth="2"/>
           </svg>
-          <h3 className="mt-2 text-base font-semibold text-[#1A1035] dark:text-[#f8f8ff]">No bots yet</h3>
-          <p className="mt-1 text-sm text-[#6B6490] dark:text-[#a19bb8]">
+          <h3 className="mt-2 text-base font-semibold text-[#1A1035] dark:text-[#F4F1FF]">No bots yet</h3>
+          <p className="mt-1 text-sm text-[#6B6490] dark:text-[#8B82B0]">
             Create your first bot and start answering customer questions automatically.
           </p>
         </div>
       ) : (
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {bots.map((bot) => (
             <Link
               key={bot.id}
               href={`/dashboard/bots/${bot.id}`}
-              className="group flex flex-col rounded-2xl border border-[#ede9f8] dark:border-[#382b61] bg-white dark:bg-[#1A1035] p-5 shadow-sm transition-all hover:border-[#6C47FF] hover:shadow-md"
+              className="group flex flex-col rounded-2xl border border-[#E8E3F5] dark:border-white/[0.08] bg-white dark:bg-[#15102E] p-6 transition-all hover:border-[#6C47FF]"
             >
               <div className="mb-3 flex items-start justify-between gap-2">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#6C47FF] to-[#5835ee] text-sm font-bold text-white shadow-sm">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#6C47FF] to-[#5835ee] text-sm font-bold text-white">
                     {bot.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate font-bold text-[#1A1035] dark:text-[#f8f8ff]">{bot.name}</p>
-                    <div className="mt-0.5 flex items-center gap-1.5">
+                    <p className="truncate font-bold text-[#1A1035] dark:text-[#F4F1FF]">{bot.name}</p>
+                    <span className={cn(
+                      'flex items-center gap-1.5 font-mono text-[11px]',
+                      bot.isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#6B6490] dark:text-[#8B82B0]'
+                    )}>
                       <span className={`h-1.5 w-1.5 rounded-full ${bot.isActive ? 'bg-emerald-400' : 'bg-gray-300'}`} />
-                      <span className="text-xs text-[#6B6490] dark:text-[#a19bb8]">{bot.isActive ? 'Active' : 'Inactive'}</span>
-                    </div>
+                      {bot.isActive ? 'active' : 'inactive'}
+                    </span>
                   </div>
                 </div>
-                <Badge variant={bot.isActive ? 'success' : 'secondary'} className="shrink-0 text-xs">
-                  {bot.isActive ? 'Live' : 'Off'}
-                </Badge>
               </div>
 
-              <p className="mb-4 line-clamp-2 flex-1 text-sm text-[#6B6490] dark:text-[#a19bb8]">{bot.greeting}</p>
+              <p className="mb-4 line-clamp-2 flex-1 text-sm text-[#6B6490] dark:text-[#8B82B0]">{bot.greeting}</p>
 
-              <div className="flex items-center justify-between border-t border-[#f0ebff] dark:border-[#382b61] pt-3 text-xs text-[#6B6490] dark:text-[#a19bb8]">
-                <span className="flex items-center gap-1">
+              <div className="flex items-center justify-between border-t border-[#E8E3F5] dark:border-white/[0.08] pt-3">
+                <span className="flex items-center gap-1 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">
                   <MessageSquare className="h-3.5 w-3.5" />
                   {(bot.conversationCount ?? 0).toLocaleString()} convos
                 </span>
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-1 font-mono text-[11px] text-[#6B6490] dark:text-[#8B82B0]">
                   <Clock className="h-3.5 w-3.5" />
                   {timeAgo(bot.lastActiveAt)}
                 </span>
